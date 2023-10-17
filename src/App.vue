@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
+import Header from '@/components/Header.vue';
 
-const msg = ref('PizzaOrder')
+const msg = ref('PizzaOrder');
 </script>
 
 <template>
-  <p>Hello, {{ msg }}</p>
+  <div>
+    <Header />
+    <p>Hello, {{ msg }}</p>
+  </div>
 </template>
