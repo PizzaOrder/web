@@ -5,7 +5,7 @@
         <div class="city-time">
           <div class="container">
             <img class="gps" src="../../assets/img/gps.svg" />
-            <select v-model="cityName" @change="changeCity(cityName)" class="city-select">
+            <select v-model="cityName" @change="changeCity" class="city-select">
               <option v-for="city in cities" :key="city">{{ city }}</option>
             </select>
           </div>
@@ -22,6 +22,33 @@
     </header>
   </div>
 </template>
+
+<script>
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const cityName = ref('Ярославль');
+    const openingTime = ref('9:00');
+    const closingTime = ref('23:00');
+    const number = ref('8 (800) 555-35-35');
+    const cities = ['Ярославль', 'Москва', 'Санкт-Петербург', 'Казань'];
+
+    const changeCity = (event) => {
+      cityName.value = event.target.value;
+    };
+
+    return {
+      cityName,
+      openingTime,
+      closingTime,
+      number,
+      cities,
+      changeCity,
+    };
+  },
+};
+</script>
 
 <style scoped>
 .city-panel {
@@ -81,24 +108,3 @@
   color: #333;
 }
 </style>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  data() {
-    return {
-      cityName: 'Ярославль',
-      openingTime: '9:00',
-      closingTime: '23:00',
-      number: '8 (800) 555-35-35',
-      cities: ['Ярославль', 'Москва', 'Санкт-Петербург', 'Казань']
-    }
-  },
-  methods: {
-    changeCity(newCity: string) {
-      this.cityName = newCity
-    }
-  }
-})
-</script>
