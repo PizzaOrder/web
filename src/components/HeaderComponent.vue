@@ -4,17 +4,17 @@
       <div class="header-content">
         <div class="city-time">
           <div class="container">
-            <img class="gpspng" src="assets/img/gps.png">
+            <img class="gps" src="../../assets/img/gps.svg" />
             <select v-model="cityName" @change="changeCity(cityName)" class="city-select">
               <option v-for="city in cities" :key="city">{{ city }}</option>
             </select>
           </div>
           <div class="container">
-            <img class="timepng" src="assets/img/time.png">
+            <img class="time" src="../../assets/img/time.svg" />
             с {{ openingTime }} до {{ closingTime }}
           </div>
           <div class="container">
-            <img class="phonepng" src="assets/img/phone.png">
+            <img class="phone" src="../../assets/img/phone.svg" />
             {{ number }}
           </div>
         </div>
@@ -51,20 +51,19 @@
   margin-left: 30px;
 }
 
-.timepng {
+.time {
   height: 20px;
   width: 20px;
   margin-right: 5px;
 }
 
-
-.gpspng {
+.gps {
   height: 20px;
   width: 20px;
   margin-right: 5px;
 }
 
-.phonepng {
+.phone {
   height: 20px;
   width: 20px;
   margin-right: 5px;
@@ -83,27 +82,23 @@
 }
 </style>
 
-
-
-
 <script lang="ts">
-import {defineComponent} from 'vue';
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   data() {
     return {
-      cityName: "Ярославль",
-      openingTime: "9:00",
-      closingTime: "23:00",
-      number: "8 (800) 555-35-35",
-      cities: ["Ярославль", "Москва", "Санкт-Петербург", "Казань"]
-    };
+      cityName: 'Ярославль',
+      openingTime: '9:00',
+      closingTime: '23:00',
+      number: '8 (800) 555-35-35',
+      cities: ['Ярославль', 'Москва', 'Санкт-Петербург', 'Казань']
+    }
   },
   methods: {
-    changeCity(newCity: string){
-      this.cityName=newCity
+    changeCity(newCity: string) {
+      this.cityName = newCity
     }
   }
-
-});
+})
 </script>
