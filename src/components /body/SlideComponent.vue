@@ -17,64 +17,54 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, watch } from 'vue';
+<script setup lang="ts">
+import { ref, watch } from 'vue';
 
 interface Slide {
   image: string;
   alt: string;
 }
 
-export default defineComponent({
-  props: {
-    slides: {
-      type: Array as () => Slide[],
-      required: true,
-    },
+const props = defineProps({
+  slides: {
+    type: Array as () => Slide[],
+    required: true,
   },
-  setup(props) {
-    const currentIndex = ref(0);
+});
 
-    const nextSlide = () => {
-      if (currentIndex.value < props.slides.length - 1) {
-        currentIndex.value++;
-      } else {
-        currentIndex.value = 0;
-      }
-    };
+const currentIndex = ref(0);
 
-    const prevSlide = () => {
-      if (currentIndex.value > 0) {
-        currentIndex.value--;
-      } else {
-        currentIndex.value = props.slides.length - 1;
-      }
-    };
+const nextSlide = () => {
+  if (currentIndex.value < props.slides.length - 1) {
+    currentIndex.value++;
+  } else {
+    currentIndex.value = 0;
+  }
+};
 
-    const goToSlide = (index: number) => {
-      currentIndex.value = index;
-    };
+const prevSlide = () => {
+  if (currentIndex.value > 0) {
+    currentIndex.value--;
+  } else {
+    currentIndex.value = props.slides.length - 1;
+  }
+};
 
-    // Автоматическое переключение слайдов каждые 5 секунд
-    let interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
+const goToSlide = (index: number) => {
+  currentIndex.value = index;
+};
 
-    watch(currentIndex, () => {
-      clearInterval(interval);
-      // Перезапустите автоматическое переключение после переключения на новый слайд
-      interval = setInterval(() => {
-        nextSlide();
-      }, 5000);
-    });
+// Автоматическое переключение слайдов каждые 5 секунд
+let interval = setInterval(() => {
+  nextSlide();
+}, 5000);
 
-    return {
-      currentIndex,
-      nextSlide,
-      prevSlide,
-      goToSlide,
-    };
-  },
+watch(currentIndex, () => {
+  clearInterval(interval);
+  // Перезапустите автоматическое переключение после переключения на новый слайд
+  interval = setInterval(() => {
+    nextSlide();
+  }, 5000);
 });
 </script>
 
