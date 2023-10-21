@@ -53,7 +53,6 @@ let interval = setInterval(() => {
 
 watch(currentIndex, () => {
   clearInterval(interval)
-  // Перезапустите автоматическое переключение после переключения на новый слайд
   interval = setInterval(() => {
     nextSlide()
   }, 5000)
@@ -62,31 +61,34 @@ watch(currentIndex, () => {
 
 <style scoped>
 .carousel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
   position: relative;
+  overflow: hidden;
 }
 
 .carousel-slide {
   display: flex;
-  transition: transform 0.3s ease;
-  overflow: hidden;
-  width: 100%;
+  transition: transform 0.3s ease-out;
 }
 
 .carousel-item {
-  min-width: 100%;
-  height: 300px; /* Убедитесь, что это значение соответствует размерам ваших изображений */
-  display: flex; /* Добавьте эту строку для корректного отображения изображений */
-  justify-content: center; /* Добавьте эту строку для центрирования изображений по горизонтали */
-  align-items: center; /* Добавьте эту строку для центрирования изображений по вертикали */
-  transition: transform 0.3s ease;
+  flex: 0 0 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-item img {
+  width: 100%;
+  max-height: 100%;
+  display: block;
+
 }
 
 .dots {
   display: flex;
+  justify-content: center;
   margin-top: 10px;
 }
 
@@ -97,6 +99,7 @@ watch(currentIndex, () => {
   background-color: #ccc;
   margin: 0 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease-out;
 }
 
 .dot.active {
