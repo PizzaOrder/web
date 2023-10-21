@@ -5,6 +5,7 @@
         <img :src="slide.image" :alt="slide.alt" />
       </div>
     </div>
+
     <div class="dots">
       <span
         v-for="(slide, index) in slides"
@@ -18,54 +19,45 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch } from 'vue'
 
 interface Slide {
-  image: string;
-  alt: string;
+  image: string
+  alt: string
 }
 
 const props = defineProps({
   slides: {
     type: Array as () => Slide[],
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
-const currentIndex = ref(0);
+const currentIndex = ref(0)
 
 const nextSlide = () => {
   if (currentIndex.value < props.slides.length - 1) {
-    currentIndex.value++;
+    currentIndex.value++
   } else {
-    currentIndex.value = 0;
+    currentIndex.value = 0
   }
-};
-
-const prevSlide = () => {
-  if (currentIndex.value > 0) {
-    currentIndex.value--;
-  } else {
-    currentIndex.value = props.slides.length - 1;
-  }
-};
+}
 
 const goToSlide = (index: number) => {
-  currentIndex.value = index;
-};
+  currentIndex.value = index
+}
 
-// Автоматическое переключение слайдов каждые 5 секунд
 let interval = setInterval(() => {
-  nextSlide();
-}, 5000);
+  nextSlide()
+}, 5000)
 
 watch(currentIndex, () => {
-  clearInterval(interval);
+  clearInterval(interval)
   // Перезапустите автоматическое переключение после переключения на новый слайд
   interval = setInterval(() => {
-    nextSlide();
-  }, 5000);
-});
+    nextSlide()
+  }, 5000)
+})
 </script>
 
 <style scoped>
@@ -86,7 +78,10 @@ watch(currentIndex, () => {
 
 .carousel-item {
   min-width: 100%;
-  height: 300px;
+  height: 300px; /* Убедитесь, что это значение соответствует размерам ваших изображений */
+  display: flex; /* Добавьте эту строку для корректного отображения изображений */
+  justify-content: center; /* Добавьте эту строку для центрирования изображений по горизонтали */
+  align-items: center; /* Добавьте эту строку для центрирования изображений по вертикали */
   transition: transform 0.3s ease;
 }
 
