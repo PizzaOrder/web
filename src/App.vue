@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-const msg = ref('PizzaOrder')
+import basement from '@/components/basement/BasementComponent.vue'
 </script>
 
 <template>
-  <p>Hello, {{ msg }}</p>
+  <basement />
 </template>
