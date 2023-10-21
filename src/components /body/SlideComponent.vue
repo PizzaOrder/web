@@ -1,7 +1,24 @@
+<template>
+  <div class="carousel">
+    <div class="carousel-slide" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
+      <div v-for="(slide, index) in slides" :key="index" class="carousel-item">
+        <img :src="slide.image" :alt="slide.alt" />
+      </div>
+    </div>
+    <div class="dots">
+      <span
+        v-for="(slide, index) in slides"
+        :key="index"
+        @click="goToSlide(index)"
+        :class="{ active: index === currentIndex }"
+        class="dot"
+      ></span>
+    </div>
+  </div>
+</template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import type { PropType } from 'vue'; // Импорт только для типов
+import { defineComponent, ref, watch } from 'vue';
 
 interface Slide {
   image: string;
@@ -11,63 +28,93 @@ interface Slide {
 export default defineComponent({
   props: {
     slides: {
-      type: Array as PropType<Slide[]>,
-      required: true
-    }
+      type: Array as () => Slide[],
+      required: true,
+    },
   },
-  data() {
+  setup(props) {
+    const currentIndex = ref(0);
+
+    const nextSlide = () => {
+      if (currentIndex.value < props.slides.length - 1) {
+        currentIndex.value++;
+      } else {
+        currentIndex.value = 0;
+      }
+    };
+
+    const prevSlide = () => {
+      if (currentIndex.value > 0) {
+        currentIndex.value--;
+      } else {
+        currentIndex.value = props.slides.length - 1;
+      }
+    };
+
+    const goToSlide = (index: number) => {
+      currentIndex.value = index;
+    };
+
+    // Автоматическое переключение слайдов каждые 5 секунд
+    let interval = setInterval(() => {
+      nextSlide();
+    }, 5000);
+
+    watch(currentIndex, () => {
+      clearInterval(interval);
+      // Перезапустите автоматическое переключение после переключения на новый слайд
+      interval = setInterval(() => {
+        nextSlide();
+      }, 5000);
+    });
+
     return {
-      currentIndex: 0
+      currentIndex,
+      nextSlide,
+      prevSlide,
+      goToSlide,
     };
   },
-  methods: {
-    nextSlide() {
-      if (this.currentIndex < this.slides.length - 1) {
-        this.currentIndex++;
-      } else {
-        this.currentIndex = 0;
-      }
-    },
-    prevSlide() {
-      if (this.currentIndex > 0) {
-        this.currentIndex--;
-      } else {
-        this.currentIndex = this.slides.length - 1;
-      }
-    }
-  }
 });
 </script>
-
-<template>
-  <div class="carousel">
-    <button @click="prevSlide">←</button>
-    <div class="carousel-slide" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
-      <div v-for="(slide, index) in slides" :key="index" class="carousel-item">
-        <img :src="slide.image" :alt="slide.alt" />
-      </div>
-    </div>
-    <button @click="nextSlide">→</button>
-  </div>
-</template>
 
 <style scoped>
 .carousel {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  width: 100%; /* Расширьте слайдер на всю ширину страницы */
+  width: 100%;
+  position: relative;
 }
 
 .carousel-slide {
   display: flex;
   transition: transform 0.3s ease;
   overflow: hidden;
-  width: 100%; /* Расширьте слайды на всю ширину страницы */
+  width: 100%;
 }
 
 .carousel-item {
-  min-width: 100%; /* Расширьте слайды на всю ширину страницы */
-  height: 300px; /* Установите желаемую высоту слайдов */
+  min-width: 100%;
+  height: 300px;
   transition: transform 0.3s ease;
+}
+
+.dots {
+  display: flex;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: #333;
 }
 </style>
