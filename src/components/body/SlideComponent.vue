@@ -5,7 +5,7 @@
          @mousedown="handleMouseDown"
          @mouseup="handleMouseUp">
       <div v-for="(slide, index) in slides" :key="index" class="carousel-item">
-        <img :src="slide.image" :alt="slide.alt" />
+        <img :src="slide.image" :alt="slide.alt" ondragstart="return false"/>
       </div>
     </div>
 
@@ -122,6 +122,12 @@ const prevSlide = () => {
   width: 100%;
   max-height: 100%;
   display: block;
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .dots {
