@@ -1,12 +1,14 @@
 <template>
   <div class="carousel-container">
-  <div class="carousel ">
-      <div class="carousel-slide"
-           :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
-           @mousedown="handleMouseDown"
-           @mouseup="handleMouseUp">
+    <div class="carousel">
+      <div
+        class="carousel-slide"
+        :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
+        @mousedown="handleMouseDown"
+        @mouseup="handleMouseUp"
+      >
         <div v-for="(slide, index) in slides" :key="index" class="carousel-item">
-          <img :src="slide.image" :alt="slide.alt" ondragstart="return false"/>
+          <img :src="slide.image" :alt="slide.alt" ondragstart="return false" />
         </div>
       </div>
 
@@ -77,7 +79,8 @@ const handleMouseMove = (e: MouseEvent) => {
   const diffX = e.clientX - startX
 
   // Переключение слайдов на основе разницы в позиции курсора
-  if (diffX < -50) { // 50 - это произвольное значение, вы можете его изменить
+  if (diffX < -50) {
+    // 50 - это произвольное значение, вы можете его изменить
     nextSlide()
     isDragging = false
   } else if (diffX > 50) {
@@ -108,7 +111,6 @@ const prevSlide = () => {
   width: 100%;
   position: relative;
   overflow: hidden;
-
 }
 
 .carousel-slide {

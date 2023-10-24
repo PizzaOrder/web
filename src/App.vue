@@ -9,20 +9,16 @@ const slidesData = [
   { image: 'assets/discounts/pudge3.jpeg', alt: 'Описание 3' },
   { image: 'assets/discounts/pudge3.jpeg', alt: 'Описание 3' },
   { image: 'assets/discounts/pudge3.jpeg', alt: 'Описание 3' },
-  { image: 'assets/discounts/pudge3.jpeg', alt: 'Описание 3' },
-
+  { image: 'assets/discounts/pudge3.jpeg', alt: 'Описание 3' }
 
   // Другие слайды...
 ]
 </script>
 
 <template>
-
-  <div >
+  <div>
     <HeaderComponent />
     <SlideComponent :slides="slidesData" />
-
   </div>
   <BasementComponent />
-
 </template>

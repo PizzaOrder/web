@@ -1,10 +1,10 @@
 <template>
   <div class="city-panel gray-background">
-    <header class="header ">
+    <header class="header">
       <div class="header-content">
-        <div class="container ">
-          <img class="gps " src="../../assets/img/gps.svg" />
-          <select v-model="cityName" @change="changeCity" class="city-select ">
+        <div class="container">
+          <img class="gps" src="../../assets/img/gps.svg" />
+          <select v-model="cityName" @change="changeCity" class="city-select">
             <option v-for="city in cities" :key="city">{{ city }}</option>
           </select>
         </div>
@@ -39,8 +39,6 @@
   right: 0;
   padding: 10px;
   background-color: #f0f0f0;
-
-
 }
 
 .header-content {
@@ -84,12 +82,11 @@
   align-items: center;
 }
 .gray-background {
-  background-color: lightgray; /* Установите цвет фона серым */
+  background-color: rgb(220, 220, 220);
   padding: 5px; /* Добавьте отступы для лучшего визуального эффекта */
 }
-.white-backgorund{
+.white-backgorund {
   background-color: #f0f0f0;
-
 }
 .menu {
   margin-left: 200px;
