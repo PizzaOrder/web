@@ -1,6 +1,9 @@
 <template>
   <div class="carousel">
-    <div class="carousel-slide" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
+    <div class="carousel-slide"
+         :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
+         @mousedown="handleMouseDown"
+         @mouseup="handleMouseUp">
       <div v-for="(slide, index) in slides" :key="index" class="carousel-item">
         <img :src="slide.image" :alt="slide.alt" />
       </div>
@@ -57,6 +60,42 @@ watch(currentIndex, () => {
     nextSlide()
   }, 5000)
 })
+let startX = 0
+let isDragging = false
+
+const handleMouseDown = (e: MouseEvent) => {
+  startX = e.clientX
+  isDragging = true
+  window.addEventListener('mousemove', handleMouseMove)
+}
+
+const handleMouseMove = (e: MouseEvent) => {
+  if (!isDragging) return
+
+  const diffX = e.clientX - startX
+
+  // Переключение слайдов на основе разницы в позиции курсора
+  if (diffX < -50) { // 50 - это произвольное значение, вы можете его изменить
+    nextSlide()
+    isDragging = false
+  } else if (diffX > 50) {
+    prevSlide() // функция для переключения на предыдущий слайд
+    isDragging = false
+  }
+}
+
+const handleMouseUp = () => {
+  isDragging = false
+  window.removeEventListener('mousemove', handleMouseMove)
+}
+
+const prevSlide = () => {
+  if (currentIndex.value > 0) {
+    currentIndex.value--
+  } else {
+    currentIndex.value = props.slides.length - 1
+  }
+}
 </script>
 
 <style scoped>
