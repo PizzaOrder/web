@@ -83,7 +83,6 @@ watch(currentIndex, () => {
   width: 100%;
   max-height: 100%;
   display: block;
-
 }
 
 .dots {

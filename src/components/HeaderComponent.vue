@@ -1,7 +1,7 @@
 <template>
   <div class="city-panel">
     <header class="header">
-      <div class="header-content ">
+      <div class="header-content">
         <div class="container">
           <img class="gps" src="../../assets/img/gps.svg" />
           <select v-model="cityName" @change="changeCity" class="city-select">
@@ -38,7 +38,6 @@
   right: 0;
   padding: 10px;
   background-color: #f0f0f0;
-
 }
 
 .header-content {
@@ -47,7 +46,6 @@
   display: flex;
   align-items: center;
   margin-left: 200px;
-
 }
 
 .style-head {
@@ -60,8 +58,6 @@
   width: 250px;
   position: relative;
   line-height: 1;
-
-
 }
 
 .cart {
@@ -76,14 +72,13 @@
 
 .cart-icon {
   height: 30px;
-  width:30px;
+  width: 30px;
   margin-right: 5px;
 }
 
 .menu-actions {
   display: flex; /* Create a flex container for the menu, actions, and contacts */
   align-items: center;
-
 }
 .menu {
   margin-left: 200px;
@@ -143,7 +138,6 @@
 }
 </style>
 
-
 <script>
 import { ref } from 'vue'
 
@@ -170,4 +164,3 @@ export default {
   }
 }
 </script>
-
