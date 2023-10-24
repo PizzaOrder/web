@@ -1,22 +1,24 @@
 <template>
-  <div class="carousel">
-    <div class="carousel-slide"
-         :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
-         @mousedown="handleMouseDown"
-         @mouseup="handleMouseUp">
-      <div v-for="(slide, index) in slides" :key="index" class="carousel-item">
-        <img :src="slide.image" :alt="slide.alt" ondragstart="return false"/>
+  <div class="carousel-container">
+  <div class="carousel ">
+      <div class="carousel-slide"
+           :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
+           @mousedown="handleMouseDown"
+           @mouseup="handleMouseUp">
+        <div v-for="(slide, index) in slides" :key="index" class="carousel-item">
+          <img :src="slide.image" :alt="slide.alt" ondragstart="return false"/>
+        </div>
       </div>
-    </div>
 
-    <div class="dots">
-      <span
-        v-for="(slide, index) in slides"
-        :key="index"
-        @click="goToSlide(index)"
-        :class="{ active: index === currentIndex }"
-        class="dot"
-      ></span>
+      <div class="dots">
+        <span
+          v-for="(slide, index) in slides"
+          :key="index"
+          @click="goToSlide(index)"
+          :class="{ active: index === currentIndex }"
+          class="dot"
+        ></span>
+      </div>
     </div>
   </div>
 </template>
@@ -99,10 +101,14 @@ const prevSlide = () => {
 </script>
 
 <style scoped>
+.carousel-container {
+  margin-top: 100px; /* Здесь можно установить нужное значение отступа сверху */
+}
 .carousel {
   width: 100%;
   position: relative;
   overflow: hidden;
+
 }
 
 .carousel-slide {

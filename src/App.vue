@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Header from '@/components/HeaderComponent.vue'
-import basement from '@/components/basement/BasementComponent.vue'
+import HeaderComponent from '@/components/HeaderComponent.vue'
+import BasementComponent from '@/components/basement/BasementComponent.vue'
 import SlideComponent from '@/components/body/SlideComponent.vue'
 
 const slidesData = [
@@ -17,12 +17,12 @@ const slidesData = [
 </script>
 
 <template>
-  <div>
-    <SlideComponent :slides="slidesData" />
-  </div>
-  <div>
-    <Header />
-  </div>
 
-  <basement />
+  <div >
+    <HeaderComponent />
+    <SlideComponent :slides="slidesData" />
+
+  </div>
+  <BasementComponent />
+
 </template>
