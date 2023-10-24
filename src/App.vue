@@ -1,13 +1,16 @@
-<script setup lang="ts">
-import { ref } from 'vue';
-import Header from '@/components/Header.vue';
-
-const msg = ref('PizzaOrder');
-</script>
-
 <template>
   <div>
-    <Header />
-    <p>Hello, {{ msg }}</p>
+    <SlideComponent :slides="slidesData" />
   </div>
 </template>
+
+<script setup lang="ts">
+import SlideComponent from '@/components/body/SlideComponent.vue'
+
+const slidesData = [
+  { image: 'assets/discounts/pudge1.jpg', alt: 'Описание 1' },
+  { image: 'assets/discounts/pudge2.jpeg', alt: 'Описание 2' },
+  { image: 'assets/discounts/pudge3.jpeg', alt: 'Описание 3' }
+  // Другие слайды...
+]
+</script>
