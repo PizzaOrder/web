@@ -66,9 +66,9 @@
   border: none;
   display: flex;
   align-items: center;
-  margin-left: 20px; /* Adjust the margin for cart text alignment */
-  font-size: 25px; /* Увеличьте размер шрифта для меню */
-  font-weight: bold; /* Установите жирное начертание для меню */
+  margin-left: 20px;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .cart-icon {
@@ -78,7 +78,7 @@
 }
 
 .menu-actions {
-  display: flex; /* Create a flex container for the menu, actions, and contacts */
+  display: flex;
   align-items: center;
 }
 .gray-background {
