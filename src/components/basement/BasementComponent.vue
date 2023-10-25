@@ -8,20 +8,29 @@ export default {}
 
 <style>
 body {
-  margin: 0; /* без нее остается белый угол */
+  margin: 0;
 }
 
 .basement {
-  position: fixed; /* Сделаем элемент прикрепленным */
-  bottom: 0; /* Разместим его внизу страницы */
+  position: fixed;
+  bottom: 0;
   text-align: center;
   background-color: #333;
   color: white;
-  height: 100px; /* Уберем фиксированную высоту, чтобы элемент мог растягиваться по содержимому */
-  width: 100%; /* Растянем элемент на всю ширину страницы */
+  padding: 15px 20px; /* Добавим отступы вместо фиксированной высоты */
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 17px;
+  font-size: 1rem; /* Используем относительные единицы измерения для размера шрифта */
 }
+
+/* Медиа-запрос для меньших экранов */
+@media (max-width: 600px) {
+  .basement {
+    font-size: 0.9rem; /* Уменьшим размер шрифта для мобильных устройств */
+    padding: 10px 15px; /* Уменьшим отступы для мобильных устройств */
+  }
+}
+
 </style>
