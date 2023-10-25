@@ -1,19 +1,26 @@
 <template>
-  <div class="carousel">
-    <div class="carousel-slide" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
-      <div v-for="(slide, index) in slides" :key="index" class="carousel-item">
-        <img :src="slide.image" :alt="slide.alt" />
+  <div class="carousel-container">
+    <div class="carousel">
+      <div
+        class="carousel-slide"
+        :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
+        @mousedown="handleMouseDown"
+        @mouseup="handleMouseUp"
+      >
+        <div v-for="(slide, index) in slides" :key="index" class="carousel-item">
+          <img :src="slide.image" :alt="slide.alt" ondragstart="return false" />
+        </div>
       </div>
-    </div>
 
-    <div class="dots">
-      <span
-        v-for="(slide, index) in slides"
-        :key="index"
-        @click="goToSlide(index)"
-        :class="{ active: index === currentIndex }"
-        class="dot"
-      ></span>
+      <div class="dots">
+        <span
+          v-for="(slide, index) in slides"
+          :key="index"
+          @click="goToSlide(index)"
+          :class="{ active: index === currentIndex }"
+          class="dot"
+        ></span>
+      </div>
     </div>
   </div>
 </template>
@@ -57,9 +64,49 @@ watch(currentIndex, () => {
     nextSlide()
   }, 5000)
 })
+let startX = 0
+let isDragging = false
+
+const handleMouseDown = (e: MouseEvent) => {
+  startX = e.clientX
+  isDragging = true
+  window.addEventListener('mousemove', handleMouseMove)
+}
+
+const handleMouseMove = (e: MouseEvent) => {
+  if (!isDragging) return
+
+  const diffX = e.clientX - startX
+
+  // Переключение слайдов на основе разницы в позиции курсора
+  if (diffX < -50) {
+    // 50 - это произвольное значение, вы можете его изменить
+    nextSlide()
+    isDragging = false
+  } else if (diffX > 50) {
+    prevSlide() // функция для переключения на предыдущий слайд
+    isDragging = false
+  }
+}
+
+const handleMouseUp = () => {
+  isDragging = false
+  window.removeEventListener('mousemove', handleMouseMove)
+}
+
+const prevSlide = () => {
+  if (currentIndex.value > 0) {
+    currentIndex.value--
+  } else {
+    currentIndex.value = props.slides.length - 1
+  }
+}
 </script>
 
 <style scoped>
+.carousel-container {
+  margin-top: 100px; /* Здесь можно установить нужное значение отступа сверху */
+}
 .carousel {
   width: 100%;
   position: relative;
@@ -83,6 +130,12 @@ watch(currentIndex, () => {
   width: 100%;
   max-height: 100%;
   display: block;
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .dots {

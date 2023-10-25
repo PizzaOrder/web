@@ -1,5 +1,5 @@
 <template>
-  <div class="city-panel">
+  <div class="city-panel gray-background">
     <header class="header">
       <div class="header-content">
         <div class="container">
@@ -17,7 +17,7 @@
           {{ number }}
         </div>
       </div>
-      <div class="menu-actions">
+      <div class="menu-actions white-backgorund">
         <span class="menu style-head">Меню</span>
         <span class="actions style-head">Акции</span>
         <span class="contacts style-head">Контакты</span>
@@ -32,6 +32,7 @@
 
 <style scoped>
 .city-panel {
+  z-index: 999;
   position: fixed;
   top: 0;
   left: 0;
@@ -79,6 +80,13 @@
 .menu-actions {
   display: flex; /* Create a flex container for the menu, actions, and contacts */
   align-items: center;
+}
+.gray-background {
+  background-color: rgb(220, 220, 220);
+  padding: 5px; /* Добавьте отступы для лучшего визуального эффекта */
+}
+.white-backgorund {
+  background-color: #f0f0f0;
 }
 .menu {
   margin-left: 200px;
