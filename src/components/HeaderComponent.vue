@@ -22,8 +22,7 @@
         <span class="actions style-head">Акции</span>
         <span class="contacts style-head">Контакты</span>
         <span class="cart style-head">
-          <img src="../../assets/img/cart.svg" class="cart-icon" />
-          Корзина
+        <img src="../../assets/img/cart.svg" class="cart-icon" />Корзина
         </span>
       </div>
     </header>
@@ -52,24 +51,39 @@
 .style-head {
   display: inline-block;
   margin: 10px;
-  border: 2px solid #333;
-  border-radius: 30px;
-  padding: 10px;
-  text-align: center;
-  width: 250px;
-  position: relative;
-  line-height: 1;
+  padding: 8px 16px;
+  border: none;
+  background-color: #FF5733; /* Яркий оранжевый цвет */
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  border-radius: 5px; /* Скругленные углы */
+  font-weight: bold; /* Жирный шрифт */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Тень для глубины */
 }
 
+.style-head:hover {
+  background-color: #FF6F4D; /* Немного светлее при наведении */
+  transform: translateY(-2px); /* Поднимается немного при наведении */
+}
+
+.style-head:active {
+  transform: translateY(0); /* Возвращается на место при нажатии */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Меньше тени при нажатии */
+}
+
+
+
 .cart {
-  padding-left: 450px;
   border: none;
   display: flex;
   align-items: center;
-  margin-left: 20px;
   font-size: 25px;
   font-weight: bold;
+  margin-left: auto; /* Размещаем элемент .cart справа на краю страницы */
 }
+
+
 
 .cart-icon {
   height: 30px;
@@ -78,7 +92,7 @@
 }
 
 .menu-actions {
-  display: flex;
+  display: flex; /* Create a flex container for the menu, actions, and contacts */
   align-items: center;
 }
 .gray-background {
@@ -91,22 +105,32 @@
 .menu {
   margin-left: 200px;
   margin-right: 20px;
-  font-size: 16px; /* Увеличьте размер шрифта для меню */
-  font-weight: bold; /* Установите жирное начертание для меню */
+  font-size: 16px;
+  font-weight: bold;
+  width: 120px; /* Добавьте этот стиль для увеличения ширины */
+  text-align: center; /* Выравнивание текста по центру */
+
 }
 
 .actions {
   margin-left: 20px;
   margin-right: 20px;
-  font-size: 16px; /* Увеличьте размер шрифта для действий */
-  font-weight: bold; /* Установите жирное начертание для действий */
+  font-size: 16px;
+  font-weight: bold;
+  width: 120px; /* Добавьте этот стиль для увеличения ширины */
+  text-align: center; /* Выравнивание текста по центру */
+
+
 }
 
 .contacts {
   margin-left: 20px;
   margin-right: 0;
-  font-size: 16px; /* Увеличьте размер шрифта для контактов */
-  font-weight: bold; /* Установите жирное начертание для контактов */
+  font-size: 16px;
+  font-weight: bold;
+  width: 120px; /* Добавьте этот стиль для увеличения ширины */
+  text-align: center; /* Выравнивание текста по центру */
+
 }
 
 .container {
