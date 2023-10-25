@@ -1,0 +1,105 @@
+<template>
+  <div class="pizza-container">
+    <div class="pizza-card" v-for="(pizza, index) in pizzas" :key="index">
+      <div class="pizza-image-wrapper">
+        <img :src="pizza.image" :alt="pizza.name" class="pizza-image">
+      </div>
+      <h2>{{ pizza.name }}</h2>
+      <p v-if="pizza.price">${{ pizza.price.toFixed(2) }}</p>
+      <button v-if="pizza.buttonText">{{ pizza.buttonText }}</button>
+    </div>
+  </div>
+</template>
+
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import type { PropType } from 'vue';
+
+export default defineComponent({
+  name: 'PizzaMenuComponent',
+  props: {
+    pizzas: {
+      type: Array as PropType<{ image: string; name: string; price: number; buttonText: string; }[]>,
+      required: true
+    }
+  }
+});
+</script>
+
+<style scoped>
+.pizza-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  justify-content: center; /* Center the cards on smaller screens */
+}
+
+.pizza-card {
+  margin: 15px;
+  width: 90%; /* Take up almost the full width on mobile */
+  max-width: 400px; /* But don't exceed 400px */
+  height: auto; /* Let it grow as needed */
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.pizza-image-wrapper {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px; /* Add some spacing at the top */
+}
+
+.pizza-image {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #FF5733; /* Яркий оранжевый цвет */
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  border-radius: 5px; /* Скругленные углы */
+  font-weight: bold; /* Жирный шрифт */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Тень для глубины */
+}
+
+button:hover {
+  background-color: #FF6F4D; /* Немного светлее при наведении */
+  transform: translateY(-2px); /* Поднимается немного при наведении */
+}
+
+button:active {
+  transform: translateY(0); /* Возвращается на место при нажатии */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Меньше тени при нажатии */
+}
+
+
+/* Tablet and above */
+@media (min-width: 768px) {
+  .pizza-card {
+    width: 45%; /* Take up almost half the width on tablets */
+  }
+}
+
+/* Desktop and above */
+@media (min-width: 1024px) {
+  .pizza-card {
+    width: 30%; /* Take up almost a third of the width on desktops */
+  }
+}
+</style>

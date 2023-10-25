@@ -8,20 +8,28 @@ export default {}
 
 <style>
 body {
-  margin: 0; /* без нее остается белый угол */
+  margin: 0;
 }
 
 .basement {
-  position: fixed; /* Сделаем элемент прикрепленным */
-  bottom: 0; /* Разместим его внизу страницы */
   text-align: center;
   background-color: #333;
   color: white;
-  height: 100px; /* Уберем фиксированную высоту, чтобы элемент мог растягиваться по содержимому */
-  width: 100%; /* Растянем элемент на всю ширину страницы */
+  padding: 15px 0px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 17px;
+  font-size: 1rem;
+  position: relative; /* Возвращаем позицию к значению по умолчанию */
+  top: 100%; /* Поднимаем элемент над всеми компонентами */
+}
+
+/* Медиа-запрос для меньших экранов */
+@media (max-width: 600px) {
+  .basement {
+    font-size: 0.9rem;
+    padding: 10px 15px;
+  }
 }
 </style>
