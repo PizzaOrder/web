@@ -1,24 +1,24 @@
 <template>
   <div>
     <HeaderComponent />
-    <!-- здесь могут быть и другие компоненты -->
+    <BasementComponent/>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import HeaderComponent from '@/components/HeaderComponent.vue'
+import BasementComponent from '@/components/basement/BasementComponent.vue'
 
 export default defineComponent({
-  name: "DiscountComponent", // Замените на имя вашего компонента, если оно есть.
+  name: "DiscountComponent",
   components: {
-    HeaderComponent
+    HeaderComponent,
+    BasementComponent,
   },
   setup() {
-    // Если у вас будут реактивные свойства или функции, добавьте их здесь.
 
     return {
-      // Здесь верните любые реактивные свойства или функции, чтобы использовать их в шаблоне.
     }
   }
 })
