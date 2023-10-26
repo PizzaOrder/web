@@ -105,7 +105,7 @@ const prevSlide = () => {
 
 <style scoped>
 .carousel-container {
-  margin-top: 100px; /* Здесь можно установить нужное значение отступа сверху */
+  margin-top: 100px;
 }
 .carousel {
   width: 100%;
