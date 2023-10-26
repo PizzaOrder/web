@@ -22,7 +22,7 @@
         <span class="actions style-head">Акции</span>
         <span class="contacts style-head">Контакты</span>
         <span class="cart style-head">
-        <img src="../../assets/img/cart.svg" class="cart-icon" />Корзина
+          <img src="../../assets/img/cart.svg" class="cart-icon" />Корзина
         </span>
       </div>
     </header>
@@ -53,17 +53,19 @@
   margin: 10px;
   padding: 8px 16px;
   border: none;
-  background-color: #FF5733;
+  background-color: #ff5733;
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
   border-radius: 5px;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .style-head:hover {
-  background-color: #FF6F4D;
+  background-color: #ff6f4d;
   transform: translateY(-2px);
 }
 
@@ -71,8 +73,6 @@
   transform: translateY(0);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
-
-
 
 .cart {
   border: none;
@@ -82,8 +82,6 @@
   font-weight: bold;
   margin-left: auto;
 }
-
-
 
 .cart-icon {
   height: 30px;
@@ -109,7 +107,6 @@
   font-weight: bold;
   width: 120px; /* Добавьте этот стиль для увеличения ширины */
   text-align: center; /* Выравнивание текста по центру */
-
 }
 
 .actions {
@@ -119,8 +116,6 @@
   font-weight: bold;
   width: 120px; /* Добавьте этот стиль для увеличения ширины */
   text-align: center; /* Выравнивание текста по центру */
-
-
 }
 
 .contacts {
@@ -130,7 +125,6 @@
   font-weight: bold;
   width: 120px; /* Добавьте этот стиль для увеличения ширины */
   text-align: center; /* Выравнивание текста по центру */
-
 }
 
 .container {

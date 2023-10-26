@@ -2,7 +2,7 @@
   <div class="pizza-container">
     <div class="pizza-card" v-for="(pizza, index) in pizzas" :key="index">
       <div class="pizza-image-wrapper">
-        <img :src="pizza.image" :alt="pizza.name" class="pizza-image">
+        <img :src="pizza.image" :alt="pizza.name" class="pizza-image" />
       </div>
       <h2>{{ pizza.name }}</h2>
       <p v-if="pizza.price">${{ pizza.price.toFixed(2) }}</p>
@@ -11,20 +11,19 @@
   </div>
 </template>
 
-
 <script lang="ts">
-import { defineComponent } from 'vue';
-import type { PropType } from 'vue';
+import { defineComponent } from 'vue'
+import type { PropType } from 'vue'
 
 export default defineComponent({
   name: 'PizzaMenuComponent',
   props: {
     pizzas: {
-      type: Array as PropType<{ image: string; name: string; price: number; buttonText: string; }[]>,
+      type: Array as PropType<{ image: string; name: string; price: number; buttonText: string }[]>,
       required: true
     }
   }
-});
+})
 </script>
 
 <style scoped>
@@ -69,17 +68,19 @@ button {
   margin-top: 10px;
   padding: 8px 16px;
   border: none;
-  background-color: #FF5733;
+  background-color: #ff5733;
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
   border-radius: 5px; /* Скругленные углы */
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-  background-color: #FF6F4D; /* Немного светлее при наведении */
+  background-color: #ff6f4d; /* Немного светлее при наведении */
   transform: translateY(-2px); /* Поднимается немного при наведении */
 }
 
@@ -87,7 +88,6 @@ button:active {
   transform: translateY(0); /* Возвращается на место при нажатии */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Меньше тени при нажатии */
 }
-
 
 /* Tablet and above */
 @media (min-width: 768px) {

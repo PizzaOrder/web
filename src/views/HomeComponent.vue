@@ -1,8 +1,8 @@
 <template>
   <div>
-    <HeaderComponent/>
-    <SlideComponent :slides="slidesData"/>
-    <PizzaMenuComponent :pizzas="pizzasData"/>
+    <HeaderComponent />
+    <SlideComponent :slides="slidesData" />
+    <PizzaMenuComponent :pizzas="pizzasData" />
     <BasementComponent />
   </div>
 </template>
@@ -15,19 +15,19 @@ import PizzaMenuComponent from '@/components/body/PizzaMenuComponent.vue'
 import SlideComponent from '@/components/body/SlideComponent.vue'
 
 interface Slide {
-  image: string;
-  alt: string;
+  image: string
+  alt: string
 }
 
 interface Pizza {
-  image: string;
-  name: string;
-  price: number;
-  buttonText: string;
+  image: string
+  name: string
+  price: number
+  buttonText: string
 }
 
 export default defineComponent({
-  name: "MainComponent", // Замените на имя вашего компонента, если оно есть.
+  name: 'MainComponent', // Замените на имя вашего компонента, если оно есть.
   components: {
     HeaderComponent,
     BasementComponent,
@@ -41,23 +41,63 @@ export default defineComponent({
       { image: '/assets/discounts/pudge3.jpeg', alt: 'Описание 3' },
       { image: '/assets/discounts/pudge3.jpeg', alt: 'Описание 3' },
       { image: '/assets/discounts/pudge3.jpeg', alt: 'Описание 3' },
-      { image: '/assets/discounts/pudge3.jpeg', alt: 'Описание 3' },
+      { image: '/assets/discounts/pudge3.jpeg', alt: 'Описание 3' }
 
       // ... другие элементы
-    ]);
+    ])
 
     const pizzasData = ref<Pizza[]>([
-      { image: '/assets/discounts/pizza1.jpeg', name: 'Грибная', price: 245, buttonText: 'ДОБАВИТЬ В КОРЗИНУ' },
-      { image: '/assets/discounts/pizza2.jpeg', name: 'Грибная', price: 245, buttonText: 'ДОБАВИТЬ В КОРЗИНУ' },
-      { image: '/assets/discounts/pizza2.jpeg', name: 'Грибная', price: 245, buttonText: 'ДОБАВИТЬ В КОРЗИНУ' },
-      { image: '/assets/discounts/pizza2.jpeg', name: 'Грибная', price: 245, buttonText: 'ДОБАВИТЬ В КОРЗИНУ' },
-      { image: '/assets/discounts/pizza2.jpeg', name: 'Грибная', price: 245, buttonText: 'ДОБАВИТЬ В КОРЗИНУ' },
-      { image: '/assets/discounts/pizza2.jpeg', name: 'Грибная', price: 245, buttonText: 'ДОБАВИТЬ В КОРЗИНУ' },
-      { image: '/assets/discounts/pizza2.jpeg', name: 'Грибная', price: 245, buttonText: 'ДОБАВИТЬ В КОРЗИНУ' },
-      { image: '/assets/discounts/pizza2.jpeg', name: 'Грибная', price: 245, buttonText: 'ДОБАВИТЬ В КОРЗИНУ' },
+      {
+        image: '/assets/discounts/pizza1.jpeg',
+        name: 'Грибная',
+        price: 245,
+        buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
+      },
+      {
+        image: '/assets/discounts/pizza2.jpeg',
+        name: 'Грибная',
+        price: 245,
+        buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
+      },
+      {
+        image: '/assets/discounts/pizza2.jpeg',
+        name: 'Грибная',
+        price: 245,
+        buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
+      },
+      {
+        image: '/assets/discounts/pizza2.jpeg',
+        name: 'Грибная',
+        price: 245,
+        buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
+      },
+      {
+        image: '/assets/discounts/pizza2.jpeg',
+        name: 'Грибная',
+        price: 245,
+        buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
+      },
+      {
+        image: '/assets/discounts/pizza2.jpeg',
+        name: 'Грибная',
+        price: 245,
+        buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
+      },
+      {
+        image: '/assets/discounts/pizza2.jpeg',
+        name: 'Грибная',
+        price: 245,
+        buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
+      },
+      {
+        image: '/assets/discounts/pizza2.jpeg',
+        name: 'Грибная',
+        price: 245,
+        buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
+      }
 
       // ... другие элементы
-    ]);
+    ])
 
     return {
       slidesData,

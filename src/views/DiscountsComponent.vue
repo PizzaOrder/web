@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderComponent />
-    <BasementComponent/>
+    <BasementComponent />
   </div>
 </template>
 
@@ -11,15 +11,13 @@ import HeaderComponent from '@/components/HeaderComponent.vue'
 import BasementComponent from '@/components/basement/BasementComponent.vue'
 
 export default defineComponent({
-  name: "DiscountComponent",
+  name: 'DiscountComponent',
   components: {
     HeaderComponent,
-    BasementComponent,
+    BasementComponent
   },
   setup() {
-
-    return {
-    }
+    return {}
   }
 })
 </script>
