@@ -21,11 +21,10 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 1rem;
-  position: relative; /* Возвращаем позицию к значению по умолчанию */
-  top: 100%; /* Поднимаем элемент над всеми компонентами */
+  position: relative;
+  top: 100%;
 }
 
-/* Медиа-запрос для меньших экранов */
 @media (max-width: 600px) {
   .basement {
     font-size: 0.9rem;

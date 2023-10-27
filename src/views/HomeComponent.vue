@@ -27,7 +27,7 @@ interface Pizza {
 }
 
 export default defineComponent({
-  name: 'MainComponent', // Замените на имя вашего компонента, если оно есть.
+  name: 'MainComponent',
   components: {
     HeaderComponent,
     BasementComponent,

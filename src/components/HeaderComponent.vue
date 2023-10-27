@@ -90,12 +90,12 @@
 }
 
 .menu-actions {
-  display: flex; /* Create a flex container for the menu, actions, and contacts */
+  display: flex;
   align-items: center;
 }
 .gray-background {
   background-color: rgb(220, 220, 220);
-  padding: 5px; /* Добавьте отступы для лучшего визуального эффекта */
+  padding: 5px;
 }
 .white-backgorund {
   background-color: #f0f0f0;
@@ -105,8 +105,8 @@
   margin-right: 20px;
   font-size: 16px;
   font-weight: bold;
-  width: 120px; /* Добавьте этот стиль для увеличения ширины */
-  text-align: center; /* Выравнивание текста по центру */
+  width: 120px;
+  text-align: center;
 }
 
 .actions {
@@ -114,8 +114,8 @@
   margin-right: 20px;
   font-size: 16px;
   font-weight: bold;
-  width: 120px; /* Добавьте этот стиль для увеличения ширины */
-  text-align: center; /* Выравнивание текста по центру */
+  width: 120px;
+  text-align: center;
 }
 
 .contacts {
@@ -123,8 +123,8 @@
   margin-right: 0;
   font-size: 16px;
   font-weight: bold;
-  width: 120px; /* Добавьте этот стиль для увеличения ширины */
-  text-align: center; /* Выравнивание текста по центру */
+  width: 120px;
+  text-align: center;
 }
 
 .container {
