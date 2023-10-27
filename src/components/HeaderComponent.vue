@@ -22,7 +22,7 @@
         <span class="actions style-head">Акции</span>
         <span class="contacts style-head">Контакты</span>
         <span class="cart style-head">
-        <img src="../../assets/img/cart.svg" class="cart-icon" />Корзина
+          <img src="../../assets/img/cart.svg" class="cart-icon" />Корзина
         </span>
       </div>
     </header>
@@ -53,26 +53,26 @@
   margin: 10px;
   padding: 8px 16px;
   border: none;
-  background-color: #FF5733; /* Яркий оранжевый цвет */
+  background-color: #ff5733;
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-  border-radius: 5px; /* Скругленные углы */
-  font-weight: bold; /* Жирный шрифт */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Тень для глубины */
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+  border-radius: 5px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .style-head:hover {
-  background-color: #FF6F4D; /* Немного светлее при наведении */
-  transform: translateY(-2px); /* Поднимается немного при наведении */
+  background-color: #ff6f4d;
+  transform: translateY(-2px);
 }
 
 .style-head:active {
-  transform: translateY(0); /* Возвращается на место при нажатии */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Меньше тени при нажатии */
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
-
-
 
 .cart {
   border: none;
@@ -80,10 +80,8 @@
   align-items: center;
   font-size: 25px;
   font-weight: bold;
-  margin-left: auto; /* Размещаем элемент .cart справа на краю страницы */
+  margin-left: auto;
 }
-
-
 
 .cart-icon {
   height: 30px;
@@ -92,12 +90,12 @@
 }
 
 .menu-actions {
-  display: flex; /* Create a flex container for the menu, actions, and contacts */
+  display: flex;
   align-items: center;
 }
 .gray-background {
   background-color: rgb(220, 220, 220);
-  padding: 5px; /* Добавьте отступы для лучшего визуального эффекта */
+  padding: 5px;
 }
 .white-backgorund {
   background-color: #f0f0f0;
@@ -107,9 +105,8 @@
   margin-right: 20px;
   font-size: 16px;
   font-weight: bold;
-  width: 120px; /* Добавьте этот стиль для увеличения ширины */
-  text-align: center; /* Выравнивание текста по центру */
-
+  width: 120px;
+  text-align: center;
 }
 
 .actions {
@@ -117,10 +114,8 @@
   margin-right: 20px;
   font-size: 16px;
   font-weight: bold;
-  width: 120px; /* Добавьте этот стиль для увеличения ширины */
-  text-align: center; /* Выравнивание текста по центру */
-
-
+  width: 120px;
+  text-align: center;
 }
 
 .contacts {
@@ -128,9 +123,8 @@
   margin-right: 0;
   font-size: 16px;
   font-weight: bold;
-  width: 120px; /* Добавьте этот стиль для увеличения ширины */
-  text-align: center; /* Выравнивание текста по центру */
-
+  width: 120px;
+  text-align: center;
 }
 
 .container {

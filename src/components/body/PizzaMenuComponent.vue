@@ -2,7 +2,7 @@
   <div class="pizza-container">
     <div class="pizza-card" v-for="(pizza, index) in pizzas" :key="index">
       <div class="pizza-image-wrapper">
-        <img :src="pizza.image" :alt="pizza.name" class="pizza-image">
+        <img :src="pizza.image" :alt="pizza.name" class="pizza-image" />
       </div>
       <h2>{{ pizza.name }}</h2>
       <p v-if="pizza.price">${{ pizza.price.toFixed(2) }}</p>
@@ -11,20 +11,19 @@
   </div>
 </template>
 
-
 <script lang="ts">
-import { defineComponent } from 'vue';
-import type { PropType } from 'vue';
+import { defineComponent } from 'vue'
+import type { PropType } from 'vue'
 
 export default defineComponent({
   name: 'PizzaMenuComponent',
   props: {
     pizzas: {
-      type: Array as PropType<{ image: string; name: string; price: number; buttonText: string; }[]>,
+      type: Array as PropType<{ image: string; name: string; price: number; buttonText: string }[]>,
       required: true
     }
   }
-});
+})
 </script>
 
 <style scoped>
@@ -32,14 +31,14 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   padding: 20px;
-  justify-content: center; /* Center the cards on smaller screens */
+  justify-content: center;
 }
 
 .pizza-card {
   margin: 15px;
-  width: 90%; /* Take up almost the full width on mobile */
-  max-width: 400px; /* But don't exceed 400px */
-  height: auto; /* Let it grow as needed */
+  width: 90%;
+  max-width: 400px;
+  height: auto;
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -57,7 +56,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 15px; /* Add some spacing at the top */
+  margin-top: 15px;
 }
 
 .pizza-image {
@@ -69,37 +68,36 @@ button {
   margin-top: 10px;
   padding: 8px 16px;
   border: none;
-  background-color: #FF5733; /* Яркий оранжевый цвет */
+  background-color: #ff5733;
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-  border-radius: 5px; /* Скругленные углы */
-  font-weight: bold; /* Жирный шрифт */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Тень для глубины */
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+  border-radius: 5px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-  background-color: #FF6F4D; /* Немного светлее при наведении */
-  transform: translateY(-2px); /* Поднимается немного при наведении */
+  background-color: #ff6f4d;
+  transform: translateY(-2px);
 }
 
 button:active {
-  transform: translateY(0); /* Возвращается на место при нажатии */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Меньше тени при нажатии */
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-
-/* Tablet and above */
 @media (min-width: 768px) {
   .pizza-card {
-    width: 45%; /* Take up almost half the width on tablets */
+    width: 45%;
   }
 }
 
-/* Desktop and above */
 @media (min-width: 1024px) {
   .pizza-card {
-    width: 30%; /* Take up almost a third of the width on desktops */
+    width: 30%;
   }
 }
 </style>

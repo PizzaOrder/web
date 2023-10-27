@@ -78,7 +78,6 @@ const handleMouseMove = (e: MouseEvent) => {
 
   const diffX = e.clientX - startX
 
-  // Переключение слайдов на основе разницы в позиции курсора
   if (diffX < -50) {
     // 50 - это произвольное значение, вы можете его изменить
     nextSlide()
@@ -105,7 +104,7 @@ const prevSlide = () => {
 
 <style scoped>
 .carousel-container {
-  margin-top: 100px; /* Здесь можно установить нужное значение отступа сверху */
+  margin-top: 100px;
 }
 .carousel {
   width: 100%;
