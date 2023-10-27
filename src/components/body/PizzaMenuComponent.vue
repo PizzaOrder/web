@@ -74,29 +74,27 @@ button {
   transition:
     background-color 0.3s,
     transform 0.3s;
-  border-radius: 5px; /* Скругленные углы */
+  border-radius: 5px;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-  background-color: #ff6f4d; /* Немного светлее при наведении */
-  transform: translateY(-2px); /* Поднимается немного при наведении */
+  background-color: #ff6f4d;
+  transform: translateY(-2px);
 }
 
 button:active {
-  transform: translateY(0); /* Возвращается на место при нажатии */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Меньше тени при нажатии */
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Tablet and above */
 @media (min-width: 768px) {
   .pizza-card {
     width: 45%;
   }
 }
 
-/* Desktop and above */
 @media (min-width: 1024px) {
   .pizza-card {
     width: 30%;

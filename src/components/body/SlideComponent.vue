@@ -78,7 +78,6 @@ const handleMouseMove = (e: MouseEvent) => {
 
   const diffX = e.clientX - startX
 
-  // Переключение слайдов на основе разницы в позиции курсора
   if (diffX < -50) {
     // 50 - это произвольное значение, вы можете его изменить
     nextSlide()
