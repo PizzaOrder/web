@@ -4,7 +4,7 @@ import DiscountsComponent from '@/views/DiscountsComponent.vue'
 
 const routes = [
   { path: '/', component: HomeComponent },
-  { path: '/discount', component: DiscountsComponent }
+  { path: '/discount', component: DiscountsComponent },
 ]
 
 const router = createRouter({

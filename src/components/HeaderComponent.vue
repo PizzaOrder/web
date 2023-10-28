@@ -19,7 +19,7 @@
       </div>
       <div class="menu-actions white-backgorund">
         <span class="menu style-head">Меню</span>
-        <span class="actions style-head">Акции</span>
+        <router-link to="/discount" class="actions style-head">Акции</router-link>
         <span class="contacts style-head">Контакты</span>
         <span class="cart style-head">
           <img src="../../assets/img/cart.svg" class="cart-icon" />Корзина
