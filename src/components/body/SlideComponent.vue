@@ -9,7 +9,7 @@
       >
         <div v-for="(slide, index) in slides" :key="index" class="carousel-item">
           <router-link to='/discount' class="carousel-item">
-          <img :src="slide.image" :alt="slide.alt" ondragstart="return false" />
+          <img :src="slide.image" :alt="slide.alt" draggable="false"/>
           </router-link>
         </div>
       </div>
@@ -125,6 +125,7 @@ const prevSlide = () => {
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 .carousel-item img {
