@@ -8,7 +8,9 @@
         @mouseup="handleMouseUp"
       >
         <div v-for="(slide, index) in slides" :key="index" class="carousel-item">
+          <router-link to='/discount' class="carousel-item">
           <img :src="slide.image" :alt="slide.alt" ondragstart="return false" />
+          </router-link>
         </div>
       </div>
 

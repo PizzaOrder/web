@@ -18,8 +18,8 @@
         </div>
       </div>
       <div class="menu-actions white-backgorund">
-        <span class="menu style-head">Меню</span>
-        <router-link to="/discount" class="actions style-head">Акции</router-link>
+        <router-link to="/" class="menu style-head style-head router-link-exact-active">Меню</router-link >
+        <router-link to="/discount" class="actions style-head router-link-exact-active">Акции</router-link>
         <span class="contacts style-head">Контакты</span>
         <span class="cart style-head">
           <img src="../../assets/img/cart.svg" class="cart-icon" />Корзина
@@ -161,6 +161,9 @@
 .city-select option {
   background-color: #fff;
   color: #333;
+}
+.router-link-exact-active {
+  text-decoration: none;
 }
 </style>
 
