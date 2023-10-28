@@ -39,11 +39,6 @@ export default defineComponent({
       { image: '/assets/discounts/pudge1.jpg', alt: 'Описание 1' },
       { image: '/assets/discounts/pudge2.jpeg', alt: 'Описание 2' },
       { image: '/assets/discounts/pudge3.jpeg', alt: 'Описание 3' },
-      { image: '/assets/discounts/pudge3.jpeg', alt: 'Описание 3' },
-      { image: '/assets/discounts/pudge3.jpeg', alt: 'Описание 3' },
-      { image: '/assets/discounts/pudge3.jpeg', alt: 'Описание 3' }
-
-      // ... другие элементы
     ])
 
     const pizzasData = ref<Pizza[]>([
@@ -96,7 +91,6 @@ export default defineComponent({
         buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
       }
 
-      // ... другие элементы
     ])
 
     return {

@@ -3,7 +3,7 @@
     <HeaderComponent />
   </div>
   <div class='Discount'>
-    <DiscountMenuComponent />
+    <DiscountMenuComponent :discountes="discountesData" />
   </div>
   <div class='Basement'>
     <BasementComponent />
@@ -12,10 +12,15 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import DiscountMenuComponent from '@/components/body/DiscountMenuComponent.vue'
 import HeaderComponent from '@/components/HeaderComponent.vue'
 import BasementComponent from '@/components/basement/BasementComponent.vue'
+
+interface Discount {
+  image: string
+  description: string
+}
 
 export default defineComponent({
   name: 'DiscountComponent',
@@ -25,7 +30,21 @@ export default defineComponent({
     BasementComponent
   },
   setup() {
-    return {}
+    const discountesData = ref<Discount[]>([
+      { image: '/assets/discounts/pudge1.jpg', description: 'чзх хэллуин уже тут а пудж у тебя нет ???77??' },
+      { image: '/assets/discounts/pudge2.jpeg', description: 'ММММ, 300$ скидочка' },
+      { image: '/assets/discounts/pudge3.jpeg', description: 'дефолт скидка' },
+      { image: '/assets/discounts/mine1.png', description: 'тут скин из майнкрафта был' },
+      { image: '/assets/discounts/mine1.png', description: 'тут скин из майнкрафта был' },
+      { image: '/assets/discounts/mine1.png', description: 'тут скин из майнкрафта был' },
+      { image: '/assets/discounts/mine1.png', description: 'тут скин из майнкрафта был' },
+      { image: '/assets/discounts/mine1.png', description: 'тут скин из майнкрафта был' },
+      { image: '/assets/discounts/mine1.png', description: 'тут скин из майнкрафта был' },
+
+    ])
+    return{
+      discountesData
+    }
   }
 })
 </script>
