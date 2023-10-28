@@ -18,8 +18,12 @@
         </div>
       </div>
       <div class="menu-actions white-backgorund">
-        <router-link to="/" class="menu style-head style-head router-link-exact-active">Меню</router-link >
-        <router-link to="/discount" class="actions style-head router-link-exact-active">Акции</router-link>
+        <router-link to="/" class="menu style-head style-head router-link-exact-active"
+          >Меню</router-link
+        >
+        <router-link to="/discount" class="actions style-head router-link-exact-active"
+          >Акции</router-link
+        >
         <span class="contacts style-head">Контакты</span>
         <span class="cart style-head">
           <img src="../../assets/img/cart.svg" class="cart-icon" />Корзина

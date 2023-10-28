@@ -1,17 +1,16 @@
 <template>
-  <div class='Discount'>Акции</div>
-  <div class='DiscountMenu'>
-    <div class="discount-item" v-for="(discount,index) in discountes" :key="index">
-      <img :src="discount.image" alt="Скидка" class="discount-image"/>
+  <div class="Discount">Акции</div>
+  <div class="DiscountMenu">
+    <div class="discount-item" v-for="(discount, index) in discountes" :key="index">
+      <img :src="discount.image" alt="Скидка" class="discount-image" />
       <p class="discount-description">{{ discount.description }}</p>
     </div>
   </div>
 </template>
 
-
-<script lang='ts'>
-import {defineComponent} from 'vue'
-import type {PropType} from 'vue'
+<script lang="ts">
+import { defineComponent } from 'vue'
+import type { PropType } from 'vue'
 export default defineComponent({
   name: 'DiscountMenuComponent',
   props: {
@@ -31,7 +30,6 @@ export default defineComponent({
   text-align: left;
 }
 
-
 .DiscountMenu {
   display: flex;
   flex-wrap: wrap;
@@ -44,8 +42,6 @@ export default defineComponent({
   margin: 0 1% 10px 1%;
 }
 
-
-
 .discount-image {
   width: 106%;
   height: 200px;
@@ -53,9 +49,6 @@ export default defineComponent({
   object-fit: cover;
   border-radius: 10px;
 }
-
-
-
 
 .discount-description {
   margin-top: 10px;
@@ -75,6 +68,4 @@ export default defineComponent({
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
-
-
 </style>
