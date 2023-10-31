@@ -30,15 +30,19 @@
         <div v-if='showContacts' class='contacts-popover'>
           <p><img src='assets/img/icons8-gmail.svg' class='mail' alt='Email'> {{ email }}</p>
           <p>
-            <img src="assets/img/free-icon-font-vk-6422212.svg" class="mail" alt="VK">
-            <a :href="vkProfileUrl" target="_blank">VK</a>
+            <img src='assets/img/free-icon-font-vk-6422212.svg' class='mail' alt='VK'>
+            <a :href='vkProfileUrl' target='_blank'>VK</a>
           </p>
 
 
         </div>
 
-        <span class='cart style-head'>
-          <img src='../../assets/img/cart.svg' class='cart-icon' />Корзина
+        <span class='cart'>
+          <img src='../../assets/img/cart.svg' class='cart-icon' />
+          <router-link
+            to='/cart'
+            class='style-head router-link-exact-active'
+          >Корзина</router-link>
         </span>
       </div>
     </header>
@@ -225,11 +229,11 @@ import { ref, onMounted } from 'vue'
 
 export default {
   setup() {
-    const cityName = ref('Ярославль') // Значение будет устанавливаться из localStorage
+    const cityName = ref('Ярославль')
     const openingTime = ref('9:00')
     const closingTime = ref('23:00')
     const number = ref('8 (800) 555-35-35')
-    const email = ref('example@example.com')
+    const email = ref('oleg@bebra.com')
     const showContacts = ref(false)
     const vkProfileUrl = ref('https://vk.com/id389649410')
     const cities = ref(['Ярославль', 'Москва', 'Санкт-Петербург', 'Казань'])
