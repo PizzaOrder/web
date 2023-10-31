@@ -221,11 +221,11 @@
 </style>
 
 <script lang='ts'>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 export default {
   setup() {
-    const cityName = ref('Ярославль')
+    const cityName = ref('Ярославль') // Значение будет устанавливаться из localStorage
     const openingTime = ref('9:00')
     const closingTime = ref('23:00')
     const number = ref('8 (800) 555-35-35')
@@ -237,11 +237,21 @@ export default {
     const changeCity = (event: Event) => {
       const target = event.target as HTMLSelectElement
       cityName.value = target.value
+      // Сохраняем выбранный город в localStorage
+      localStorage.setItem('selectedCity', cityName.value)
     }
 
     const toggleContacts = () => {
       showContacts.value = !showContacts.value
     }
+
+    // Используем хук onMounted для установки значения cityName из localStorage при загрузке компонента
+    onMounted(() => {
+      const savedCity = localStorage.getItem('selectedCity')
+      if (savedCity && cities.value.includes(savedCity)) {
+        cityName.value = savedCity
+      }
+    })
 
     return {
       cityName,
@@ -258,3 +268,4 @@ export default {
   }
 }
 </script>
+
