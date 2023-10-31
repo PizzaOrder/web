@@ -26,11 +26,17 @@
         >Акции
         </router-link
         >
-        <span class="contacts style-head" @click="toggleContacts">Контакты</span>
-        <div v-if="showContacts" class="contacts-popover">
-          <p>Email: {{ email }}</p>
-          <p>Телефон: {{ number }}</p>
+        <span class='contacts style-head' @click='toggleContacts'>Контакты</span>
+        <div v-if='showContacts' class='contacts-popover'>
+          <p><img src='assets/img/icons8-gmail.svg' class='mail' alt='Email'> {{ email }}</p>
+          <p>
+            <img src="assets/img/free-icon-font-vk-6422212.svg" class="mail" alt="VK">
+            <a :href="vkProfileUrl" target="_blank">VK</a>
+          </p>
+
+
         </div>
+
         <span class='cart style-head'>
           <img src='../../assets/img/cart.svg' class='cart-icon' />Корзина
         </span>
@@ -121,6 +127,12 @@
   text-align: center;
 }
 
+.mail {
+  width: 25px;
+  height: 25px;
+
+}
+
 .actions {
   margin-left: 20px;
   margin-right: 20px;
@@ -178,6 +190,7 @@
 .router-link-exact-active {
   text-decoration: none;
 }
+
 .contacts-popover {
   position: absolute;
   top: 60px;
@@ -193,7 +206,7 @@
 
 </style>
 
-<script lang="ts">
+<script lang='ts'>
 import { ref } from 'vue'
 
 export default {
@@ -204,6 +217,7 @@ export default {
     const number = ref('8 (800) 555-35-35')
     const email = ref('example@example.com')
     const showContacts = ref(false)
+    const vkProfileUrl = ref('https://vk.com/id389649410')
     const cities = ref(['Ярославль', 'Москва', 'Санкт-Петербург', 'Казань'])
 
     const changeCity = (event: Event) => {
@@ -224,7 +238,8 @@ export default {
       showContacts,
       cities,
       changeCity,
-      toggleContacts
+      toggleContacts,
+      vkProfileUrl
     }
   }
 }
