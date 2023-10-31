@@ -84,6 +84,7 @@
   transform: translateY(-2px);
 }
 
+
 .style-head:active {
   transform: translateY(0);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -96,6 +97,8 @@
   font-size: 25px;
   font-weight: bold;
   margin-left: auto;
+  user-select: none;
+
 }
 
 .cart-icon {
@@ -107,6 +110,8 @@
 .menu-actions {
   display: flex;
   align-items: center;
+  user-select: none;
+
 }
 
 .gray-background {
@@ -125,6 +130,8 @@
   font-weight: bold;
   width: 120px;
   text-align: center;
+  user-select: none;
+
 }
 
 .mail {
@@ -140,6 +147,8 @@
   font-weight: bold;
   width: 120px;
   text-align: center;
+  user-select: none;
+
 }
 
 .contacts {
@@ -149,6 +158,8 @@
   font-weight: bold;
   width: 120px;
   text-align: center;
+  user-select: none;
+
 }
 
 .container {
@@ -193,15 +204,18 @@
 
 .contacts-popover {
   position: absolute;
-  top: 60px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #fff;
+  background-color: #ff5733;
+  color: #fff;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   z-index: 1000;
+  user-select: none;
+
 }
 
 </style>
