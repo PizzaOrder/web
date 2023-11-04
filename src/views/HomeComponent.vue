@@ -8,6 +8,7 @@
 </template>
 
 <script lang="ts">
+import { reactive } from 'vue';
 import { defineComponent, ref } from 'vue'
 import HeaderComponent from '@/components/HeaderComponent.vue'
 import BasementComponent from '@/components/basement/BasementComponent.vue'
@@ -19,12 +20,26 @@ interface Slide {
   alt: string
 }
 
-interface Pizza {
-  image: string
-  name: string
-  price: number
-  buttonText: string
+export interface Pizza {
+  image: string;
+  name: string;
+  price: number;
+  buttonText: string;
 }
+
+interface GlobalState {
+  orders: Pizza[];
+}
+
+export const globalState: GlobalState = reactive({
+  orders: []
+});
+
+export function addToGlobalOrder(pizza: Pizza): void {
+  globalState.orders.push(pizza);
+}
+
+
 
 export default defineComponent({
   name: 'MainComponent',
@@ -81,7 +96,7 @@ export default defineComponent({
       {
         image: '/assets/discounts/pizza2.jpeg',
         name: 'Грибная',
-        price: 245,
+        price: 250,
         buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
       },
       {

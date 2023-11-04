@@ -6,7 +6,7 @@
       </div>
       <h2>{{ pizza.name }}</h2>
       <p v-if="pizza.price">${{ pizza.price.toFixed(2) }}</p>
-      <button v-if="pizza.buttonText">{{ pizza.buttonText }}</button>
+      <button v-if="pizza.buttonText" @click="addToOrder(pizza)">{{ pizza.buttonText }}</button>
     </div>
   </div>
 </template>
@@ -14,6 +14,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import type { PropType } from 'vue'
+import {addToGlobalOrder} from '@/views/HomeComponent.vue'
+import type {Pizza} from '@/views/HomeComponent.vue'
+
 
 export default defineComponent({
   name: 'PizzaMenuComponent',
@@ -21,6 +24,11 @@ export default defineComponent({
     pizzas: {
       type: Array as PropType<{ image: string; name: string; price: number; buttonText: string }[]>,
       required: true
+    }
+  },
+  methods: {
+    addToOrder(pizza: Pizza) {
+      addToGlobalOrder(pizza);
     }
   }
 })
