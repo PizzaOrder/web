@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1>Current Orders</h1>
-    <ul>
-      <li v-for="(order, index) in orders" :key="index">{{ order.name }} - ${{ order.price }}</li>
-    </ul>
+      <div v-for="(order, index) in orders" :key="index">
+        <img :src="order.image" alt="" />
+        {{ order.name }} - ${{ order.price }} кол: {{order.quantity}}
+      </div>
   </div>
 </template>
 
