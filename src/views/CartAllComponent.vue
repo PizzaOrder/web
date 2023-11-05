@@ -1,7 +1,8 @@
 
 
-<script setup lang="ts">
+<script lang="ts">
 import { ref } from 'vue';
+import { defineComponent } from 'vue';
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import BasementComponent from '@/components/basement/BasementComponent.vue';
 import CartComponent from '@/components/body/CartComponent.vue'
@@ -12,20 +13,33 @@ interface Promo {
   discountOnPresent?: number;
 }
 
-const promoData = ref<Promo[]>([
-  {
-    id: 1,
-    code: 'promofree',
-    discountOnPresent: 20,
+export default defineComponent({
+  components: {
+    HeaderComponent,
+    BasementComponent,
+    CartComponent,
   },
-  {
-    id: 2,
-    code: 'promotrue',
-    discountOnPresent: 50,
-  },
-]);
+  setup() {
+    const promoData = ref<Promo[]>([
+      {
+        id: 1,
+        code: 'promofree',
+        discountOnPresent: 20,
+      },
+      {
+        id: 2,
+        code: 'promotrue',
+        discountOnPresent: 50,
+      },
+    ]);
 
+    return {
+      promoData,
+    };
+  },
+});
 </script>
+
 
 
 <template>
