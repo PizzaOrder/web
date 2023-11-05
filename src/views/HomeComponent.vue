@@ -19,6 +19,12 @@ interface Slide {
   image: string
   alt: string
 }
+interface Promo{
+  id: number;
+  code: string;
+  discountOnInt?: number;
+  discountOnPresent?: number;
+}
 
 export interface Pizza {
   image: string;
@@ -62,6 +68,20 @@ export default defineComponent({
     SlideComponent
   },
   setup() {
+    const promoData = ref<Promo[]>([
+      {
+        id: 1,
+        code: 'promofree',
+        discountOnPresent: 20,
+      },
+      {
+        id: 2,
+        code: 'promotrue',
+        discountOnPresent: 50,
+      }
+    ])
+
+
     const slidesData = ref<Slide[]>([
       { image: '/assets/discounts/pudge1.jpg', alt: 'Описание 1' },
       { image: '/assets/discounts/pudge2.jpeg', alt: 'Описание 2' },
@@ -101,7 +121,7 @@ export default defineComponent({
       },
       {
         image: '/assets/discounts/pizza2.jpeg',
-        name: 'Грибная',
+        name: 'ОмагадГрибная',
         price: 245,
         buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
       },
@@ -121,7 +141,8 @@ export default defineComponent({
 
     return {
       slidesData,
-      pizzasData
+      pizzasData,
+      promoData
     }
   }
 })
