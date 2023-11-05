@@ -5,9 +5,11 @@
       {{ order.name }} - ${{ order.price }} кол: {{ order.quantity }}
     </div>
     <input v-model='promoCode' placeholder='ввод промокода' />
-    <button @click='checkPromoCode(promoCode)'>Проверить промокод</button>
-    <p v-if='promoCodeValid'>Промокод действителен. Скидка применена.</p>
-    <p v-else>Промокод недействителен. Попробуйте другой промокод.</p>
+    <button @click='checkPromoCode'>Проверить промокод</button>
+    <p v-if='promoCodeValid !== null'>
+      <span v-if='promoCodeValid'>Промокод действителен. Скидка применена.</span>
+      <span v-else>Промокод недействителен. Попробуйте другой промокод.</span>
+    </p>
   </div>
 </template>
 
@@ -31,20 +33,25 @@ export default defineComponent({
   },
   setup(props) {
     const promoCode = ref('')
-    const promoCodeValid = ref(false)
+    const promoCodeValid = ref<boolean | null>(null);
 
-    const checkPromoCode = (enteredPromoCode: string) => {
+    const checkPromoCode = () => {
+
+      if (promoCode.value === '') {
+        promoCodeValid.value = null; // Сбросить состояние, если поле пустое
+        return;
+      }
+
       let flag = false
+      promoCodeValid.value = flag
       for (const prom of props.promes) {
-        if (enteredPromoCode === prom.code) {
+        if (promoCode.value === prom.code) {
           flag = true
           break;
         }
       }
       promoCodeValid.value = flag
-      console.log(promoCodeValid.value); // Добавьте эту строку для отладки
     }
-
 
     return {
       promoCode,
