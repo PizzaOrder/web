@@ -10,21 +10,17 @@
       <span v-if='promoCodeValid'>Промокод действителен. Скидка применена.</span>
       <span v-else>Промокод недействителен. Попробуйте другой промокод.</span>
     </p>
+    <p>Общая сумма: ${{ totalPrice }}</p> <!-- Вывод общей суммы -->
   </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import type { PropType } from 'vue'
 import { globalState } from '@/views/HomeComponent.vue'
 
 export default defineComponent({
   name: 'OrdersComponent',
-  computed: {
-    orders() {
-      return globalState.orders
-    }
-  },
   props: {
     promes: {
       type: Array as PropType<{ id: number; code: string }[]>,
@@ -33,21 +29,32 @@ export default defineComponent({
   },
   setup(props) {
     const promoCode = ref('')
-    const promoCodeValid = ref<boolean | null>(null);
+    const promoCodeValid = ref<boolean | null>(null)
+
+    const orders = computed(() => globalState.orders)
+
+    const totalPrice = computed(() => {
+      // Вычисление общей суммы заказов с учетом количества
+      const sum = orders.value.reduce((total, order) => {
+        // Проверяем, определено ли количество, если нет, то считаем его как 1
+        const quantity = order.quantity ?? 1;
+        return total + order.price * quantity;
+      }, 0)
+      // Применение скидки, если промокод действителен
+      return promoCodeValid.value ? sum * 0.9 : sum // предполагаем скидку в 10%
+    })
 
     const checkPromoCode = () => {
-
       if (promoCode.value === '') {
-        promoCodeValid.value = null; // Сбросить состояние, если поле пустое
-        return;
+        promoCodeValid.value = null // Сбросить состояние, если поле пустое
+        return
       }
 
       let flag = false
-      promoCodeValid.value = flag
       for (const prom of props.promes) {
         if (promoCode.value === prom.code) {
           flag = true
-          break;
+          break
         }
       }
       promoCodeValid.value = flag
@@ -56,8 +63,11 @@ export default defineComponent({
     return {
       promoCode,
       promoCodeValid,
-      checkPromoCode
+      checkPromoCode,
+      totalPrice, // Теперь totalPrice доступен для использования в шаблоне
+      orders
     }
   }
 })
 </script>
+
