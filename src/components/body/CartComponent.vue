@@ -1,8 +1,9 @@
 <template>
   <div>
-    <div v-for='(order, index) in orders' :key='index'>
+    <div v-for='(order, index) in orders' :key='order.id'> <!-- Использование order.id в качестве ключа -->
       <img :src='order.image' alt='' />
       {{ order.name }} - ${{ order.price }} кол: {{ order.quantity }}
+      <button @click='deletePizza(index)'>Удалить пиццу</button> <!-- Передаем index в deletePizza -->
     </div>
     <input v-model='promoCode' placeholder='ввод промокода' />
     <button @click='checkPromoCode'>Проверить промокод</button>
@@ -36,14 +37,18 @@ export default defineComponent({
 
     const totalPrice = computed(() => {
       let sum = orders.value.reduce((total, order) => {
-        const quantity = order.quantity ?? 1;
-        return total + order.price * quantity;
+        const quantity = order.quantity ?? 1
+        return total + order.price * quantity
       }, 0)
       if (discount.value) {
-        sum -= sum * (discount.value / 100);
+        sum -= sum * (discount.value / 100)
       }
-      return sum;
+      return sum
     })
+    const deletePizza = (index: number) => {
+      globalState.orders.splice(index, 1);
+
+    }
 
     const checkPromoCode = () => {
       promoCodeValid.value = false
@@ -53,7 +58,7 @@ export default defineComponent({
         return
       }
 
-      const foundPromo = props.promes.find(prom => promoCode.value === prom.code);
+      const foundPromo = props.promes.find(prom => promoCode.value === prom.code)
       if (foundPromo) {
         promoCodeValid.value = true
         discount.value = foundPromo.discountOnPresent
@@ -66,7 +71,8 @@ export default defineComponent({
       discount,
       checkPromoCode,
       totalPrice,
-      orders
+      orders,
+      deletePizza
     }
   }
 })
