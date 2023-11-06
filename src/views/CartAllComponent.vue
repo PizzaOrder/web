@@ -3,7 +3,7 @@
 <script lang="ts">
 import { ref } from 'vue';
 import { defineComponent } from 'vue';
-import HeaderComponent from '@/components/HeaderComponent.vue';
+import HeaderComponent from '@/components/header/HeaderComponent.vue';
 import BasementComponent from '@/components/basement/BasementComponent.vue';
 import CartComponent from '@/components/body/CartComponent.vue'
 interface Promo {

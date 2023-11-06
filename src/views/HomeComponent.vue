@@ -10,7 +10,7 @@
 <script lang="ts">
 import { reactive } from 'vue';
 import { defineComponent, ref } from 'vue'
-import HeaderComponent from '@/components/HeaderComponent.vue'
+import HeaderComponent from '@/components/header/HeaderComponent.vue'
 import BasementComponent from '@/components/basement/BasementComponent.vue'
 import PizzaMenuComponent from '@/components/body/PizzaMenuComponent.vue'
 import SlideComponent from '@/components/body/SlideComponent.vue'

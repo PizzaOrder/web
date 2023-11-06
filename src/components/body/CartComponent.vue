@@ -1,10 +1,11 @@
 <template>
   <div>
-    <div v-for='(order, index) in orders' :key='order.id'> <!-- Использование order.id в качестве ключа -->
+    <div v-for='(order, index) in orders' :key='order.id'>
       <img :src='order.image' alt='' />
       {{ order.name }} - ${{ order.price }} кол: {{ order.quantity }}
-      <button @click='deletePizza(index)'>Удалить пиццу</button> <!-- Передаем index в deletePizza -->
+      <button @click='deletePizza(index)'>Удалить пиццу</button>
     </div>
+    <div>Доставка в город {{city}} </div>
     <input v-model='promoCode' placeholder='ввод промокода' />
     <button @click='checkPromoCode'>Проверить промокод</button>
     <p v-if='discount'>
@@ -19,6 +20,8 @@
 import { defineComponent, ref, computed } from 'vue'
 import type { PropType } from 'vue'
 import { globalState } from '@/views/HomeComponent.vue'
+import { inject } from 'vue'
+
 
 export default defineComponent({
   name: 'OrdersComponent',
@@ -29,6 +32,7 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const cityName = inject('cityName')
     const promoCode = ref('')
     const promoCodeValid = ref<boolean | null>(null)
     const discount = ref<number | null>(null)
@@ -64,6 +68,9 @@ export default defineComponent({
         discount.value = foundPromo.discountOnPresent
       }
     }
+    const city = computed(() => {
+      return localStorage.getItem('selectedCity');
+    });
 
     return {
       promoCode,
@@ -72,7 +79,8 @@ export default defineComponent({
       checkPromoCode,
       totalPrice,
       orders,
-      deletePizza
+      deletePizza,
+      city
     }
   }
 })

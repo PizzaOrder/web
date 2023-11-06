@@ -3,17 +3,17 @@
     <header class='header'>
       <div class='header-content'>
         <div class='container'>
-          <img class='gps' src='../../assets/img/gps.svg' />
+          <img class='gps' src='../../../assets/img/gps.svg' />
           <select v-model='cityName' @change='changeCity' class='city-select'>
             <option v-for='city in cities' :key='city'>{{ city }}</option>
           </select>
         </div>
         <div class='container'>
-          <img class='time' src='../../assets/img/time.svg' />
+          <img class='time' src='../../../assets/img/time.svg' />
           с {{ openingTime }} до {{ closingTime }}
         </div>
         <div class='container'>
-          <img class='phone' src='../../assets/img/phone.svg' />
+          <img class='phone' src='../../../assets/img/phone.svg' />
           {{ number }}
         </div>
       </div>
@@ -28,9 +28,9 @@
         >
         <span class='contacts style-head' @click='toggleContacts'>Контакты</span>
         <div v-if='showContacts' class='contacts-popover'>
-          <p><img src='assets/img/icons8-gmail.svg' class='mail' alt='Email'> {{ email }}</p>
+          <p><img src='../../../assets/img/icons8-gmail.svg' class='mail' alt='Email'> {{ email }}</p>
           <p>
-            <img src='assets/img/free-icon-font-vk-6422212.svg' class='mail' alt='VK'>
+            <img src='../../../assets/img/free-icon-font-vk-6422212.svg' class='mail' alt='VK'>
             <a :href='vkProfileUrl' target='_blank'>VK</a>
           </p>
 
@@ -38,7 +38,7 @@
         </div>
 
         <span class='cart'>
-          <img src='../../assets/img/cart.svg' class='cart-icon' />
+          <img src='../../../assets/img/cart.svg' class='cart-icon' />
           <router-link
             to='/cart'
             class='style-head router-link-exact-active'
@@ -227,6 +227,7 @@
 <script lang='ts'>
 import { ref, onMounted } from 'vue'
 
+
 export default {
   setup() {
     const cityName = ref('Ярославль')
@@ -256,7 +257,6 @@ export default {
         cityName.value = savedCity
       }
     })
-
     return {
       cityName,
       openingTime,
@@ -271,5 +271,6 @@ export default {
     }
   }
 }
+
 </script>
 
