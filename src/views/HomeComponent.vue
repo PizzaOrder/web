@@ -45,14 +45,14 @@ export const globalState: GlobalState = reactive({
 });
 
 
-export function addToGlobalOrder(pizza: Pizza): void {
+export function addToGlobalOrder(pizza: { image: string; name: string; price: number; buttonText: string }): void {
   const existingPizzaIndex = globalState.orders.findIndex(orderPizza => orderPizza.name === pizza.name);
 
   if (existingPizzaIndex !== -1) {
     // Используйте опциональную цепочку и оператор нулевого слияния для увеличения количества
     globalState.orders[existingPizzaIndex].quantity = (globalState.orders[existingPizzaIndex].quantity ?? 0) + 1;
   } else {
-    globalState.orders.push({ ...pizza, quantity: 1 });
+    globalState.orders.push({ id: 0, ...pizza, quantity: 1 });
   }
 }
 

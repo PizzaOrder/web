@@ -27,7 +27,7 @@ export default defineComponent({
     }
   },
   methods: {
-    addToOrder(pizza: Pizza) {
+    addToOrder(pizza: { image: string; name: string; price: number; buttonText: string }) {
       addToGlobalOrder(pizza);
     }
   }
