@@ -40,9 +40,7 @@ export default defineComponent({
     ]);
 
     return {
-      promoData,
-      streetData
-    };
+      promoData};
   },
 });
 </script>
