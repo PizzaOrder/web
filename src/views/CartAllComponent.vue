@@ -12,6 +12,11 @@ interface Promo {
   discountOnInt?: number;
   discountOnPresent?: number;
 }
+interface Street{
+  id: number;
+  address: string;
+
+}
 
 export default defineComponent({
   components: {
@@ -20,6 +25,7 @@ export default defineComponent({
     CartComponent,
   },
   setup() {
+
     const promoData = ref<Promo[]>([
       {
         id: 1,
@@ -35,6 +41,7 @@ export default defineComponent({
 
     return {
       promoData,
+      streetData
     };
   },
 });
