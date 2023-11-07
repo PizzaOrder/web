@@ -5,7 +5,23 @@
       {{ order.name }} - ${{ order.price }} кол: {{ order.quantity }}
       <button @click='deletePizza(index)'>Удалить пиццу</button>
     </div>
-    <div>Доставка в город {{city}} </div>
+    <div>Доставка в город {{ city }}</div>
+    <div>
+      <span><button @click='toggleHome'>Доставка на дом</button></span>
+      <div v-if='showHome'>
+        <p><input type='text' id='street' placeholder='Например: улица Бебр, 1'></p>
+        <p>
+          <span><input type='number' id='kvartira' placeholder='№ квартиры'></span>
+          <span><input type='number' id='podezd' placeholder='Подъезд'></span>
+          <span><input type='number' id='stage' placeholder='Этаж'></span>
+        </p>
+        <p>
+          <span><input type='number' id='num' placeholder='88005553535'></span>
+          <span><input type='text' id='name' placeholder='Введите ваше имя'></span>
+        </p>
+      </div>
+      <span><button>Забрать самому</button></span>
+    </div>
     <input v-model='promoCode' placeholder='ввод промокода' />
     <button @click='checkPromoCode'>Проверить промокод</button>
     <p v-if='discount'>
@@ -13,6 +29,7 @@
     </p>
     <p v-else-if='promoCodeValid === false'>Промокод недействителен. Попробуйте другой промокод.</p>
     <p>Общая сумма: ${{ totalPrice }}</p>
+    <div><button>Оплатить</button></div>
   </div>
 </template>
 
@@ -20,7 +37,6 @@
 import { defineComponent, ref, computed } from 'vue'
 import type { PropType } from 'vue'
 import { globalState } from '@/views/HomeComponent.vue'
-import { inject } from 'vue'
 
 
 export default defineComponent({
@@ -32,7 +48,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const cityName = inject('cityName')
+    const showHome = ref(false)
     const promoCode = ref('')
     const promoCodeValid = ref<boolean | null>(null)
     const discount = ref<number | null>(null)
@@ -49,8 +65,11 @@ export default defineComponent({
       }
       return sum
     })
+    const toggleHome = () => {
+      showHome.value = !showHome.value
+    }
     const deletePizza = (index: number) => {
-      globalState.orders.splice(index, 1);
+      globalState.orders.splice(index, 1)
 
     }
 
@@ -69,8 +88,9 @@ export default defineComponent({
       }
     }
     const city = computed(() => {
-      return localStorage.getItem('selectedCity');
-    });
+      return localStorage.getItem('selectedCity')
+    })
+
 
     return {
       promoCode,
@@ -80,7 +100,9 @@ export default defineComponent({
       totalPrice,
       orders,
       deletePizza,
-      city
+      city,
+      toggleHome,
+      showHome
     }
   }
 })
