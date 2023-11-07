@@ -7,6 +7,7 @@
     </div>
     <div>Доставка в город {{ city }}</div>
     <div>
+      <span><button>Забрать самому</button></span>
       <span><button @click='toggleHome'>Доставка на дом</button></span>
       <div v-if='showHome'>
         <p><input type='text' id='street' placeholder='Например: улица Бебр, 1'></p>
@@ -20,7 +21,6 @@
           <span><input type='text' id='name' placeholder='Введите ваше имя'></span>
         </p>
       </div>
-      <span><button>Забрать самому</button></span>
     </div>
     <input v-model='promoCode' placeholder='ввод промокода' />
     <button @click='checkPromoCode'>Проверить промокод</button>
