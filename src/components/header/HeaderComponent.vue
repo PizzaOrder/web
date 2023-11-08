@@ -26,16 +26,8 @@
         >Акции
         </router-link
         >
-        <span class='contacts style-head' @click='toggleContacts'>Контакты</span>
-        <div v-if='showContacts ' class='contacts-popover'>
-          <p><img src='../../../assets/img/icons8-gmail.svg' class='mail' alt='Email'> {{ email }}</p>
-          <p>
-            <img src='../../../assets/img/free-icon-font-vk-6422212.svg' class='mail' alt='VK'>
-            <a :href='vkProfileUrl' target='_blank'>VK</a>
-          </p>
+        <router-link to='/contact' class='contacts style-head router-link-exact-active' >Контакты</router-link>
 
-
-        </div>
 
         <span class='cart'>
           <img src='../../../assets/img/cart.svg' class='cart-icon' />
