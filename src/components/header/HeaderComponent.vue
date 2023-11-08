@@ -39,9 +39,10 @@
 
         <span class='cart'>
           <img src='../../../assets/img/cart.svg' class='cart-icon' />
+          <div class='cart-indicator' v-if='showCartIndicator'></div>
           <router-link
-            to='/cart'
-            class='style-head router-link-exact-active'
+              to='/cart'
+              class='style-head router-link-exact-active'
           >Корзина</router-link>
         </span>
       </div>
@@ -50,6 +51,16 @@
 </template>
 
 <style scoped>
+.cart-indicator {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  top: 45px;
+  right: 150px;
+}
+
 .city-panel {
   z-index: 999;
   position: fixed;
@@ -226,10 +237,10 @@
 
 <script lang='ts'>
 import { ref, onMounted } from 'vue'
-
-
+import emitter from '@/funcs/eventBus'
 export default {
   setup() {
+
     const cityName = ref('Ярославль')
     const openingTime = ref('9:00')
     const closingTime = ref('23:00')
@@ -238,19 +249,25 @@ export default {
     const showContacts = ref(false)
     const vkProfileUrl = ref('https://vk.com/id389649410')
     const cities = ref(['Ярославль', 'Москва', 'Санкт-Петербург', 'Казань'])
+    const showCartIndicator = ref(false)
+
 
     const changeCity = (event: Event) => {
       const target = event.target as HTMLSelectElement
       cityName.value = target.value
-      // Сохраняем выбранный город в localStorage
       localStorage.setItem('selectedCity', cityName.value)
     }
 
     const toggleContacts = () => {
       showContacts.value = !showContacts.value
     }
+    emitter.on('button-clicked', () => {
+      showCartIndicator.value = true;
+    });
 
-    // Используем хук onMounted для установки значения cityName из localStorage при загрузке компонента
+
+
+
     onMounted(() => {
       const savedCity = localStorage.getItem('selectedCity')
       if (savedCity && cities.value.includes(savedCity)) {
@@ -267,7 +284,8 @@ export default {
       cities,
       changeCity,
       toggleContacts,
-      vkProfileUrl
+      vkProfileUrl,
+      showCartIndicator
     }
   }
 }

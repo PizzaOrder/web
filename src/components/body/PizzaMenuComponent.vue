@@ -15,9 +15,7 @@
 import { defineComponent } from 'vue'
 import type { PropType } from 'vue'
 import {addToGlobalOrder} from '@/views/HomeComponent.vue'
-import type {Pizza} from '@/views/HomeComponent.vue'
-
-
+import emitter from '@/funcs/eventBus'
 export default defineComponent({
   name: 'PizzaMenuComponent',
   props: {
@@ -28,6 +26,7 @@ export default defineComponent({
   },
   methods: {
     addToOrder(pizza: { image: string; name: string; price: number; buttonText: string }) {
+      emitter.emit('button-clicked');
       addToGlobalOrder(pizza);
     }
   }
