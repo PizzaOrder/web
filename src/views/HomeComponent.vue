@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue'
 import { defineComponent, ref } from 'vue'
 import HeaderComponent from '@/components/header/HeaderComponent.vue'
 import BasementComponent from '@/components/basement/BasementComponent.vue'
@@ -49,7 +49,6 @@ export function addToGlobalOrder(pizza: { image: string; name: string; price: nu
   const existingPizzaIndex = globalState.orders.findIndex(orderPizza => orderPizza.name === pizza.name);
 
   if (existingPizzaIndex !== -1) {
-    // Используйте опциональную цепочку и оператор нулевого слияния для увеличения количества
     globalState.orders[existingPizzaIndex].quantity = (globalState.orders[existingPizzaIndex].quantity ?? 0) + 1;
   } else {
     globalState.orders.push({ id: 0, ...pizza, quantity: 1 });
@@ -69,6 +68,7 @@ export default defineComponent({
     SlideComponent
   },
   setup() {
+
     const promoData = ref<Promo[]>([
       {
         id: 1,
@@ -151,7 +151,7 @@ export default defineComponent({
     return {
       slidesData,
       pizzasData,
-      promoData
+      promoData,
     }
   }
 })

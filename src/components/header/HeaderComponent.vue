@@ -27,7 +27,7 @@
         </router-link
         >
         <span class='contacts style-head' @click='toggleContacts'>Контакты</span>
-        <div v-if='showContacts' class='contacts-popover'>
+        <div v-if='showContacts ' class='contacts-popover'>
           <p><img src='../../../assets/img/icons8-gmail.svg' class='mail' alt='Email'> {{ email }}</p>
           <p>
             <img src='../../../assets/img/free-icon-font-vk-6422212.svg' class='mail' alt='VK'>
@@ -39,7 +39,7 @@
 
         <span class='cart'>
           <img src='../../../assets/img/cart.svg' class='cart-icon' />
-          <div class='cart-indicator' v-if='showCartIndicator'></div>
+          <div class='cart-indicator' v-if='showCartIndicator || hasItemsInCart'></div>
           <router-link
               to='/cart'
               class='style-head router-link-exact-active'
@@ -236,8 +236,9 @@
 </style>
 
 <script lang='ts'>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import emitter from '@/funcs/eventBus'
+import {globalState} from  '@/views/HomeComponent.vue'
 export default {
   setup() {
 
@@ -257,6 +258,11 @@ export default {
       cityName.value = target.value
       localStorage.setItem('selectedCity', cityName.value)
     }
+    const hasItemsInCart = computed(() => {
+      return globalState.orders.length > 0;
+    });
+
+
 
     const toggleContacts = () => {
       showContacts.value = !showContacts.value
@@ -285,7 +291,8 @@ export default {
       changeCity,
       toggleContacts,
       vkProfileUrl,
-      showCartIndicator
+      showCartIndicator,
+      hasItemsInCart
     }
   }
 }
