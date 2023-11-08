@@ -6,8 +6,8 @@ import ContactAllComponent from '@/views/ContactAllComponent.vue'
 const routes = [
   { path: '/', component: HomeComponent },
   { path: '/discount', component: DiscountsComponent },
-  {path: '/cart',component: CartAllComponent},
-  {path: '/contact',component: ContactAllComponent}
+  { path: '/cart', component: CartAllComponent },
+  { path: '/contact', component: ContactAllComponent }
 ]
 
 const router = createRouter({

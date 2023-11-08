@@ -1,43 +1,44 @@
 <template>
   <div>
-    <div v-for='(order, index) in orders' :key='order.id'>
-      <img :src='order.image' alt='' />
+    <div v-for="(order, index) in orders" :key="order.id">
+      <img :src="order.image" alt="" />
       {{ order.name }} - ${{ order.price }} кол: {{ order.quantity }}
-      <button @click='deletePizza(index)'>Удалить пиццу</button>
+      <button @click="deletePizza(index)">Удалить пиццу</button>
     </div>
     <div>Доставка в город {{ city }}</div>
     <div>
       <button class="style-head text-center">Забрать самому</button>
       <button class="style-head" @click="toggleHome">Доставка на дом</button>
-      <div v-if='showHome'>
-        <p><input type='text' id='street' placeholder='Например: улица Бебр, 1'></p>
+      <div v-if="showHome">
+        <p><input type="text" id="street" placeholder="Например: улица Бебр, 1" /></p>
         <p>
-          <span><input type='number' id='kvartira' placeholder='№ квартиры'></span>
-          <span><input type='number' id='podezd' placeholder='Подъезд'></span>
-          <span><input type='number' id='stage' placeholder='Этаж'></span>
+          <span><input type="number" id="kvartira" placeholder="№ квартиры" /></span>
+          <span><input type="number" id="podezd" placeholder="Подъезд" /></span>
+          <span><input type="number" id="stage" placeholder="Этаж" /></span>
         </p>
         <p>
-          <span><input type='number' id='num' placeholder='88005553535'></span>
-          <span><input type='text' id='name' placeholder='Введите ваше имя'></span>
+          <span><input type="number" id="num" placeholder="88005553535" /></span>
+          <span><input type="text" id="name" placeholder="Введите ваше имя" /></span>
         </p>
       </div>
     </div>
-    <input v-model='promoCode' placeholder='ввод промокода' />
-    <button @click='checkPromoCode'>Проверить промокод</button>
+    <input v-model="promoCode" placeholder="ввод промокода" />
+    <button @click="checkPromoCode">Проверить промокод</button>
     <p class="text-center" v-if="discount">
       Промокод действителен. Скидка {{ discount }}% применена.
     </p>
-    <p class="text-center" v-else-if="promoCodeValid === false">Промокод недействителен. Попробуйте другой промокод.</p>
+    <p class="text-center" v-else-if="promoCodeValid === false">
+      Промокод недействителен. Попробуйте другой промокод.
+    </p>
     <p class="text-center">Общая сумма: ${{ totalPrice }}</p>
     <div><button>Оплатить</button></div>
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
 import type { PropType } from 'vue'
 import { globalState } from '@/views/HomeComponent.vue'
-
 
 export default defineComponent({
   name: 'OrdersComponent',
@@ -70,7 +71,6 @@ export default defineComponent({
     }
     const deletePizza = (index: number) => {
       globalState.orders.splice(index, 1)
-
     }
 
     const checkPromoCode = () => {
@@ -81,7 +81,7 @@ export default defineComponent({
         return
       }
 
-      const foundPromo = props.promes.find(prom => promoCode.value === prom.code)
+      const foundPromo = props.promes.find((prom) => promoCode.value === prom.code)
       if (foundPromo) {
         promoCodeValid.value = true
         discount.value = foundPromo.discountOnPresent
@@ -90,7 +90,6 @@ export default defineComponent({
     const city = computed(() => {
       return localStorage.getItem('selectedCity')
     })
-
 
     return {
       promoCode,
@@ -117,7 +116,9 @@ button,
   background-color: #ff5733;
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
   border-radius: 5px;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -177,6 +178,4 @@ p {
 .text-center {
   text-align: center;
 }
-
-
 </style>

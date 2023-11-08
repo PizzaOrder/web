@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { computed, reactive } from 'vue'
+import { reactive } from 'vue'
 import { defineComponent, ref } from 'vue'
 import HeaderComponent from '@/components/header/HeaderComponent.vue'
 import BasementComponent from '@/components/basement/BasementComponent.vue'
@@ -19,45 +19,47 @@ interface Slide {
   image: string
   alt: string
 }
-interface Promo{
-  id: number;
-  code: string;
-  discountOnInt?: number;
-  discountOnPresent?: number;
+interface Promo {
+  id: number
+  code: string
+  discountOnInt?: number
+  discountOnPresent?: number
 }
 
 export interface Pizza {
-  id: number;
-  image: string;
-  name: string;
-  price: number;
-  buttonText: string;
-  quantity?: number;
-
+  id: number
+  image: string
+  name: string
+  price: number
+  buttonText: string
+  quantity?: number
 }
 
 interface GlobalState {
-  orders: Pizza[];
+  orders: Pizza[]
 }
 
 export const globalState: GlobalState = reactive({
   orders: []
-});
+})
 
-
-export function addToGlobalOrder(pizza: { image: string; name: string; price: number; buttonText: string }): void {
-  const existingPizzaIndex = globalState.orders.findIndex(orderPizza => orderPizza.name === pizza.name);
+export function addToGlobalOrder(pizza: {
+  image: string
+  name: string
+  price: number
+  buttonText: string
+}): void {
+  const existingPizzaIndex = globalState.orders.findIndex(
+    (orderPizza) => orderPizza.name === pizza.name
+  )
 
   if (existingPizzaIndex !== -1) {
-    globalState.orders[existingPizzaIndex].quantity = (globalState.orders[existingPizzaIndex].quantity ?? 0) + 1;
+    globalState.orders[existingPizzaIndex].quantity =
+      (globalState.orders[existingPizzaIndex].quantity ?? 0) + 1
   } else {
-    globalState.orders.push({ id: 0, ...pizza, quantity: 1 });
+    globalState.orders.push({ id: 0, ...pizza, quantity: 1 })
   }
 }
-
-
-
-
 
 export default defineComponent({
   name: 'MainComponent',
@@ -68,20 +70,18 @@ export default defineComponent({
     SlideComponent
   },
   setup() {
-
     const promoData = ref<Promo[]>([
       {
         id: 1,
         code: 'promofree',
-        discountOnPresent: 20,
+        discountOnPresent: 20
       },
       {
         id: 2,
         code: 'promotrue',
-        discountOnPresent: 50,
+        discountOnPresent: 50
       }
     ])
-
 
     const slidesData = ref<Slide[]>([
       { image: '/assets/discounts/pudge1.jpg', alt: 'Описание 1' },
@@ -151,7 +151,7 @@ export default defineComponent({
     return {
       slidesData,
       pizzasData,
-      promoData,
+      promoData
     }
   }
 })

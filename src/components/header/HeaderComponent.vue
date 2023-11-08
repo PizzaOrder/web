@@ -1,41 +1,37 @@
 <template>
-  <div class='city-panel gray-background'>
-    <header class='header'>
-      <div class='header-content'>
-        <div class='container'>
-          <img class='gps' src='../../../assets/img/gps.svg' />
-          <select v-model='cityName' @change='changeCity' class='city-select'>
-            <option v-for='city in cities' :key='city'>{{ city }}</option>
+  <div class="city-panel gray-background">
+    <header class="header">
+      <div class="header-content">
+        <div class="container">
+          <img class="gps" src="../../../assets/img/gps.svg" />
+          <select v-model="cityName" @change="changeCity" class="city-select">
+            <option v-for="city in cities" :key="city">{{ city }}</option>
           </select>
         </div>
-        <div class='container'>
-          <img class='time' src='../../../assets/img/time.svg' />
+        <div class="container">
+          <img class="time" src="../../../assets/img/time.svg" />
           с {{ openingTime }} до {{ closingTime }}
         </div>
-        <div class='container'>
-          <img class='phone' src='../../../assets/img/phone.svg' />
+        <div class="container">
+          <img class="phone" src="../../../assets/img/phone.svg" />
           {{ number }}
         </div>
       </div>
-      <div class='menu-actions white-backgorund'>
-        <router-link to='/' class='menu style-head style-head router-link-exact-active'
-        >Меню
-        </router-link
+      <div class="menu-actions white-backgorund">
+        <router-link to="/" class="menu style-head style-head router-link-exact-active"
+          >Меню
+        </router-link>
+        <router-link to="/discount" class="actions style-head router-link-exact-active"
+          >Акции
+        </router-link>
+        <router-link to="/contact" class="contacts style-head router-link-exact-active"
+          >Контакты</router-link
         >
-        <router-link to='/discount' class='actions style-head router-link-exact-active'
-        >Акции
-        </router-link
-        >
-        <router-link to='/contact' class='contacts style-head router-link-exact-active' >Контакты</router-link>
 
-
-        <span class='cart'>
-          <img src='../../../assets/img/cart.svg' class='cart-icon' />
-          <div class='cart-indicator' v-if='showCartIndicator || hasItemsInCart'></div>
-          <router-link
-              to='/cart'
-              class='style-head router-link-exact-active'
-          >Корзина</router-link>
+        <span class="cart">
+          <img src="../../../assets/img/cart.svg" class="cart-icon" />
+          <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
+          <router-link to="/cart" class="style-head router-link-exact-active">Корзина</router-link>
         </span>
       </div>
     </header>
@@ -79,8 +75,9 @@
   background-color: #ff5733;
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s,
-  transform 0.3s;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
   border-radius: 5px;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -90,7 +87,6 @@
   background-color: #ff6f4d;
   transform: translateY(-2px);
 }
-
 
 .style-head:active {
   transform: translateY(0);
@@ -105,7 +101,6 @@
   font-weight: bold;
   margin-left: auto;
   user-select: none;
-
 }
 
 .cart-icon {
@@ -118,7 +113,6 @@
   display: flex;
   align-items: center;
   user-select: none;
-
 }
 
 .gray-background {
@@ -138,13 +132,11 @@
   width: 120px;
   text-align: center;
   user-select: none;
-
 }
 
 .mail {
   width: 25px;
   height: 25px;
-
 }
 
 .actions {
@@ -155,7 +147,6 @@
   width: 120px;
   text-align: center;
   user-select: none;
-
 }
 
 .contacts {
@@ -166,7 +157,6 @@
   width: 120px;
   text-align: center;
   user-select: none;
-
 }
 
 .container {
@@ -222,18 +212,15 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   user-select: none;
-
 }
-
 </style>
 
-<script lang='ts'>
+<script lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import emitter from '@/funcs/eventBus'
-import {globalState} from  '@/views/HomeComponent.vue'
+import { globalState } from '@/views/HomeComponent.vue'
 export default {
   setup() {
-
     const cityName = ref('Ярославль')
     const openingTime = ref('9:00')
     const closingTime = ref('23:00')
@@ -244,27 +231,21 @@ export default {
     const cities = ref(['Ярославль', 'Москва', 'Санкт-Петербург', 'Казань'])
     const showCartIndicator = ref(false)
 
-
     const changeCity = (event: Event) => {
       const target = event.target as HTMLSelectElement
       cityName.value = target.value
       localStorage.setItem('selectedCity', cityName.value)
     }
     const hasItemsInCart = computed(() => {
-      return globalState.orders.length > 0;
-    });
-
-
+      return globalState.orders.length > 0
+    })
 
     const toggleContacts = () => {
       showContacts.value = !showContacts.value
     }
     emitter.on('button-clicked', () => {
-      showCartIndicator.value = true;
-    });
-
-
-
+      showCartIndicator.value = true
+    })
 
     onMounted(() => {
       const savedCity = localStorage.getItem('selectedCity')
@@ -288,6 +269,4 @@ export default {
     }
   }
 }
-
 </script>
-

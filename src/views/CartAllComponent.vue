@@ -1,60 +1,48 @@
-
-
 <script lang="ts">
-import { ref } from 'vue';
-import { defineComponent } from 'vue';
-import HeaderComponent from '@/components/header/HeaderComponent.vue';
-import BasementComponent from '@/components/basement/BasementComponent.vue';
+import { ref } from 'vue'
+import { defineComponent } from 'vue'
+import HeaderComponent from '@/components/header/HeaderComponent.vue'
 import CartComponent from '@/components/body/CartComponent.vue'
 interface Promo {
-  id: number;
-  code: string;
-  discountOnInt?: number;
-  discountOnPresent?: number;
-}
-interface Street{
-  id: number;
-  address: string;
-
+  id: number
+  code: string
+  discountOnInt?: number
+  discountOnPresent?: number
 }
 
 export default defineComponent({
   components: {
     HeaderComponent,
-    BasementComponent,
-    CartComponent,
+    CartComponent
   },
   setup() {
-
     const promoData = ref<Promo[]>([
       {
         id: 1,
         code: 'promofree',
-        discountOnPresent: 20,
+        discountOnPresent: 20
       },
       {
         id: 2,
         code: 'promotrue',
-        discountOnPresent: 50,
-      },
-    ]);
+        discountOnPresent: 50
+      }
+    ])
 
     return {
-      promoData};
-  },
-});
+      promoData
+    }
+  }
+})
 </script>
 
-
-
 <template>
-  <div><HeaderComponent/></div>
-  <div class='Cart'><CartComponent :promes='promoData'/></div>
-
+  <div><HeaderComponent /></div>
+  <div class="Cart"><CartComponent :promes="promoData" /></div>
 </template>
 
 <style scoped>
-.Cart{
+.Cart {
   margin-top: 110px;
 }
 </style>

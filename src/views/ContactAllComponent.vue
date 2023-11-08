@@ -1,14 +1,11 @@
-<script setup lang='ts'>
-
-
+<script setup lang="ts">
 import HeaderComponent from '@/components/header/HeaderComponent.vue'
 import ContactComponent from '@/components/body/ContactComponent.vue'
 </script>
 
 <template>
-  <div><HeaderComponent/></div>
-  <div class='Contact'><ContactComponent/></div>
-
+  <div><HeaderComponent /></div>
+  <div class="Contact"><ContactComponent /></div>
 </template>
 
 <style scoped>
@@ -25,5 +22,4 @@ import ContactComponent from '@/components/body/ContactComponent.vue'
     margin-left: 30px;
   }
 }
-
 </style>

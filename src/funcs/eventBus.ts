@@ -1,7 +1,7 @@
-import mitt from 'mitt';
+import mitt from 'mitt'
 
 // Create a new emitter
-const emitter = mitt();
+const emitter = mitt()
 
 // Export that emitter
-export default emitter;
+export default emitter
