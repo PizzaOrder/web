@@ -13,7 +13,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import DiscountMenuComponent from '@/components/body/DiscountMenuComponent.vue'
-import HeaderComponent from '@/components/HeaderComponent.vue'
+import HeaderComponent from '@/components/header/HeaderComponent.vue'
 import BasementComponent from '@/components/basement/BasementComponent.vue'
 
 interface Discount {

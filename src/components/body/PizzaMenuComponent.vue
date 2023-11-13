@@ -6,7 +6,7 @@
       </div>
       <h2>{{ pizza.name }}</h2>
       <p v-if="pizza.price">${{ pizza.price.toFixed(2) }}</p>
-      <button v-if="pizza.buttonText">{{ pizza.buttonText }}</button>
+      <button v-if="pizza.buttonText" @click="addToOrder(pizza)">{{ pizza.buttonText }}</button>
     </div>
   </div>
 </template>
@@ -14,13 +14,20 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import type { PropType } from 'vue'
-
+import { addToGlobalOrder } from '@/views/HomeComponent.vue'
+import emitter from '@/funcs/eventBus'
 export default defineComponent({
   name: 'PizzaMenuComponent',
   props: {
     pizzas: {
       type: Array as PropType<{ image: string; name: string; price: number; buttonText: string }[]>,
       required: true
+    }
+  },
+  methods: {
+    addToOrder(pizza: { image: string; name: string; price: number; buttonText: string }) {
+      emitter.emit('button-clicked')
+      addToGlobalOrder(pizza)
     }
   }
 })

@@ -8,8 +8,9 @@
 </template>
 
 <script lang="ts">
+import { reactive } from 'vue'
 import { defineComponent, ref } from 'vue'
-import HeaderComponent from '@/components/HeaderComponent.vue'
+import HeaderComponent from '@/components/header/HeaderComponent.vue'
 import BasementComponent from '@/components/basement/BasementComponent.vue'
 import PizzaMenuComponent from '@/components/body/PizzaMenuComponent.vue'
 import SlideComponent from '@/components/body/SlideComponent.vue'
@@ -18,12 +19,46 @@ interface Slide {
   image: string
   alt: string
 }
+interface Promo {
+  id: number
+  code: string
+  discountOnInt?: number
+  discountOnPresent?: number
+}
 
-interface Pizza {
+export interface Pizza {
+  id: number
   image: string
   name: string
   price: number
   buttonText: string
+  quantity?: number
+}
+
+interface GlobalState {
+  orders: Pizza[]
+}
+
+export const globalState: GlobalState = reactive({
+  orders: []
+})
+
+export function addToGlobalOrder(pizza: {
+  image: string
+  name: string
+  price: number
+  buttonText: string
+}): void {
+  const existingPizzaIndex = globalState.orders.findIndex(
+    (orderPizza) => orderPizza.name === pizza.name
+  )
+
+  if (existingPizzaIndex !== -1) {
+    globalState.orders[existingPizzaIndex].quantity =
+      (globalState.orders[existingPizzaIndex].quantity ?? 0) + 1
+  } else {
+    globalState.orders.push({ id: 0, ...pizza, quantity: 1 })
+  }
 }
 
 export default defineComponent({
@@ -35,6 +70,19 @@ export default defineComponent({
     SlideComponent
   },
   setup() {
+    const promoData = ref<Promo[]>([
+      {
+        id: 1,
+        code: 'promofree',
+        discountOnPresent: 20
+      },
+      {
+        id: 2,
+        code: 'promotrue',
+        discountOnPresent: 50
+      }
+    ])
+
     const slidesData = ref<Slide[]>([
       { image: '/assets/discounts/pudge1.jpg', alt: 'Описание 1' },
       { image: '/assets/discounts/pudge2.jpeg', alt: 'Описание 2' },
@@ -43,48 +91,56 @@ export default defineComponent({
 
     const pizzasData = ref<Pizza[]>([
       {
+        id: 1,
         image: '/assets/discounts/pizza1.jpeg',
         name: 'Грибная',
         price: 245,
         buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
       },
       {
+        id: 2,
         image: '/assets/discounts/pizza2.jpeg',
-        name: 'Грибная',
+        name: 'Не Грибная',
         price: 245,
         buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
       },
       {
+        id: 3,
         image: '/assets/discounts/pizza2.jpeg',
-        name: 'Грибная',
+        name: 'СуперГрибная',
         price: 245,
         buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
       },
       {
+        id: 4,
         image: '/assets/discounts/pizza2.jpeg',
-        name: 'Грибная',
+        name: 'ПолуГрибная',
         price: 245,
         buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
       },
       {
+        id: 5,
         image: '/assets/discounts/pizza2.jpeg',
-        name: 'Грибная',
+        name: 'Такая но не Грибная',
         price: 245,
         buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
       },
       {
+        id: 6,
         image: '/assets/discounts/pizza2.jpeg',
-        name: 'Грибная',
+        name: 'ОмагадГрибная',
         price: 245,
         buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
       },
       {
+        id: 7,
         image: '/assets/discounts/pizza2.jpeg',
         name: 'Грибная',
-        price: 245,
+        price: 250,
         buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
       },
       {
+        id: 8,
         image: '/assets/discounts/pizza2.jpeg',
         name: 'Грибная',
         price: 245,
@@ -94,7 +150,8 @@ export default defineComponent({
 
     return {
       slidesData,
-      pizzasData
+      pizzasData,
+      promoData
     }
   }
 })

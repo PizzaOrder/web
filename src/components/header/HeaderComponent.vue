@@ -3,30 +3,35 @@
     <header class="header">
       <div class="header-content">
         <div class="container">
-          <img class="gps" src="../../assets/img/gps.svg" />
+          <img class="gps" src="../../../assets/img/gps.svg" />
           <select v-model="cityName" @change="changeCity" class="city-select">
             <option v-for="city in cities" :key="city">{{ city }}</option>
           </select>
         </div>
-        <div class="container">
-          <img class="time" src="../../assets/img/time.svg" />
+        <div class="container phonenum">
+          <img class="time" src="../../../assets/img/time.svg" />
           с {{ openingTime }} до {{ closingTime }}
         </div>
-        <div class="container">
-          <img class="phone" src="../../assets/img/phone.svg" />
+        <div class="container phonenum">
+          <img class="phone" src="../../../assets/img/phone.svg" />
           {{ number }}
         </div>
       </div>
       <div class="menu-actions white-backgorund">
         <router-link to="/" class="menu style-head style-head router-link-exact-active"
-          >Меню</router-link
-        >
+          >Меню
+        </router-link>
         <router-link to="/discount" class="actions style-head router-link-exact-active"
-          >Акции</router-link
+          >Акции
+        </router-link>
+        <router-link to="/contact" class="contacts style-head router-link-exact-active"
+          >Контакты</router-link
         >
-        <span class="contacts style-head">Контакты</span>
-        <span class="cart style-head">
-          <img src="../../assets/img/cart.svg" class="cart-icon" />Корзина
+
+        <span class="cart">
+          <img src="../../../assets/img/cart.svg" class="cart-icon" />
+          <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
+          <router-link to="/cart" class="style-head router-link-exact-active">Корзина</router-link>
         </span>
       </div>
     </header>
@@ -34,6 +39,16 @@
 </template>
 
 <style scoped>
+.cart-indicator {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  top: 45px;
+  right: 150px;
+}
+
 .city-panel {
   z-index: 999;
   position: fixed;
@@ -85,6 +100,7 @@
   font-size: 25px;
   font-weight: bold;
   margin-left: auto;
+  user-select: none;
 }
 
 .cart-icon {
@@ -96,14 +112,18 @@
 .menu-actions {
   display: flex;
   align-items: center;
+  user-select: none;
 }
+
 .gray-background {
   background-color: rgb(220, 220, 220);
   padding: 5px;
 }
+
 .white-backgorund {
   background-color: #f0f0f0;
 }
+
 .menu {
   margin-left: 200px;
   margin-right: 20px;
@@ -111,6 +131,12 @@
   font-weight: bold;
   width: 120px;
   text-align: center;
+  user-select: none;
+}
+
+.mail {
+  width: 25px;
+  height: 25px;
 }
 
 .actions {
@@ -120,6 +146,7 @@
   font-weight: bold;
   width: 120px;
   text-align: center;
+  user-select: none;
 }
 
 .contacts {
@@ -129,6 +156,7 @@
   font-weight: bold;
   width: 120px;
   text-align: center;
+  user-select: none;
 }
 
 .container {
@@ -153,6 +181,10 @@
   height: 20px;
   width: 20px;
   margin-right: 5px;
+  user-select: none;
+}
+.phonenum {
+  user-select: none;
 }
 
 .city-select {
@@ -166,33 +198,78 @@
   background-color: #fff;
   color: #333;
 }
+
 .router-link-exact-active {
   text-decoration: none;
 }
+
+.contacts-popover {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ff5733;
+  color: #fff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  user-select: none;
+}
 </style>
 
-<script>
-import { ref } from 'vue'
-
+<script lang="ts">
+import { ref, onMounted, computed } from 'vue'
+import emitter from '@/funcs/eventBus'
+import { globalState } from '@/views/HomeComponent.vue'
 export default {
   setup() {
     const cityName = ref('Ярославль')
     const openingTime = ref('9:00')
     const closingTime = ref('23:00')
     const number = ref('8 (800) 555-35-35')
-    const cities = ['Ярославль', 'Москва', 'Санкт-Петербург', 'Казань']
+    const email = ref('oleg@bebra.com')
+    const showContacts = ref(false)
+    const vkProfileUrl = ref('https://vk.com/id389649410')
+    const cities = ref(['Ярославль', 'Москва', 'Санкт-Петербург', 'Казань'])
+    const showCartIndicator = ref(false)
 
-    const changeCity = (event) => {
-      cityName.value = event.target.value
+    const changeCity = (event: Event) => {
+      const target = event.target as HTMLSelectElement
+      cityName.value = target.value
+      localStorage.setItem('selectedCity', cityName.value)
     }
+    const hasItemsInCart = computed(() => {
+      return globalState.orders.length > 0
+    })
 
+    const toggleContacts = () => {
+      showContacts.value = !showContacts.value
+    }
+    emitter.on('button-clicked', () => {
+      showCartIndicator.value = true
+    })
+
+    onMounted(() => {
+      const savedCity = localStorage.getItem('selectedCity')
+      if (savedCity && cities.value.includes(savedCity)) {
+        cityName.value = savedCity
+      }
+    })
     return {
       cityName,
       openingTime,
       closingTime,
       number,
+      email,
+      showContacts,
       cities,
-      changeCity
+      changeCity,
+      toggleContacts,
+      vkProfileUrl,
+      showCartIndicator,
+      hasItemsInCart
     }
   }
 }
