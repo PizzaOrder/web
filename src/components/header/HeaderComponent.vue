@@ -183,10 +183,9 @@
   margin-right: 5px;
   user-select: none;
 }
-.phonenum{
+.phonenum {
   user-select: none;
 }
-
 
 .city-select {
   border: 1px solid #ccc;

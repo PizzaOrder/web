@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { defineComponent } from 'vue'
 import HeaderComponent from '@/components/header/HeaderComponent.vue'
 import CartComponent from '@/components/body/CartComponent.vue'
-import BasementComponent from '@/components/basement/BasementComponent.vue'
 interface Promo {
   id: number
   code: string
@@ -14,9 +13,7 @@ interface Promo {
 export default defineComponent({
   components: {
     HeaderComponent,
-    CartComponent,
-    BasementComponent
-
+    CartComponent
   },
   setup() {
     const promoData = ref<Promo[]>([
@@ -48,5 +45,4 @@ export default defineComponent({
 .Cart {
   margin-top: 110px;
 }
-
 </style>
