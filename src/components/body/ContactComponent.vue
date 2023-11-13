@@ -1,7 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>привет</div>
+  <div>
+
+  </div>
 </template>
 
 <style scoped></style>

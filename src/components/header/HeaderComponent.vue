@@ -8,11 +8,11 @@
             <option v-for="city in cities" :key="city">{{ city }}</option>
           </select>
         </div>
-        <div class="container">
+        <div class="container phonenum">
           <img class="time" src="../../../assets/img/time.svg" />
           с {{ openingTime }} до {{ closingTime }}
         </div>
-        <div class="container">
+        <div class="container phonenum">
           <img class="phone" src="../../../assets/img/phone.svg" />
           {{ number }}
         </div>
@@ -181,7 +181,12 @@
   height: 20px;
   width: 20px;
   margin-right: 5px;
+  user-select: none;
 }
+.phonenum{
+  user-select: none;
+}
+
 
 .city-select {
   border: 1px solid #ccc;
