@@ -25,7 +25,7 @@
           >Акции
         </router-link>
         <router-link to="/contact" class="contacts style-head router-link-exact-active"
-          >Контакты</router-link
+          >О компании</router-link
         >
 
         <span class="cart">
