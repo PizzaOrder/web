@@ -1,6 +1,9 @@
 <template>
   <div class="text">
-    <h1>История "ПиццанПацан": Дуэт Димы и Миши против Мистера Карпенко</h1>
+    <h1>
+      История "ПиццанПацан": Дуэт Димы и Миши <br>
+      <span class="centered-text">против Мистера Карпенко</span>
+    </h1>
 
     <div v-html="storyText1"></div>
     <img
@@ -61,8 +64,33 @@ export default defineComponent({
   margin-left: 20%;
   margin-right: auto;
 }
+h1 {
+  text-align: center;
+}
+
+.centered-text {
+  display: inline-block;
+}
+.centered-text:hover {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(5px); }
+  0% { background-color: transparent; color: inherit; }
+  25% { background-color: #FF4500; color: #FFF; }
+  50% { background-color: transparent; color: inherit; }
+  75% { background-color: #FF4500; color: #FFF; }
+  100% { background-color: transparent; color: inherit; }
+}
 
 .text {
-  font-size: 30px;
+  font-size: 25px;
 }
 </style>

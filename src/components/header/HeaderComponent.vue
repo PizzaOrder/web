@@ -14,7 +14,7 @@
         </div>
         <div class="container phonenum">
           <img class="phone" src="../../../assets/img/phone.svg" />
-          {{ number }}
+          <a :href="'tel:' + number" class="phone-link">{{ number }}</a>
         </div>
       </div>
       <div class="menu-actions white-backgorund">
@@ -39,6 +39,19 @@
 </template>
 
 <style scoped>
+.phone-link {
+  text-decoration: none;
+  color: #000;
+  transition: color 0.3s;
+}
+
+.phone-link:hover {
+  color: #ff5733;
+}
+
+
+
+
 .cart-indicator {
   width: 10px;
   height: 10px;
