@@ -42,7 +42,6 @@ interface GlobalState {
   orders: Pizza[]
 }
 
-
 export const globalState: GlobalState = reactive({
   orders: []
 })
@@ -74,9 +73,7 @@ export default defineComponent({
     PizzaMenuComponent,
     SlideComponent
   },
-  computed: {
-
-  },
+  computed: {},
   setup() {
     const promoData = ref<Promo[]>([
       {

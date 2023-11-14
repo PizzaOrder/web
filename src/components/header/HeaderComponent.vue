@@ -30,9 +30,14 @@
 
         <span class="cart">
           <router-link to="/cart">
-              <img src="../../../assets/img/cart.svg" class="cart-icon" />
+            <img src="../../../assets/img/cart.svg" class="cart-icon" />
           </router-link>
-          <span v-if="totalPizzasInOrder > 0" class='count' :class="{ 'large-font': totalPizzasInOrder < 10, 'small-font': totalPizzasInOrder > 9 }">{{totalPizzasInOrder}}</span>
+          <span
+            v-if="totalPizzasInOrder > 0"
+            class="count"
+            :class="{ 'large-font': totalPizzasInOrder < 10, 'small-font': totalPizzasInOrder > 9 }"
+            >{{ totalPizzasInOrder }}</span
+          >
           <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
           <router-link to="/cart" class="style-head router-link-exact-active">Корзина </router-link>
         </span>
@@ -41,55 +46,50 @@
   </div>
 </template>
 
-
 <script lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import emitter from '@/funcs/eventBus'
 import { globalState } from '@/views/HomeComponent.vue'
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'total',
-  props: {
-  },
-  setup(props) {
-
-    const cityName = ref('Ярославль');
-    const openingTime = ref('9:00');
-    const closingTime = ref('23:00');
-    const number = ref('8 (800) 555-35-35');
-    const email = ref('oleg@bebra.com');
-    const showContacts = ref(false);
-    const vkProfileUrl = ref('https://vk.com/id389649410');
-    const cities = ref(['Ярославль', 'Москва', 'Санкт-Петербург', 'Казань']);
-    const showCartIndicator = ref(false);
+  setup() {
+    const cityName = ref('Ярославль')
+    const openingTime = ref('9:00')
+    const closingTime = ref('23:00')
+    const number = ref('8 (800) 555-35-35')
+    const email = ref('oleg@bebra.com')
+    const showContacts = ref(false)
+    const vkProfileUrl = ref('https://vk.com/id389649410')
+    const cities = ref(['Ярославль', 'Москва', 'Санкт-Петербург', 'Казань'])
+    const showCartIndicator = ref(false)
     const changeCity = (event: Event) => {
-      const target = event.target as HTMLSelectElement;
-      cityName.value = target.value;
-      localStorage.setItem('selectedCity', cityName.value);
-    };
+      const target = event.target as HTMLSelectElement
+      cityName.value = target.value
+      localStorage.setItem('selectedCity', cityName.value)
+    }
 
     const hasItemsInCart = computed(() => {
-      return globalState.orders.length > 0;
-    });
+      return globalState.orders.length > 0
+    })
 
     const toggleContacts = () => {
-      showContacts.value = !showContacts.value;
-    };
+      showContacts.value = !showContacts.value
+    }
 
     emitter.on('button-clicked', () => {
-      showCartIndicator.value = true;
-    });
+      showCartIndicator.value = true
+    })
     const totalPizzasInOrder = computed(() => {
-      return globalState.orders.reduce((total, pizza) => total + (pizza.quantity || 0), 0);
-    });
+      return globalState.orders.reduce((total, pizza) => total + (pizza.quantity || 0), 0)
+    })
 
     onMounted(() => {
-      const savedCity = localStorage.getItem('selectedCity');
+      const savedCity = localStorage.getItem('selectedCity')
       if (savedCity && cities.value.includes(savedCity)) {
-        cityName.value = savedCity;
+        cityName.value = savedCity
       }
-    });
+    })
 
     return {
       cityName,
@@ -105,10 +105,9 @@ export default defineComponent({
       showCartIndicator,
       hasItemsInCart,
       totalPizzasInOrder
-
-    };
+    }
   }
-});
+})
 </script>
 
 <style scoped>
@@ -142,15 +141,14 @@ export default defineComponent({
   padding: 10px;
   background-color: #f0f0f0;
 }
-.count{
+.count {
   color: #fff;
   z-index: 1001;
   margin-bottom: 35px;
   font-size: 15px;
-
 }
 
-.small-font{
+.small-font {
   margin-bottom: 38px;
   font-size: 10px;
 }

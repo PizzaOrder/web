@@ -110,7 +110,6 @@ button:focus {
   outline: none;
 }
 
-
 .pizza-card::before {
   content: '';
   position: absolute;
@@ -128,7 +127,6 @@ button:focus {
 .pizza-card:hover::before {
   border-color: #ff5733;
 }
-
 
 @media (min-width: 768px) {
   .pizza-card {
