@@ -17,7 +17,7 @@
           <span><input type="number" id="stage" placeholder="Этаж" /></span>
         </p>
         <p>
-          <span><input type="number" id="num" placeholder="88005553535" /></span>
+          <span><input type="number" id="num" placeholder="8 (800) 555-35-35" /></span>
           <span><input type="text" id="name" placeholder="Введите ваше имя" /></span>
         </p>
       </div>
