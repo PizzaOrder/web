@@ -1,13 +1,31 @@
-<script setup lang="ts">
+<script lang="ts">
 import HeaderComponent from '@/components/header/HeaderComponent.vue'
-import ContactComponent from '@/components/body/ContactComponent.vue'
 import BasementComponent from '@/components/basement/BasementComponent.vue'
+import ScrollToTopButton from '@/components/body/ScrollToTopButton.vue'
+import ContactComponent from '@/components/body/ContactComponent.vue'
+import { defineComponent } from 'vue'
+export default defineComponent({
+  components: {
+    ScrollToTopButton,
+    HeaderComponent,
+    ContactComponent,
+    BasementComponent,
+
+  },
+  setup() {
+    return {}
+  }
+})
 </script>
 
+
 <template>
-  <div><HeaderComponent /></div>
-  <div class="Contact"><ContactComponent /></div>
-  <div><BasementComponent /></div>
+  <div>
+    <HeaderComponent />
+    <div class="Contact"><ContactComponent /></div>
+    <BasementComponent />
+    <ScrollToTopButton />
+  </div>
 </template>
 
 <style scoped>

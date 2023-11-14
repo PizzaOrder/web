@@ -1,9 +1,12 @@
 <template>
   <div>
+    <ScrollToTopButton/>
     <HeaderComponent />
     <SlideComponent :slides="slidesData" />
     <PizzaMenuComponent :pizzas="pizzasData" />
+    <ScrollToTopButton/>
     <BasementComponent />
+
   </div>
 </template>
 
@@ -14,6 +17,7 @@ import HeaderComponent from '@/components/header/HeaderComponent.vue'
 import BasementComponent from '@/components/basement/BasementComponent.vue'
 import PizzaMenuComponent from '@/components/body/PizzaMenuComponent.vue'
 import SlideComponent from '@/components/body/SlideComponent.vue'
+import ScrollToTopButton from '@/components/body/ScrollToTopButton.vue'
 
 interface Slide {
   image: string
@@ -64,6 +68,7 @@ export function addToGlobalOrder(pizza: {
 export default defineComponent({
   name: 'MainComponent',
   components: {
+    ScrollToTopButton,
     HeaderComponent,
     BasementComponent,
     PizzaMenuComponent,
