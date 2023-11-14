@@ -29,7 +29,7 @@
         >
 
         <span class="cart">
-          <img src="../../../assets/img/cart.svg" class="cart-icon" />
+          <router-link to="/cart" ><img src="../../../assets/img/cart.svg" class="cart-icon" /></router-link>
           <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
           <router-link to="/cart" class="style-head router-link-exact-active">Корзина</router-link>
         </span>
