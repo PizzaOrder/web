@@ -29,6 +29,7 @@ export default defineComponent({
     addToOrder(pizza: { image: string; name: string; price: number; buttonText: string }) {
       emitter.emit('button-clicked')
       addToGlobalOrder(pizza)
+
     }
   }
 })
@@ -56,6 +57,7 @@ export default defineComponent({
   text-align: center;
   transform: translateY(0);
   transition: transform 0.3s;
+  position: relative;
 }
 
 .pizza-card:hover {
@@ -90,7 +92,23 @@ button {
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+.pizza-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  transition: border-color 0.3s;
+  pointer-events: none;
+  box-sizing: border-box;
+}
 
+.pizza-card:hover::before {
+  border-color: #ff5733;
+}
 button:hover {
   background-color: #ff6f4d;
   transform: translateY(-2px);
