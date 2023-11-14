@@ -16,6 +16,7 @@ import { defineComponent } from 'vue'
 import type { PropType } from 'vue'
 import { addToGlobalOrder } from '@/views/HomeComponent.vue'
 import emitter from '@/funcs/eventBus'
+
 export default defineComponent({
   name: 'PizzaMenuComponent',
   props: {
@@ -53,6 +54,12 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   text-align: center;
+  transform: translateY(0);
+  transition: transform 0.3s;
+}
+
+.pizza-card:hover {
+  transform: translateY(-5px);
 }
 
 .pizza-image-wrapper {
@@ -78,9 +85,7 @@ button {
   background-color: #ff5733;
   color: #fff;
   cursor: pointer;
-  transition:
-    background-color 0.3s,
-    transform 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
   border-radius: 5px;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
