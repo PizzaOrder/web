@@ -9,15 +9,13 @@ export default defineComponent({
     ScrollToTopButton,
     HeaderComponent,
     ContactComponent,
-    BasementComponent,
-
+    BasementComponent
   },
   setup() {
     return {}
   }
 })
 </script>
-
 
 <template>
   <div>

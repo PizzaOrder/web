@@ -1,39 +1,37 @@
 <template>
-  <button @click="scrollToTop" v-show="isVisible" class="scrollToTopBtn">
-    &#9650;
-  </button>
+  <button @click="scrollToTop" v-show="isVisible" class="scrollToTopBtn">&#9650;</button>
 </template>
 
 <script lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 export default {
   name: 'ScrollToTopButton',
   setup() {
-    const isVisible = ref(false);
+    const isVisible = ref(false)
 
     const handleScroll = () => {
-      isVisible.value = window.scrollY > 20;
-    };
+      isVisible.value = window.scrollY > 20
+    }
 
     const scrollToTop = () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
 
     onMounted(() => {
-      window.addEventListener('scroll', handleScroll);
-    });
+      window.addEventListener('scroll', handleScroll)
+    })
 
     onBeforeUnmount(() => {
-      window.removeEventListener('scroll', handleScroll);
-    });
+      window.removeEventListener('scroll', handleScroll)
+    })
 
     return {
       isVisible,
-      scrollToTop,
-    };
-  },
-};
+      scrollToTop
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -46,7 +44,9 @@ export default {
   background-color: #ff5733; /* Изменено на ваш оранжевый цвет */
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
   border-radius: 5px;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);

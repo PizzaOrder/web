@@ -1,12 +1,11 @@
 <template>
   <div>
-    <ScrollToTopButton/>
+    <ScrollToTopButton />
     <HeaderComponent />
     <SlideComponent :slides="slidesData" />
     <PizzaMenuComponent :pizzas="pizzasData" />
-    <ScrollToTopButton/>
+    <ScrollToTopButton />
     <BasementComponent />
-
   </div>
 </template>
 

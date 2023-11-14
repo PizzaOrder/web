@@ -8,7 +8,7 @@
   <div class="Basement">
     <BasementComponent />
   </div>
-  <div><ScrollToTopButton/></div>
+  <div><ScrollToTopButton /></div>
 </template>
 
 <script lang="ts">

@@ -29,7 +29,6 @@ export default defineComponent({
     addToOrder(pizza: { image: string; name: string; price: number; buttonText: string }) {
       emitter.emit('button-clicked')
       addToGlobalOrder(pizza)
-
     }
   }
 })
@@ -87,13 +86,15 @@ button {
   background-color: #ff5733;
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
   border-radius: 5px;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 .pizza-card::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   right: 0;

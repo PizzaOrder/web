@@ -49,9 +49,6 @@
   color: #ff5733;
 }
 
-
-
-
 .cart-indicator {
   width: 10px;
   height: 10px;

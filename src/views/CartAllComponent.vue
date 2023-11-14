@@ -15,7 +15,7 @@ export default defineComponent({
   components: {
     ScrollToTopButton,
     HeaderComponent,
-    CartComponent,
+    CartComponent
   },
   setup() {
     const promoData = ref<Promo[]>([
@@ -41,7 +41,7 @@ export default defineComponent({
 <template>
   <div><HeaderComponent /></div>
   <div class="Cart"><CartComponent :promes="promoData" /></div>
-  <div><ScrollToTopButton/></div>
+  <div><ScrollToTopButton /></div>
 </template>
 
 <style scoped>
