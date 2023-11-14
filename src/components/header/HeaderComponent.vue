@@ -29,14 +29,87 @@
         >
 
         <span class="cart">
-          <router-link to="/cart" ><img src="../../../assets/img/cart.svg" class="cart-icon" /></router-link>
+          <router-link to="/cart">
+              <img src="../../../assets/img/cart.svg" class="cart-icon" />
+          </router-link>
+          <span v-if="totalPizzasInOrder > 0" class='count' :class="{ 'large-font': totalPizzasInOrder < 10, 'small-font': totalPizzasInOrder > 9 }">{{totalPizzasInOrder}}</span>
           <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
-          <router-link to="/cart" class="style-head router-link-exact-active">Корзина</router-link>
+          <router-link to="/cart" class="style-head router-link-exact-active">Корзина </router-link>
         </span>
       </div>
     </header>
   </div>
 </template>
+
+
+<script lang="ts">
+import { ref, onMounted, computed } from 'vue'
+import emitter from '@/funcs/eventBus'
+import { globalState } from '@/views/HomeComponent.vue'
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'total',
+  props: {
+  },
+  setup(props) {
+
+    const cityName = ref('Ярославль');
+    const openingTime = ref('9:00');
+    const closingTime = ref('23:00');
+    const number = ref('8 (800) 555-35-35');
+    const email = ref('oleg@bebra.com');
+    const showContacts = ref(false);
+    const vkProfileUrl = ref('https://vk.com/id389649410');
+    const cities = ref(['Ярославль', 'Москва', 'Санкт-Петербург', 'Казань']);
+    const showCartIndicator = ref(false);
+    const changeCity = (event: Event) => {
+      const target = event.target as HTMLSelectElement;
+      cityName.value = target.value;
+      localStorage.setItem('selectedCity', cityName.value);
+    };
+
+    const hasItemsInCart = computed(() => {
+      return globalState.orders.length > 0;
+    });
+
+    const toggleContacts = () => {
+      showContacts.value = !showContacts.value;
+    };
+
+    emitter.on('button-clicked', () => {
+      showCartIndicator.value = true;
+    });
+    const totalPizzasInOrder = computed(() => {
+      return globalState.orders.reduce((total, pizza) => total + (pizza.quantity || 0), 0);
+    });
+
+    onMounted(() => {
+      const savedCity = localStorage.getItem('selectedCity');
+      if (savedCity && cities.value.includes(savedCity)) {
+        cityName.value = savedCity;
+      }
+    });
+
+    return {
+      cityName,
+      openingTime,
+      closingTime,
+      number,
+      email,
+      showContacts,
+      cities,
+      changeCity,
+      toggleContacts,
+      vkProfileUrl,
+      showCartIndicator,
+      hasItemsInCart,
+      totalPizzasInOrder
+
+    };
+  }
+});
+</script>
 
 <style scoped>
 .phone-link {
@@ -50,13 +123,14 @@
 }
 
 .cart-indicator {
-  width: 10px;
-  height: 10px;
+  z-index: 1000;
+  width: 18px;
+  height: 18px;
   background-color: red;
   border-radius: 50%;
   position: absolute;
-  top: 45px;
-  right: 150px;
+  top: 41px;
+  right: 146.8px;
 }
 
 .city-panel {
@@ -67,6 +141,18 @@
   right: 0;
   padding: 10px;
   background-color: #f0f0f0;
+}
+.count{
+  color: #fff;
+  z-index: 1001;
+  margin-bottom: 35px;
+  font-size: 15px;
+
+}
+
+.small-font{
+  margin-bottom: 38px;
+  font-size: 10px;
 }
 
 .header-content {
@@ -114,8 +200,8 @@
 }
 
 .cart-icon {
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
   margin-right: 5px;
 }
 
@@ -228,59 +314,3 @@
   user-select: none;
 }
 </style>
-
-<script lang="ts">
-import { ref, onMounted, computed } from 'vue'
-import emitter from '@/funcs/eventBus'
-import { globalState } from '@/views/HomeComponent.vue'
-export default {
-  setup() {
-    const cityName = ref('Ярославль')
-    const openingTime = ref('9:00')
-    const closingTime = ref('23:00')
-    const number = ref('8 (800) 555-35-35')
-    const email = ref('oleg@bebra.com')
-    const showContacts = ref(false)
-    const vkProfileUrl = ref('https://vk.com/id389649410')
-    const cities = ref(['Ярославль', 'Москва', 'Санкт-Петербург', 'Казань'])
-    const showCartIndicator = ref(false)
-
-    const changeCity = (event: Event) => {
-      const target = event.target as HTMLSelectElement
-      cityName.value = target.value
-      localStorage.setItem('selectedCity', cityName.value)
-    }
-    const hasItemsInCart = computed(() => {
-      return globalState.orders.length > 0
-    })
-
-    const toggleContacts = () => {
-      showContacts.value = !showContacts.value
-    }
-    emitter.on('button-clicked', () => {
-      showCartIndicator.value = true
-    })
-
-    onMounted(() => {
-      const savedCity = localStorage.getItem('selectedCity')
-      if (savedCity && cities.value.includes(savedCity)) {
-        cityName.value = savedCity
-      }
-    })
-    return {
-      cityName,
-      openingTime,
-      closingTime,
-      number,
-      email,
-      showContacts,
-      cities,
-      changeCity,
-      toggleContacts,
-      vkProfileUrl,
-      showCartIndicator,
-      hasItemsInCart
-    }
-  }
-}
-</script>
