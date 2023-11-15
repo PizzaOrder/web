@@ -38,11 +38,7 @@
             :class="{ 'large-font': totalPizzasInOrder < 10, 'small-font': totalPizzasInOrder > 9 }"
             >{{ totalPizzasInOrder }}</span
           >
-          <span
-            v-if="totalPizzasInOrder>99"
-            class="count very-small-font "
-          >99+
-          </span>
+          <span v-if="totalPizzasInOrder > 99" class="count very-small-font">99+ </span>
           <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
           <router-link to="/cart" class="style-head router-link-exact-active">Корзина </router-link>
         </span>
@@ -157,13 +153,11 @@ export default defineComponent({
   margin-bottom: 38px;
   font-size: 10px;
 }
-.very-small-font{
+.very-small-font {
   font-size: 10px;
   position: relative;
   left: 5px;
 }
-
-
 
 .header-content {
   font-family: Arial, sans-serif;
