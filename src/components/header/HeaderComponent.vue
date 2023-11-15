@@ -33,11 +33,16 @@
             <img src="../../../assets/img/cart.svg" class="cart-icon" />
           </router-link>
           <span
-            v-if="totalPizzasInOrder > 0"
+            v-if="totalPizzasInOrder > 0 && totalPizzasInOrder < 100"
             class="count"
             :class="{ 'large-font': totalPizzasInOrder < 10, 'small-font': totalPizzasInOrder > 9 }"
             >{{ totalPizzasInOrder }}</span
           >
+          <span
+            v-if="totalPizzasInOrder>99"
+            class="count very-small-font "
+          >99+
+          </span>
           <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
           <router-link to="/cart" class="style-head router-link-exact-active">Корзина </router-link>
         </span>
@@ -152,6 +157,13 @@ export default defineComponent({
   margin-bottom: 38px;
   font-size: 10px;
 }
+.very-small-font{
+  font-size: 10px;
+  position: relative;
+  left: 5px;
+}
+
+
 
 .header-content {
   font-family: Arial, sans-serif;
