@@ -154,7 +154,6 @@ export default defineComponent({
   position: relative;
   left: 0.9px;
   bottom: 0.9px;
-
 }
 .very-small-font {
   font-size: 10px;
