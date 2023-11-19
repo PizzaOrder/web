@@ -1,13 +1,10 @@
-
-
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
 import type { PropType } from 'vue'
 import { globalState } from '@/views/HomeComponent.vue'
-import { vMaska } from "maska"
+import { vMaska } from 'maska'
 
 export default defineComponent({
-
   name: 'OrdersComponent',
   props: {
     promes: {
@@ -17,7 +14,6 @@ export default defineComponent({
   },
   directives: { maska: vMaska },
   setup(props) {
-
     const showHome = ref(false)
     const promoCode = ref('')
     const promoCodeValid = ref<boolean | null>(null)
@@ -132,7 +128,7 @@ export default defineComponent({
         <button class="style-head" @click="toggleHome">Доставка на дом</button>
       </div>
 
-      <div v-if="showHome" class='rounded-frame'>
+      <div v-if="showHome" class="rounded-frame">
         <p><input type="text" id="street" placeholder="Например: улица Бебр, 1" /></p>
         <p>
           <span><input type="number" id="kvartira" placeholder="№ квартиры" /></span>
@@ -140,7 +136,13 @@ export default defineComponent({
           <span><input type="number" id="stage" placeholder="Этаж" /></span>
         </p>
         <p>
-          <span><input class='num' v-maska data-maska="+7 (###) ###-##-##" placeholder="+7 (800) 555-35-35" /></span>
+          <span
+            ><input
+              class="num"
+              v-maska
+              data-maska="+7 (###) ###-##-##"
+              placeholder="+7 (800) 555-35-35"
+          /></span>
           <span><input type="text" id="name" placeholder="Введите ваше имя" /></span>
         </p>
       </div>
@@ -268,7 +270,7 @@ export default defineComponent({
   background-color: #fff;
   border: 2px solid #ff5733;
 }
-.num{
+.num {
   padding: 5px;
   margin: 5px;
   border: 1px solid #ccc;
