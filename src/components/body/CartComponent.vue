@@ -1,86 +1,13 @@
-<template>
-  <div class="cart-container">
-    <p class="cart-name"><strong>Корзина</strong></p>
-    <div class="order-item" v-for="(order, index) in orders" :key="order.id">
-      <div class="order-details">
-        <img :src="order.image" alt="" />
-      </div>
-      <div class="order-info">
-        <table>
-          <tr>
-            <td>Название</td>
-            <td>{{ order.name }}</td>
-          </tr>
-          <tr>
-            <td>Цена</td>
-            <td>${{ order.price }}</td>
-          </tr>
-          <tr>
-            <td>Количество</td>
-            <td>
-              {{ order.quantity }}
-              <button class="increment-button" @click="incrementQuantity(index)">+</button>
-              <button class="decrement-button" @click="decrementQuantity(index)">-</button>
-            </td>
-          </tr>
-        </table>
-        <button class="button-buy" @click="deletePizza(index)">Удалить пиццу</button>
-      </div>
-    </div>
-    <div class="text">
-      Доставка: <strong>{{ city }}</strong>
-    </div>
-    <div class="cent">
-      <div class="cent-buttons">
-        <button class="style-head">Забрать самому</button>
-        <button class="style-head" @click="toggleHome">Доставка на дом</button>
-      </div>
 
-      <div v-if="showHome">
-        <p><input type="text" id="street" placeholder="Например: улица Бебр, 1" /></p>
-        <p>
-          <span><input type="number" id="kvartira" placeholder="№ квартиры" /></span>
-          <span><input type="number" id="podezd" placeholder="Подъезд" /></span>
-          <span><input type="number" id="stage" placeholder="Этаж" /></span>
-        </p>
-        <p>
-          <span><input type="number" id="num" placeholder="8 (800) 555-35-35" /></span>
-          <span><input type="text" id="name" placeholder="Введите ваше имя" /></span>
-        </p>
-      </div>
-    </div>
-
-    <div class="promo-code" style="text-align: center">
-      <div class="promo-input">
-        <input
-          type="text"
-          v-model="promoCode"
-          placeholder="Введите промокод"
-          style="margin: 5px auto; display: block"
-        />
-        <button class="button-buy" @click="applyPromoCode" style="margin: 5px auto; display: block">
-          Применить
-        </button>
-      </div>
-      <p v-if="promoCodeValid !== null">
-        <span v-if="promoCodeValid">Промокод применен: (Скидка: {{ discount }}%)</span>
-        <span v-else-if="promoCodeValid === false">Неверный промокод</span>
-      </p>
-    </div>
-
-    <div class="total-price">Общая сумма: ${{ totalPrice }}</div>
-    <div class="checkout">
-      <button class="button-buy">Оплатить</button>
-    </div>
-  </div>
-</template>
 
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
 import type { PropType } from 'vue'
 import { globalState } from '@/views/HomeComponent.vue'
+import { vMaska } from "maska"
 
 export default defineComponent({
+
   name: 'OrdersComponent',
   props: {
     promes: {
@@ -88,7 +15,9 @@ export default defineComponent({
       required: true
     }
   },
+  directives: { maska: vMaska },
   setup(props) {
+
     const showHome = ref(false)
     const promoCode = ref('')
     const promoCodeValid = ref<boolean | null>(null)
@@ -165,7 +94,82 @@ export default defineComponent({
   }
 })
 </script>
+<template>
+  <div class="cart-container">
+    <p class="cart-name"><strong>Корзина</strong></p>
+    <div class="order-item" v-for="(order, index) in orders" :key="order.id">
+      <div class="order-details">
+        <img :src="order.image" alt="" />
+      </div>
+      <div class="order-info">
+        <table>
+          <tr>
+            <td>Название</td>
+            <td>{{ order.name }}</td>
+          </tr>
+          <tr>
+            <td>Цена</td>
+            <td>${{ order.price }}</td>
+          </tr>
+          <tr>
+            <td>Количество</td>
+            <td>
+              {{ order.quantity }}
+              <button class="increment-button" @click="incrementQuantity(index)">+</button>
+              <button class="decrement-button" @click="decrementQuantity(index)">-</button>
+            </td>
+          </tr>
+        </table>
+        <button class="button-buy" @click="deletePizza(index)">Удалить позицию</button>
+      </div>
+    </div>
+    <div class="text">
+      Доставка: <strong>{{ city }}</strong>
+    </div>
+    <div class="cent">
+      <div class="cent-buttons">
+        <button class="style-head">Забрать самому</button>
+        <button class="style-head" @click="toggleHome">Доставка на дом</button>
+      </div>
 
+      <div v-if="showHome" class='rounded-frame'>
+        <p><input type="text" id="street" placeholder="Например: улица Бебр, 1" /></p>
+        <p>
+          <span><input type="number" id="kvartira" placeholder="№ квартиры" /></span>
+          <span><input type="number" id="podezd" placeholder="Подъезд" /></span>
+          <span><input type="number" id="stage" placeholder="Этаж" /></span>
+        </p>
+        <p>
+          <span><input class='num' v-maska data-maska="+7 (###) ###-##-##" placeholder="+7 (800) 555-35-35" /></span>
+          <span><input type="text" id="name" placeholder="Введите ваше имя" /></span>
+        </p>
+      </div>
+    </div>
+
+    <div class="promo-code" style="text-align: center">
+      <div class="promo-input">
+        <input
+          type="text"
+          v-model="promoCode"
+          placeholder="Введите промокод"
+          style="margin: 5px auto; display: block"
+        />
+        <button class="button-buy" @click="applyPromoCode" style="margin: 5px auto; display: block">
+          Применить
+        </button>
+      </div>
+      <p v-if="promoCodeValid !== null">
+        <span v-if="promoCodeValid">Промокод применен: (Скидка: {{ discount }}%)</span>
+        <span v-else-if="promoCodeValid === false">Неверный промокод</span>
+      </p>
+    </div>
+
+    <div class="total-price">Общая сумма: ${{ totalPrice }}</div>
+    <div class="checkout">
+      <button class="button-buy">Оплатить</button>
+    </div>
+  </div>
+</template>
 <style scoped>
 .cent {
   display: flex;
@@ -211,6 +215,14 @@ export default defineComponent({
     transform 0.3s;
   margin-right: 5px;
 }
+.rounded-frame {
+  border: 2px solid #ff5733;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+  margin: 0 auto;
+}
 
 .increment-button:hover {
   background-color: #ff634f;
@@ -221,7 +233,7 @@ export default defineComponent({
   width: 30px;
   height: 30px;
   border: none;
-  background-color: #ff8c7a;
+  background-color: #ff5733;
   color: #fff;
   font-size: 18px;
   font-weight: bold;
@@ -254,9 +266,15 @@ export default defineComponent({
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #fff;
-  border: 2px solid #ff5733; /* Изменение цвета обводки на оранжевый */
+  border: 2px solid #ff5733;
 }
-
+.num{
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  text-align: center;
+}
 .order-info table td {
   padding: 10px;
   border-bottom: 1px solid #eee;

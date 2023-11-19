@@ -4,7 +4,7 @@
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
-    "types": ["mitt"],
+    "types": ["mitt","maska"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
