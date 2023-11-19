@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { defineComponent } from 'vue'
 import HeaderComponent from '@/components/header/HeaderComponent.vue'
 import CartComponent from '@/components/body/CartComponent.vue'
+import ScrollToTopButton from '@/components/body/ScrollToTopButton.vue'
 interface Promo {
   id: number
   code: string
@@ -12,6 +13,7 @@ interface Promo {
 
 export default defineComponent({
   components: {
+    ScrollToTopButton,
     HeaderComponent,
     CartComponent
   },
@@ -39,6 +41,7 @@ export default defineComponent({
 <template>
   <div><HeaderComponent /></div>
   <div class="Cart"><CartComponent :promes="promoData" /></div>
+  <div><ScrollToTopButton /></div>
 </template>
 
 <style scoped>

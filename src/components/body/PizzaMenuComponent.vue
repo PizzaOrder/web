@@ -16,6 +16,7 @@ import { defineComponent } from 'vue'
 import type { PropType } from 'vue'
 import { addToGlobalOrder } from '@/views/HomeComponent.vue'
 import emitter from '@/funcs/eventBus'
+
 export default defineComponent({
   name: 'PizzaMenuComponent',
   props: {
@@ -53,6 +54,13 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   text-align: center;
+  transform: translateY(0);
+  transition: transform 0.3s;
+  position: relative;
+}
+
+.pizza-card:hover {
+  transform: translateY(-5px);
 }
 
 .pizza-image-wrapper {
@@ -73,27 +81,51 @@ export default defineComponent({
 
 button {
   margin-top: 10px;
-  padding: 8px 16px;
+  padding: 10px 20px;
   border: none;
-  background-color: #ff5733;
+  background-color: #ff6348;
   color: #fff;
   cursor: pointer;
   transition:
     background-color 0.3s,
-    transform 0.3s;
+    transform 0.3s,
+    box-shadow 0.3s;
   border-radius: 5px;
   font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(255, 99, 71, 0.3);
 }
 
 button:hover {
-  background-color: #ff6f4d;
-  transform: translateY(-2px);
+  background-color: #ff7d66;
+  transform: translateY(-4px);
 }
 
 button:active {
   transform: translateY(0);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(255, 99, 71, 0.3);
+  transform: scale(0.95);
+}
+
+button:focus {
+  outline: none;
+}
+
+.pizza-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  transition: border-color 0.3s;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.pizza-card:hover::before {
+  border-color: #ff5733;
 }
 
 @media (min-width: 768px) {

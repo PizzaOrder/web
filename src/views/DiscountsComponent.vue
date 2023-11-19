@@ -8,6 +8,7 @@
   <div class="Basement">
     <BasementComponent />
   </div>
+  <div><ScrollToTopButton /></div>
 </template>
 
 <script lang="ts">
@@ -15,7 +16,7 @@ import { defineComponent, ref } from 'vue'
 import DiscountMenuComponent from '@/components/body/DiscountMenuComponent.vue'
 import HeaderComponent from '@/components/header/HeaderComponent.vue'
 import BasementComponent from '@/components/basement/BasementComponent.vue'
-
+import ScrollToTopButton from '@/components/body/ScrollToTopButton.vue'
 interface Discount {
   image: string
   description: string
@@ -26,7 +27,8 @@ export default defineComponent({
   components: {
     DiscountMenuComponent,
     HeaderComponent,
-    BasementComponent
+    BasementComponent,
+    ScrollToTopButton
   },
   setup() {
     const discountesData = ref<Discount[]>([
