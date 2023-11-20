@@ -14,6 +14,7 @@ export default defineComponent({
   },
   directives: { maska: vMaska },
   setup(props) {
+
     const showHome = ref(false)
     const promoCode = ref('')
     const promoCodeValid = ref<boolean | null>(null)
@@ -131,9 +132,9 @@ export default defineComponent({
       <div v-if="showHome" class="rounded-frame">
         <p><input type="text" id="street" placeholder="Например: улица Бебр, 1" /></p>
         <p>
-          <span><input type="number" id="kvartira" placeholder="№ квартиры" /></span>
-          <span><input type="number" id="podezd" placeholder="Подъезд" /></span>
-          <span><input type="number" id="stage" placeholder="Этаж" /></span>
+          <span><input type="number" id="kvartira" class='raz' placeholder="№ квартиры"  /></span>
+          <span><input type="number" id="podezd" class='raz' placeholder="Подъезд"  /></span>
+          <span><input type="number" id="stage" class='raz' placeholder="Этаж"   /></span>
         </p>
         <p>
           <span
@@ -310,6 +311,12 @@ export default defineComponent({
   text-align: center;
   margin-top: 20px;
 }
+.raz {
+  -moz-appearance: textfield;
+}
+.raz::-webkit-inner-spin-button {
+  display: none;
+}
 .button-buy {
   display: inline-block;
   margin: 10px;
@@ -338,6 +345,7 @@ input[type='number'] {
   margin: 5px;
   border: 1px solid #ccc;
   border-radius: 3px;
+
   text-align: center;
 }
 
