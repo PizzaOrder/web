@@ -58,21 +58,43 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.img {
-  width: 600px;
-  object-fit: cover;
-  margin-left: 20%;
-  margin-right: auto;
+@media (max-width: 800px) {
+  h1{
+    margin-top: 150px;
+    text-align: center;
+  }
+  .text{
+    font-size: 18px;
+  }
+  .img{
+    width: 400px;
+    height: 400px;
+    margin-left: 15%;
+    margin-right: auto;
+
+
+  }
+
 }
-h1 {
-  text-align: center;
+@media (min-width: 800px) {
+  .img {
+    width: 600px;
+    object-fit: cover;
+    margin-left: 20%;
+    margin-right: auto;
+  }
+  h1 {
+    text-align: center;
+  }
+
+  .centered-text {
+    display: inline-block;
+  }
+
+  .text {
+    font-size: 25px;
+  }
+
 }
 
-.centered-text {
-  display: inline-block;
-}
-
-.text {
-  font-size: 25px;
-}
 </style>
