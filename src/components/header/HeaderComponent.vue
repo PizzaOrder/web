@@ -1,6 +1,37 @@
 <template>
   <div class="city-panel gray-background">
     <header class="header">
+      <div class="hamburger-menu">
+        <input id="menu__toggle" type="checkbox" />
+        <label class="menu__btn" for="menu__toggle">
+          <span></span>
+        </label>
+        <ul class="menu__box">
+          <span class="cart">
+          <router-link to="/cart">
+            <img src="../../../assets/img/cart.svg" class="cart-icon" />
+          </router-link>
+          <span
+            v-if="totalPizzasInOrder > 0 && totalPizzasInOrder < 100"
+            class="count"
+            :class="{ 'large-font': totalPizzasInOrder < 10, 'small-font': totalPizzasInOrder > 9 }"
+          >{{ totalPizzasInOrder }}</span
+          >
+          <span v-if="totalPizzasInOrder > 99" class="count very-small-font">99+ </span>
+          <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
+        </span>
+          <router-link to="/" class="actions style-head style-head router-link-exact-active"
+          >Меню
+          </router-link>
+          <router-link to="/discount" class="actions style-head router-link-exact-active"
+          >Акции
+          </router-link>
+          <router-link to="/contact" class="contacts style-head router-link-exact-active"
+          >О компании</router-link
+          >
+
+        </ul>
+      </div>
       <div class="header-content">
         <div class="container">
           <img class="gps" src="../../../assets/img/gps.svg" />
@@ -17,6 +48,8 @@
           <a :href="'tel:' + number" class="phone-link">{{ number }}</a>
         </div>
       </div>
+      <div class='small'>
+
       <div class="menu-actions white-backgorund">
         <router-link to="/" class="menu style-head style-head router-link-exact-active"
           >Меню
@@ -42,6 +75,7 @@
           <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
           <router-link to="/cart" class="style-head router-link-exact-active">Корзина </router-link>
         </span>
+      </div>
       </div>
     </header>
   </div>
@@ -112,6 +146,203 @@ export default defineComponent({
 </script>
 
 <style scoped>
+@media (min-width: 801px) {
+  .hamburger-menu {
+    display: none;
+  }
+  .cart-indicator {
+    z-index: 1000;
+    width: 18px;
+    height: 18px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 41px;
+    right: 146.8px;
+  }
+  .count {
+    color: #fff;
+    z-index: 1001;
+    margin-bottom: 35px;
+    font-size: 15px;
+  }
+  .small-font {
+    font-size: 10px;
+    position: relative;
+    left: 0.9px;
+    bottom: 0.9px;
+  }
+  .very-small-font {
+    font-size: 10px;
+    position: relative;
+    left: 5px;
+  }
+
+
+}
+@media (max-width: 800px) {
+
+  #menu__toggle {
+    opacity: 0;
+  }
+
+  #menu__toggle:checked ~ .menu__btn > span {
+    transform: rotate(45deg);
+  }
+  #menu__toggle:checked ~ .menu__btn > span::before {
+    top: 0;
+    transform: rotate(0);
+  }
+  #menu__toggle:checked ~ .menu__btn > span::after {
+    top: 0;
+    transform: rotate(90deg);
+  }
+  #menu__toggle:checked ~ .menu__box {
+    visibility: visible;
+    left: 0;
+  }
+
+  .menu__btn {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+
+    width: 26px;
+    height: 26px;
+
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .menu__btn > span,
+  .menu__btn > span::before,
+  .menu__btn > span::after {
+    display: block;
+    position: absolute;
+
+    width: 100%;
+    height: 2px;
+
+    background-color: #616161;
+
+    transition-duration: .25s;
+  }
+  .menu__btn > span::before {
+    content: '';
+    top: -8px;
+  }
+  .menu__btn > span::after {
+    content: '';
+    top: 8px;
+  }
+
+  .menu__box {
+    display: block;
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    left: -100%;
+
+    width: 300px;
+    height: 100%;
+
+    margin: 0;
+    padding: 80px 0;
+
+    list-style: none;
+
+    background-color: #ECEFF1;
+    box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
+
+    transition-duration: .25s;
+  }
+
+
+  .small{
+    display: none;
+  }
+  .header-content {
+    flex-direction: column;
+    margin-left: 0;
+  }
+
+  .container {
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+
+  .phonenum {
+    display: flex;
+    align-items: center;
+  }
+
+  .gps,
+  .phone,
+  .time {
+    height: 15px;
+    width: 15px;
+    margin-right: 5px;
+  }
+
+  .city-select {
+    width: 100%;
+  }
+
+
+  .cart {
+    border: none;
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: auto;
+    user-select: none;
+    position: absolute; /* Размещаем элемент абсолютно */
+    top: 0;
+    right: 0;
+  }
+  .cart-indicator {
+    border: none;
+
+    width: 18px;
+    height: 18px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 0; /* Перемещаем точку в самый верх */
+    right: 0; /* Перемещаем точку в самый правый угол */
+  }
+  .count {
+    color: #fff;
+    z-index: 1001;
+    margin-bottom: 100%;
+    font-size: 15px;
+    position: absolute;
+    top: 0;
+    right: 5px;
+  }
+  .small-font {
+    font-size: 10px;
+    position: absolute;
+    right: 5px;
+    top: 2.5px;
+
+
+  }
+  .very-small-font {
+    font-size: 10px;
+    position: absolute;
+    right: 1px;
+    top: 2.5px;
+  }
+
+
+
+
+}
+
 .phone-link {
   text-decoration: none;
   color: #000;
@@ -122,16 +353,7 @@ export default defineComponent({
   color: #ff5733;
 }
 
-.cart-indicator {
-  z-index: 1000;
-  width: 18px;
-  height: 18px;
-  background-color: red;
-  border-radius: 50%;
-  position: absolute;
-  top: 41px;
-  right: 146.8px;
-}
+
 
 .city-panel {
   z-index: 999;
@@ -142,24 +364,9 @@ export default defineComponent({
   padding: 10px;
   background-color: #f0f0f0;
 }
-.count {
-  color: #fff;
-  z-index: 1001;
-  margin-bottom: 35px;
-  font-size: 15px;
-}
 
-.small-font {
-  font-size: 10px;
-  position: relative;
-  left: 0.9px;
-  bottom: 0.9px;
-}
-.very-small-font {
-  font-size: 10px;
-  position: relative;
-  left: 5px;
-}
+
+
 
 .header-content {
   font-family: Arial, sans-serif;
@@ -194,6 +401,7 @@ export default defineComponent({
   transform: translateY(0);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
+
 
 .cart {
   border: none;
