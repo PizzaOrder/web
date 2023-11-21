@@ -62,9 +62,11 @@ export default defineComponent({
   h1{
     margin-top: 150px;
     text-align: center;
+    overflow-wrap: break-word;
   }
   .text{
     font-size: 18px;
+    overflow-wrap: break-word;
   }
   .img{
     width: 400px;
