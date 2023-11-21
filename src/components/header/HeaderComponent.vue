@@ -1,12 +1,12 @@
 <template>
   <div class="city-panel gray-background">
     <header class="header">
-      <div class="hamburger-menu">
-        <input id="menu__toggle" type="checkbox" />
+      <div class="hamburger-menu" ref="menuRef">
+        <input id="menu__toggle" type="checkbox" v-model="menuOpen"/>
         <label class="menu__btn" for="menu__toggle">
           <span></span>
         </label>
-        <ul class="menu__box">
+        <ul class="menu__box "  v-show="menuOpen">
           <span class="cart">
           <router-link to="/cart">
             <img src="../../../assets/img/cart.svg" class="cart-icon" />
@@ -82,13 +82,16 @@
 </template>
 
 <script lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, onUnmounted } from 'vue'
 import emitter from '@/funcs/eventBus'
 import { globalState } from '@/views/HomeComponent.vue'
 import { defineComponent } from 'vue'
+import $ from 'jquery';
 
 export default defineComponent({
   setup() {
+
+
     const cityName = ref('Ярославль')
     const openingTime = ref('9:00')
     const closingTime = ref('23:00')
@@ -103,10 +106,31 @@ export default defineComponent({
       cityName.value = target.value
       localStorage.setItem('selectedCity', cityName.value)
     }
+    const menuOpen = ref(false);
+    const menuRef = ref<HTMLElement | null>(null);
 
+    // Обработчик изменения состояния чекбокса
+
+
+    // Обработка клика вне меню для его закрытия
+    const closeMenuHandler = (event: MouseEvent) => {
+      if (menuRef.value && !menuRef.value.contains(event.target as Node)&& menuOpen.value) {
+        menuOpen.value = false;
+      }
+    };
+
+    onMounted(() => {
+      document.addEventListener('click', closeMenuHandler);
+    });
+
+    onUnmounted(() => {
+      document.removeEventListener('click', closeMenuHandler);
+    });
     const hasItemsInCart = computed(() => {
       return globalState.orders.length > 0
     })
+
+
 
     const toggleContacts = () => {
       showContacts.value = !showContacts.value
@@ -139,7 +163,9 @@ export default defineComponent({
       vkProfileUrl,
       showCartIndicator,
       hasItemsInCart,
-      totalPizzasInOrder
+      totalPizzasInOrder,
+      menuOpen,
+      menuRef
     }
   }
 })
