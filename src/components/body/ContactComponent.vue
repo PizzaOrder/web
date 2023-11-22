@@ -6,26 +6,32 @@
     </h1>
 
     <div v-html="storyText1"></div>
-    <img
-      src="assets/discounts/1699906596524ukxawvnp-transformed.png"
-      alt="Описание картинки"
-      class="img"
-    />
-
+    <div class="container">
+      <img
+        src="assets/discounts/1699906596524ukxawvnp-transformed.png"
+        alt="Описание картинки"
+        class="img"
+      />
+    </div>
     <div v-html="storyText2"></div>
-
     <div v-html="storyText3"></div>
-    <img src="assets/discounts/1699906880215580b6emr.png" alt="Описание картинки" class="img" />
+    <div class="container">
+      <img src="assets/discounts/1699906880215580b6emr.png" alt="Описание картинки" class="img" />
+    </div>
 
     <div v-html="storyText4"></div>
-    <img src="assets/discounts/1699907449382cvz31c7y.png" alt="Описание картинки" class="img" />
-
+    <div class="container">
+      <img src="assets/discounts/1699907449382cvz31c7y.png" alt="Описание картинки" class="img" />
+    </div>
     <div v-html="storyText5"></div>
     <div v-html="storyText6"></div>
-    <img src="assets/discounts/1699907811745jqlrysli.png" alt="Описание картинки" class="img" />
-
+    <div class="container">
+      <img src="assets/discounts/1699907811745jqlrysli.png" alt="Описание картинки" class="img" />
+    </div>
     <div v-html="storyText7"></div>
-    <img src="assets/discounts/1699908349191dc6xwrla.png" alt="Описание картинки" class="img" />
+    <div class="container">
+      <img src="assets/discounts/1699908349191dc6xwrla.png" alt="Описание картинки" class="img" />
+    </div>
   </div>
 </template>
 
@@ -59,24 +65,24 @@ export default defineComponent({
 
 <style scoped>
 @media (max-width: 800px) {
-  h1{
+  h1 {
     margin-top: 150px;
     text-align: center;
     overflow-wrap: break-word;
   }
-  .text{
+  .text {
     font-size: 18px;
     overflow-wrap: break-word;
   }
-  .img{
+  .img {
     width: 400px;
     height: 400px;
-    margin-left: 15%;
-    margin-right: auto;
-
-
   }
-
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 @media (min-width: 800px) {
   .img {
@@ -96,7 +102,5 @@ export default defineComponent({
   .text {
     font-size: 25px;
   }
-
 }
-
 </style>

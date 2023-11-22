@@ -2,34 +2,36 @@
   <div class="city-panel gray-background">
     <header class="header">
       <div class="hamburger-menu" ref="menuRef">
-        <input id="menu__toggle" type="checkbox" v-model="menuOpen"/>
+        <input id="menu__toggle" type="checkbox" v-model="menuOpen" />
         <label class="menu__btn" for="menu__toggle">
           <span></span>
         </label>
-        <ul class="menu__box "  v-show="menuOpen">
+        <ul class="menu__box" v-show="menuOpen">
           <span class="cart">
-          <router-link to="/cart">
-            <img src="../../../assets/img/cart.svg" class="cart-icon" />
-          </router-link>
-          <span
-            v-if="totalPizzasInOrder > 0 && totalPizzasInOrder < 100"
-            class="count"
-            :class="{ 'large-font': totalPizzasInOrder < 10, 'small-font': totalPizzasInOrder > 9 }"
-          >{{ totalPizzasInOrder }}</span
-          >
-          <span v-if="totalPizzasInOrder > 99" class="count very-small-font">99+ </span>
-          <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
-        </span>
+            <router-link to="/cart">
+              <img src="../../../assets/img/cart.svg" class="cart-icon" />
+            </router-link>
+            <span
+              v-if="totalPizzasInOrder > 0 && totalPizzasInOrder < 100"
+              class="count"
+              :class="{
+                'large-font': totalPizzasInOrder < 10,
+                'small-font': totalPizzasInOrder > 9
+              }"
+              >{{ totalPizzasInOrder }}</span
+            >
+            <span v-if="totalPizzasInOrder > 99" class="count very-small-font">99+ </span>
+            <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
+          </span>
           <router-link to="/" class="actions style-head style-head router-link-exact-active"
-          >Меню
+            >Меню
           </router-link>
           <router-link to="/discount" class="actions style-head router-link-exact-active"
-          >Акции
+            >Акции
           </router-link>
           <router-link to="/contact" class="contacts style-head router-link-exact-active"
-          >О компании</router-link
+            >О компании</router-link
           >
-
         </ul>
       </div>
       <div class="header-content">
@@ -48,34 +50,38 @@
           <a :href="'tel:' + number" class="phone-link">{{ number }}</a>
         </div>
       </div>
-      <div class='small'>
-
-      <div class="menu-actions white-backgorund">
-        <router-link to="/" class="menu style-head style-head router-link-exact-active"
-          >Меню
-        </router-link>
-        <router-link to="/discount" class="actions style-head router-link-exact-active"
-          >Акции
-        </router-link>
-        <router-link to="/contact" class="contacts style-head router-link-exact-active"
-          >О компании</router-link
-        >
-
-        <span class="cart">
-          <router-link to="/cart">
-            <img src="../../../assets/img/cart.svg" class="cart-icon" />
+      <div class="small">
+        <div class="menu-actions white-backgorund">
+          <router-link to="/" class="menu style-head style-head router-link-exact-active"
+            >Меню
           </router-link>
-          <span
-            v-if="totalPizzasInOrder > 0 && totalPizzasInOrder < 100"
-            class="count"
-            :class="{ 'large-font': totalPizzasInOrder < 10, 'small-font': totalPizzasInOrder > 9 }"
-            >{{ totalPizzasInOrder }}</span
+          <router-link to="/discount" class="actions style-head router-link-exact-active"
+            >Акции
+          </router-link>
+          <router-link to="/contact" class="contacts style-head router-link-exact-active"
+            >О компании</router-link
           >
-          <span v-if="totalPizzasInOrder > 99" class="count very-small-font">99+ </span>
-          <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
-          <router-link to="/cart" class="style-head router-link-exact-active">Корзина </router-link>
-        </span>
-      </div>
+
+          <span class="cart">
+            <router-link to="/cart">
+              <img src="../../../assets/img/cart.svg" class="cart-icon" />
+            </router-link>
+            <span
+              v-if="totalPizzasInOrder > 0 && totalPizzasInOrder < 100"
+              class="count"
+              :class="{
+                'large-font': totalPizzasInOrder < 10,
+                'small-font': totalPizzasInOrder > 9
+              }"
+              >{{ totalPizzasInOrder }}</span
+            >
+            <span v-if="totalPizzasInOrder > 99" class="count very-small-font">99+ </span>
+            <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
+            <router-link to="/cart" class="style-head router-link-exact-active"
+              >Корзина
+            </router-link>
+          </span>
+        </div>
       </div>
     </header>
   </div>
@@ -86,12 +92,9 @@ import { ref, onMounted, computed, onUnmounted } from 'vue'
 import emitter from '@/funcs/eventBus'
 import { globalState } from '@/views/HomeComponent.vue'
 import { defineComponent } from 'vue'
-import $ from 'jquery';
 
 export default defineComponent({
   setup() {
-
-
     const cityName = ref('Ярославль')
     const openingTime = ref('9:00')
     const closingTime = ref('23:00')
@@ -106,31 +109,28 @@ export default defineComponent({
       cityName.value = target.value
       localStorage.setItem('selectedCity', cityName.value)
     }
-    const menuOpen = ref(false);
-    const menuRef = ref<HTMLElement | null>(null);
+    const menuOpen = ref(false)
+    const menuRef = ref<HTMLElement | null>(null)
 
     // Обработчик изменения состояния чекбокса
 
-
     // Обработка клика вне меню для его закрытия
     const closeMenuHandler = (event: MouseEvent) => {
-      if (menuRef.value && !menuRef.value.contains(event.target as Node)&& menuOpen.value) {
-        menuOpen.value = false;
+      if (menuRef.value && !menuRef.value.contains(event.target as Node) && menuOpen.value) {
+        menuOpen.value = false
       }
-    };
+    }
 
     onMounted(() => {
-      document.addEventListener('click', closeMenuHandler);
-    });
+      document.addEventListener('click', closeMenuHandler)
+    })
 
     onUnmounted(() => {
-      document.removeEventListener('click', closeMenuHandler);
-    });
+      document.removeEventListener('click', closeMenuHandler)
+    })
     const hasItemsInCart = computed(() => {
       return globalState.orders.length > 0
     })
-
-
 
     const toggleContacts = () => {
       showContacts.value = !showContacts.value
@@ -203,11 +203,9 @@ export default defineComponent({
     position: relative;
     left: 5px;
   }
-
-
 }
-@media (max-width: 800px) {
 
+@media (max-width: 800px) {
   #menu__toggle {
     opacity: 0;
   }
@@ -253,7 +251,7 @@ export default defineComponent({
 
     background-color: #616161;
 
-    transition-duration: .25s;
+    transition-duration: 0.25s;
   }
   .menu__btn > span::before {
     content: '';
@@ -279,14 +277,13 @@ export default defineComponent({
 
     list-style: none;
 
-    background-color: #ECEFF1;
-    box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
+    background-color: #eceff1;
+    box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.2);
 
-    transition-duration: .25s;
+    transition-duration: 0.25s;
   }
 
-
-  .small{
+  .small {
     display: none;
   }
   .header-content {
@@ -316,7 +313,6 @@ export default defineComponent({
     width: 100%;
   }
 
-
   .cart {
     border: none;
     display: flex;
@@ -325,7 +321,7 @@ export default defineComponent({
     font-weight: bold;
     margin-left: auto;
     user-select: none;
-    position: absolute; /* Размещаем элемент абсолютно */
+    position: absolute;
     top: 0;
     right: 0;
   }
@@ -354,8 +350,6 @@ export default defineComponent({
     position: absolute;
     right: 5px;
     top: 2.5px;
-
-
   }
   .very-small-font {
     font-size: 10px;
@@ -363,10 +357,6 @@ export default defineComponent({
     right: 1px;
     top: 2.5px;
   }
-
-
-
-
 }
 
 .phone-link {
@@ -379,8 +369,6 @@ export default defineComponent({
   color: #ff5733;
 }
 
-
-
 .city-panel {
   z-index: 999;
   position: fixed;
@@ -391,15 +379,12 @@ export default defineComponent({
   background-color: #f0f0f0;
 }
 
-
-
-
 .header-content {
   font-family: Arial, sans-serif;
   font-size: 18px;
   display: flex;
   align-items: center;
-  margin-left: 200px;
+  margin-left: 100px;
 }
 
 .style-head {
@@ -427,7 +412,6 @@ export default defineComponent({
   transform: translateY(0);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
-
 
 .cart {
   border: none;

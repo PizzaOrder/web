@@ -31,7 +31,6 @@ export default defineComponent({
     text-align: left;
     margin-top: 150px;
   }
-  
 }
 @media (min-width: 800px) {
   .Discount {
@@ -40,9 +39,7 @@ export default defineComponent({
     margin-bottom: 20px;
     text-align: left;
   }
-
 }
-
 
 .DiscountMenu {
   display: flex;

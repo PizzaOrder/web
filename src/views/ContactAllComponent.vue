@@ -37,7 +37,6 @@ export default defineComponent({
 
 @media (max-width: 800px) {
   .Contact {
-
   }
 }
 </style>
