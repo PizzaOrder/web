@@ -64,7 +64,28 @@ export default defineComponent({
 </script>
 
 <style scoped>
-@media (max-width: 800px) {
+@media (max-width: 400px) {
+  .img {
+    width: 350px;
+    height: 350px;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  h1 {
+    margin-top: 150px;
+    text-align: center;
+    overflow-wrap: break-word;
+  }
+  .text {
+    font-size: 18px;
+    overflow-wrap: break-word;
+    margin-left: 5px;
+  }
+}
+@media (max-width: 800px) and (min-width: 400px) {
   h1 {
     margin-top: 150px;
     text-align: center;

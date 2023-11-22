@@ -112,9 +112,7 @@ export default defineComponent({
     const menuOpen = ref(false)
     const menuRef = ref<HTMLElement | null>(null)
 
-    // Обработчик изменения состояния чекбокса
 
-    // Обработка клика вне меню для его закрытия
     const closeMenuHandler = (event: MouseEvent) => {
       if (menuRef.value && !menuRef.value.contains(event.target as Node) && menuOpen.value) {
         menuOpen.value = false
