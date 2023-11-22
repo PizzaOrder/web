@@ -7,22 +7,7 @@
           <span></span>
         </label>
         <ul class="menu__box" v-show="menuOpen">
-          <span class="cart">
-            <router-link to="/cart">
-              <img src="../../../assets/img/cart.svg" class="cart-icon" />
-            </router-link>
-            <span
-              v-if="totalPizzasInOrder > 0 && totalPizzasInOrder < 100"
-              class="count"
-              :class="{
-                'large-font': totalPizzasInOrder < 10,
-                'small-font': totalPizzasInOrder > 9
-              }"
-              >{{ totalPizzasInOrder }}</span
-            >
-            <span v-if="totalPizzasInOrder > 99" class="count very-small-font">99+ </span>
-            <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
-          </span>
+
           <router-link to="/" class="actions style-head style-head router-link-exact-active"
             >Меню
           </router-link>
@@ -50,6 +35,22 @@
           <a :href="'tel:' + number" class="phone-link">{{ number }}</a>
         </div>
       </div>
+      <span class="cart2">
+            <router-link to="/cart">
+              <img src="../../../assets/img/cart.svg" class="cart-icon" />
+            </router-link>
+            <span
+              v-if="totalPizzasInOrder > 0 && totalPizzasInOrder < 100"
+              class="count"
+              :class="{
+                'large-font': totalPizzasInOrder < 10,
+                'small-font': totalPizzasInOrder > 9
+              }"
+            >{{ totalPizzasInOrder }}</span
+            >
+            <span v-if="totalPizzasInOrder > 99" class="count very-small-font">99+ </span>
+            <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
+          </span>
       <div class="small">
         <div class="menu-actions white-backgorund">
           <router-link to="/" class="menu style-head style-head router-link-exact-active"
@@ -102,7 +103,7 @@ export default defineComponent({
     const email = ref('oleg@bebra.com')
     const showContacts = ref(false)
     const vkProfileUrl = ref('https://vk.com/id389649410')
-    const cities = ref(['Ярославль', 'Москва', 'Санкт-Петербург', 'Казань'])
+    const cities = ref(['Ярославль', 'Москва', 'Мухосранск', 'Казань'])
     const showCartIndicator = ref(false)
     const changeCity = (event: Event) => {
       const target = event.target as HTMLSelectElement
@@ -171,6 +172,33 @@ export default defineComponent({
 
 <style scoped>
 @media (min-width: 801px) {
+  .menu-actions {
+    display: flex;
+    align-items: center;
+    user-select: none;
+  }
+  .cart {
+    border: none;
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: auto;
+    user-select: none;
+  }
+
+  .cart-icon {
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+  }
+  .header-content {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    margin-left: 100px;
+  }
   .hamburger-menu {
     display: none;
   }
@@ -201,9 +229,46 @@ export default defineComponent({
     position: relative;
     left: 5px;
   }
+  .cart2{
+    display: none;
+
+  }
 }
 
 @media (max-width: 800px) {
+
+
+
+  .cart-icon {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+  .cart-indicator {
+    z-index: 1000;
+    width: 18px;
+    height: 18px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 41px;
+    right: 146.8px;
+  }
+  .count {
+    color: #fff;
+    z-index: 1001;
+    margin-bottom: 35px;
+    font-size: 15px;
+  }
+  .small-font {
+    font-size: 10px;
+    }
+  .very-small-font {
+    font-size: 10px;
+
+  }
   #menu__toggle {
     opacity: 0;
   }
@@ -237,6 +302,16 @@ export default defineComponent({
     cursor: pointer;
     z-index: 1;
   }
+  .header-content {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    width: 50%;
+    padding-left: 20px; /* Запас от правого края элемента */
+
+  }
+
 
   .menu__btn > span,
   .menu__btn > span::before,
@@ -267,19 +342,22 @@ export default defineComponent({
     top: 0;
     left: -100%;
 
-    width: 300px;
-    height: 100%;
+    width: 200px;
+    height: 15%;
 
     margin: 0;
     padding: 80px 0;
 
     list-style: none;
 
-    background-color: #eceff1;
-    box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.2);
+    background: #f5f5f5;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
 
     transition-duration: 0.25s;
+
   }
+
 
   .small {
     display: none;
@@ -331,8 +409,8 @@ export default defineComponent({
     background-color: red;
     border-radius: 50%;
     position: absolute;
-    top: 0; /* Перемещаем точку в самый верх */
-    right: 0; /* Перемещаем точку в самый правый угол */
+    top: 0;
+    right: 0;
   }
   .count {
     color: #fff;
@@ -355,6 +433,7 @@ export default defineComponent({
     right: 1px;
     top: 2.5px;
   }
+
 }
 
 .phone-link {
@@ -377,13 +456,7 @@ export default defineComponent({
   background-color: #f0f0f0;
 }
 
-.header-content {
-  font-family: Arial, sans-serif;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  margin-left: 100px;
-}
+
 
 .style-head {
   display: inline-block;
@@ -411,27 +484,9 @@ export default defineComponent({
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-.cart {
-  border: none;
-  display: flex;
-  align-items: center;
-  font-size: 25px;
-  font-weight: bold;
-  margin-left: auto;
-  user-select: none;
-}
 
-.cart-icon {
-  height: 40px;
-  width: 40px;
-  margin-right: 5px;
-}
 
-.menu-actions {
-  display: flex;
-  align-items: center;
-  user-select: none;
-}
+
 
 .gray-background {
   background-color: rgb(220, 220, 220);
@@ -452,10 +507,7 @@ export default defineComponent({
   user-select: none;
 }
 
-.mail {
-  width: 25px;
-  height: 25px;
-}
+
 
 .actions {
   margin-left: 20px;
@@ -521,18 +573,5 @@ export default defineComponent({
   text-decoration: none;
 }
 
-.contacts-popover {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #ff5733;
-  color: #fff;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  user-select: none;
-}
+
 </style>
