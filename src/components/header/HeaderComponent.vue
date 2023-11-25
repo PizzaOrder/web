@@ -7,8 +7,10 @@
           <span></span>
         </label>
         <ul class="menu__box" v-show="menuOpen">
-
-          <router-link to="/" class="actions style-head style-head router-link-exact-active"
+          <div class='disable-select '>
+            <router-link to='/registration' class='actions phone-link style-headl'>Личный кабинет</router-link>
+          </div>
+          <router-link to="/" class="actions  style-head router-link-exact-active"
             >Меню
           </router-link>
           <router-link to="/discount" class="actions style-head router-link-exact-active"
@@ -17,27 +19,32 @@
           <router-link to="/contact" class="contacts style-head router-link-exact-active"
             >О компании</router-link
           >
+
         </ul>
       </div>
       <div class="header-content">
         <div class="container">
-          <img class="gps" src="../../../assets/img/gps.svg" />
+          <img class="gps" src="/assets/img/gps.svg" />
           <select v-model="cityName" @change="changeCity" class="city-select">
             <option v-for="city in cities" :key="city">{{ city }}</option>
           </select>
         </div>
         <div class="container phonenum">
-          <img class="time" src="../../../assets/img/time.svg" />
+          <img class="time" src="/assets/img/time.svg" />
           с {{ openingTime }} до {{ closingTime }}
         </div>
         <div class="container phonenum">
-          <img class="phone" src="../../../assets/img/phone.svg" />
+          <img class="phone" src="/assets/img/phone.svg" />
           <a :href="'tel:' + number" class="phone-link">{{ number }}</a>
+        </div>
+        <div class='disable-select for-pc'>
+          <router-link to='/registration'><img class='entry' src='assets/img/in.svg'/></router-link>
+          <router-link to='/registration' class='login phone-link'>Личный кабинет</router-link>
         </div>
       </div>
       <span class="cart2">
             <router-link to="/cart">
-              <img src="../../../assets/img/cart.svg" class="cart-icon" />
+              <img src="/assets/img/cart.svg" class="cart-icon" />
             </router-link>
             <span
               v-if="totalPizzasInOrder > 0 && totalPizzasInOrder < 100"
@@ -65,7 +72,7 @@
 
           <span class="cart">
             <router-link to="/cart">
-              <img src="../../../assets/img/cart.svg" class="cart-icon" />
+              <img src="/assets/img/cart.svg" class="cart-icon" />
             </router-link>
             <span
               v-if="totalPizzasInOrder > 0 && totalPizzasInOrder < 100"
@@ -171,7 +178,19 @@ export default defineComponent({
 </script>
 
 <style scoped>
-@media (min-width: 801px) {
+@media (min-width: 901px) {
+  .entry{
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    top: 5px;
+    right: 160px;
+  }
+  .login{
+    position: absolute;
+    top: 8px;
+    right: 20px;
+  }
   .menu-actions {
     display: flex;
     align-items: center;
@@ -235,9 +254,19 @@ export default defineComponent({
   }
 }
 
-@media (max-width: 800px) {
-
-
+@media (max-width: 900px) {
+  .for-pc{
+    display: none;
+  }
+  .login{
+    margin-left: 20px;
+    margin-right: 0;
+    font-size: 16px;
+    font-weight: bold;
+    width: 120px;
+    text-align: center;
+    user-select: none;
+  }
 
   .cart-icon {
     height: 40px;
@@ -308,7 +337,7 @@ export default defineComponent({
     display: flex;
     align-items: center;
     width: 55%;
-    padding-left: 20px; /* Запас от правого края элемента */
+    padding-left: 20px;
 
   }
 
@@ -343,7 +372,7 @@ export default defineComponent({
     left: -100%;
 
     width: 200px;
-    height: 15%;
+    height: 25%;
 
     margin: 0;
     padding: 80px 0;
@@ -483,9 +512,36 @@ export default defineComponent({
   transform: translateY(0);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
+.style-headl {
+  display: inline-block;
+  margin: 10px;
+  padding: 8px 14px;
+  border: 2px solid #ff5733;
+  background-color: #fff;
+  color: #ff5733;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.style-headl:hover {
+  background-color: #FFA500;
+  color: #fff;
+}
+
+.style-headl:active {
+  transform: scale(0.95);
+}
 
 
 
+.disable-select{
+  user-select: none;
+
+}
 
 
 .gray-background {
