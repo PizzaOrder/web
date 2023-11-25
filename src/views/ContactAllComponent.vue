@@ -27,7 +27,7 @@ export default defineComponent({
 </template>
 
 <style scoped>
-@media (max-width: 768px) {
+@media (min-width: 800px) {
   .Contact {
     margin-top: 100px;
     margin-left: 300px;
@@ -35,11 +35,8 @@ export default defineComponent({
   }
 }
 
-@media (min-width: 769px) {
+@media (max-width: 800px) {
   .Contact {
-    margin-top: 150px;
-    margin-left: 400px;
-    margin-right: 400px;
   }
 }
 </style>

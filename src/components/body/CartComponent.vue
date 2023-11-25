@@ -120,7 +120,7 @@ export default defineComponent({
       </div>
     </div>
     <div class="text">
-      Доставка: <strong>{{ city }}</strong>
+      Доставка: <strong class="city">{{ city }}</strong>
     </div>
     <div class="cent">
       <div class="cent-buttons">
@@ -131,9 +131,9 @@ export default defineComponent({
       <div v-if="showHome" class="rounded-frame">
         <p><input type="text" id="street" placeholder="Например: улица Бебр, 1" /></p>
         <p>
-          <span><input type="number" id="kvartira" placeholder="№ квартиры" /></span>
-          <span><input type="number" id="podezd" placeholder="Подъезд" /></span>
-          <span><input type="number" id="stage" placeholder="Этаж" /></span>
+          <span><input type="number" id="kvartira" class="raz" placeholder="№ квартиры" /></span>
+          <span><input type="number" id="podezd" class="raz" placeholder="Подъезд" /></span>
+          <span><input type="number" id="stage" class="raz" placeholder="Этаж" /></span>
         </p>
         <p>
           <span
@@ -173,6 +173,45 @@ export default defineComponent({
   </div>
 </template>
 <style scoped>
+@media (min-width: 800px) {
+  .order-item {
+    display: flex;
+    padding: 10px;
+    border-radius: 5px;
+    margin-left: 30%;
+    margin-bottom: 10px;
+  }
+  .cart-name {
+    margin-top: 150px;
+    font-size: 40px;
+    margin-left: 30%;
+  }
+  .text {
+    margin-left: 30%;
+    font-size: 30px;
+  }
+}
+@media (max-width: 800px) {
+  .order-item {
+    display: flex;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  .cart-name {
+    margin-top: 150px;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .text {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
 .cent {
   display: flex;
   flex-direction: column;
@@ -248,13 +287,6 @@ export default defineComponent({
 .decrement-button:hover {
   background-color: #ff634f;
 }
-.order-item {
-  display: flex;
-  padding: 10px;
-  border-radius: 5px;
-  margin-left: 30%;
-  margin-bottom: 10px;
-}
 
 .order-details img {
   width: 100px;
@@ -269,6 +301,9 @@ export default defineComponent({
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   border: 2px solid #ff5733;
+}
+.city {
+  margin-left: 5px;
 }
 .num {
   padding: 5px;
@@ -310,6 +345,12 @@ export default defineComponent({
   text-align: center;
   margin-top: 20px;
 }
+.raz {
+  -moz-appearance: textfield;
+}
+.raz::-webkit-inner-spin-button {
+  display: none;
+}
 .button-buy {
   display: inline-block;
   margin: 10px;
@@ -338,6 +379,7 @@ input[type='number'] {
   margin: 5px;
   border: 1px solid #ccc;
   border-radius: 3px;
+
   text-align: center;
 }
 
@@ -350,14 +392,5 @@ input[type='text']:focus,
 input[type='number']:focus {
   border-color: #90cdf4;
   outline: none;
-}
-.cart-name {
-  margin-top: 150px;
-  font-size: 40px;
-  margin-left: 30%;
-}
-.text {
-  margin-left: 30%;
-  font-size: 30px;
 }
 </style>

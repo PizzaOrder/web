@@ -28,7 +28,6 @@ body {
 @media (max-width: 600px) {
   .basement {
     font-size: 0.9rem;
-    padding: 10px 15px;
   }
 }
 </style>

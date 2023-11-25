@@ -23,11 +23,22 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.Discount {
-  font-size: 40px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: left;
+@media (max-width: 800px) {
+  .Discount {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: left;
+    margin-top: 150px;
+  }
+}
+@media (min-width: 800px) {
+  .Discount {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: left;
+  }
 }
 
 .DiscountMenu {

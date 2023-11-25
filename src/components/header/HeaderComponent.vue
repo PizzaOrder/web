@@ -1,6 +1,24 @@
 <template>
   <div class="city-panel gray-background">
     <header class="header">
+      <div class="hamburger-menu" ref="menuRef">
+        <input id="menu__toggle" type="checkbox" v-model="menuOpen" />
+        <label class="menu__btn" for="menu__toggle">
+          <span></span>
+        </label>
+        <ul class="menu__box" v-show="menuOpen">
+
+          <router-link to="/" class="actions style-head style-head router-link-exact-active"
+            >Меню
+          </router-link>
+          <router-link to="/discount" class="actions style-head router-link-exact-active"
+            >Акции
+          </router-link>
+          <router-link to="/contact" class="contacts style-head router-link-exact-active"
+            >О компании</router-link
+          >
+        </ul>
+      </div>
       <div class="header-content">
         <div class="container">
           <img class="gps" src="../../../assets/img/gps.svg" />
@@ -17,38 +35,61 @@
           <a :href="'tel:' + number" class="phone-link">{{ number }}</a>
         </div>
       </div>
-      <div class="menu-actions white-backgorund">
-        <router-link to="/" class="menu style-head style-head router-link-exact-active"
-          >Меню
-        </router-link>
-        <router-link to="/discount" class="actions style-head router-link-exact-active"
-          >Акции
-        </router-link>
-        <router-link to="/contact" class="contacts style-head router-link-exact-active"
-          >О компании</router-link
-        >
-
-        <span class="cart">
-          <router-link to="/cart">
-            <img src="../../../assets/img/cart.svg" class="cart-icon" />
-          </router-link>
-          <span
-            v-if="totalPizzasInOrder > 0 && totalPizzasInOrder < 100"
-            class="count"
-            :class="{ 'large-font': totalPizzasInOrder < 10, 'small-font': totalPizzasInOrder > 9 }"
+      <span class="cart2">
+            <router-link to="/cart">
+              <img src="../../../assets/img/cart.svg" class="cart-icon" />
+            </router-link>
+            <span
+              v-if="totalPizzasInOrder > 0 && totalPizzasInOrder < 100"
+              class="count"
+              :class="{
+                'large-font': totalPizzasInOrder < 10,
+                'small-font': totalPizzasInOrder > 9
+              }"
             >{{ totalPizzasInOrder }}</span
+            >
+            <span v-if="totalPizzasInOrder > 99" class="count very-small-font">99+ </span>
+            <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
+          </span>
+      <div class="small">
+        <div class="menu-actions white-backgorund">
+          <router-link to="/" class="menu style-head style-head router-link-exact-active"
+            >Меню
+          </router-link>
+          <router-link to="/discount" class="actions style-head router-link-exact-active"
+            >Акции
+          </router-link>
+          <router-link to="/contact" class="contacts style-head router-link-exact-active"
+            >О компании</router-link
           >
-          <span v-if="totalPizzasInOrder > 99" class="count very-small-font">99+ </span>
-          <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
-          <router-link to="/cart" class="style-head router-link-exact-active">Корзина </router-link>
-        </span>
+
+          <span class="cart">
+            <router-link to="/cart">
+              <img src="../../../assets/img/cart.svg" class="cart-icon" />
+            </router-link>
+            <span
+              v-if="totalPizzasInOrder > 0 && totalPizzasInOrder < 100"
+              class="count"
+              :class="{
+                'large-font': totalPizzasInOrder < 10,
+                'small-font': totalPizzasInOrder > 9
+              }"
+              >{{ totalPizzasInOrder }}</span
+            >
+            <span v-if="totalPizzasInOrder > 99" class="count very-small-font">99+ </span>
+            <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
+            <router-link to="/cart" class="style-head router-link-exact-active"
+              >Корзина
+            </router-link>
+          </span>
+        </div>
       </div>
     </header>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, onUnmounted } from 'vue'
 import emitter from '@/funcs/eventBus'
 import { globalState } from '@/views/HomeComponent.vue'
 import { defineComponent } from 'vue'
@@ -62,14 +103,30 @@ export default defineComponent({
     const email = ref('oleg@bebra.com')
     const showContacts = ref(false)
     const vkProfileUrl = ref('https://vk.com/id389649410')
-    const cities = ref(['Ярославль', 'Москва', 'Санкт-Петербург', 'Казань'])
+    const cities = ref(['Ярославль', 'Москва', 'Мухосранск', 'Казань'])
     const showCartIndicator = ref(false)
     const changeCity = (event: Event) => {
       const target = event.target as HTMLSelectElement
       cityName.value = target.value
       localStorage.setItem('selectedCity', cityName.value)
     }
+    const menuOpen = ref(false)
+    const menuRef = ref<HTMLElement | null>(null)
 
+
+    const closeMenuHandler = (event: MouseEvent) => {
+      if (menuRef.value && !menuRef.value.contains(event.target as Node) && menuOpen.value) {
+        menuOpen.value = false
+      }
+    }
+
+    onMounted(() => {
+      document.addEventListener('click', closeMenuHandler)
+    })
+
+    onUnmounted(() => {
+      document.removeEventListener('click', closeMenuHandler)
+    })
     const hasItemsInCart = computed(() => {
       return globalState.orders.length > 0
     })
@@ -105,13 +162,280 @@ export default defineComponent({
       vkProfileUrl,
       showCartIndicator,
       hasItemsInCart,
-      totalPizzasInOrder
+      totalPizzasInOrder,
+      menuOpen,
+      menuRef
     }
   }
 })
 </script>
 
 <style scoped>
+@media (min-width: 801px) {
+  .menu-actions {
+    display: flex;
+    align-items: center;
+    user-select: none;
+  }
+  .cart {
+    border: none;
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: auto;
+    user-select: none;
+  }
+
+  .cart-icon {
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+  }
+  .header-content {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    margin-left: 100px;
+  }
+  .hamburger-menu {
+    display: none;
+  }
+  .cart-indicator {
+    z-index: 1000;
+    width: 18px;
+    height: 18px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 41px;
+    right: 146.8px;
+  }
+  .count {
+    color: #fff;
+    z-index: 1001;
+    margin-bottom: 35px;
+    font-size: 15px;
+  }
+  .small-font {
+    font-size: 10px;
+    position: relative;
+    left: 0.9px;
+    bottom: 0.9px;
+  }
+  .very-small-font {
+    font-size: 10px;
+    position: relative;
+    left: 5px;
+  }
+  .cart2{
+    display: none;
+
+  }
+}
+
+@media (max-width: 800px) {
+
+
+
+  .cart-icon {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+  .cart-indicator {
+    z-index: 1000;
+    width: 18px;
+    height: 18px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 41px;
+    right: 146.8px;
+  }
+  .count {
+    color: #fff;
+    z-index: 1001;
+    margin-bottom: 35px;
+    font-size: 15px;
+  }
+  .small-font {
+    font-size: 10px;
+    }
+  .very-small-font {
+    font-size: 10px;
+
+  }
+  #menu__toggle {
+    opacity: 0;
+  }
+
+  #menu__toggle:checked ~ .menu__btn > span {
+    transform: rotate(45deg);
+  }
+  #menu__toggle:checked ~ .menu__btn > span::before {
+    top: 0;
+    transform: rotate(0);
+  }
+  #menu__toggle:checked ~ .menu__btn > span::after {
+    top: 0;
+    transform: rotate(90deg);
+  }
+  #menu__toggle:checked ~ .menu__box {
+    visibility: visible;
+    left: 0;
+  }
+
+  .menu__btn {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+
+    width: 26px;
+    height: 26px;
+
+    cursor: pointer;
+    z-index: 1;
+  }
+  .header-content {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    width: 50%;
+    padding-left: 20px; /* Запас от правого края элемента */
+
+  }
+
+
+  .menu__btn > span,
+  .menu__btn > span::before,
+  .menu__btn > span::after {
+    display: block;
+    position: absolute;
+
+    width: 100%;
+    height: 2px;
+
+    background-color: #616161;
+
+    transition-duration: 0.25s;
+  }
+  .menu__btn > span::before {
+    content: '';
+    top: -8px;
+  }
+  .menu__btn > span::after {
+    content: '';
+    top: 8px;
+  }
+
+  .menu__box {
+    display: block;
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    left: -100%;
+
+    width: 200px;
+    height: 15%;
+
+    margin: 0;
+    padding: 80px 0;
+
+    list-style: none;
+
+    background: #f5f5f5;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+
+    transition-duration: 0.25s;
+
+  }
+
+
+  .small {
+    display: none;
+  }
+  .header-content {
+    flex-direction: column;
+    margin-left: 0;
+  }
+
+  .container {
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+
+  .phonenum {
+    display: flex;
+    align-items: center;
+  }
+
+  .gps,
+  .phone,
+  .time {
+    height: 15px;
+    width: 15px;
+    margin-right: 5px;
+  }
+
+  .city-select {
+    width: 100%;
+  }
+
+  .cart {
+    border: none;
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: auto;
+    user-select: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .cart-indicator {
+    border: none;
+
+    width: 18px;
+    height: 18px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .count {
+    color: #fff;
+    z-index: 1001;
+    margin-bottom: 100%;
+    font-size: 15px;
+    position: absolute;
+    top: 0;
+    right: 5px;
+  }
+  .small-font {
+    font-size: 10px;
+    position: absolute;
+    right: 5px;
+    top: 2.5px;
+  }
+  .very-small-font {
+    font-size: 10px;
+    position: absolute;
+    right: 1px;
+    top: 2.5px;
+  }
+
+}
+
 .phone-link {
   text-decoration: none;
   color: #000;
@@ -120,17 +444,6 @@ export default defineComponent({
 
 .phone-link:hover {
   color: #ff5733;
-}
-
-.cart-indicator {
-  z-index: 1000;
-  width: 18px;
-  height: 18px;
-  background-color: red;
-  border-radius: 50%;
-  position: absolute;
-  top: 41px;
-  right: 146.8px;
 }
 
 .city-panel {
@@ -142,32 +455,8 @@ export default defineComponent({
   padding: 10px;
   background-color: #f0f0f0;
 }
-.count {
-  color: #fff;
-  z-index: 1001;
-  margin-bottom: 35px;
-  font-size: 15px;
-}
 
-.small-font {
-  font-size: 10px;
-  position: relative;
-  left: 0.9px;
-  bottom: 0.9px;
-}
-.very-small-font {
-  font-size: 10px;
-  position: relative;
-  left: 5px;
-}
 
-.header-content {
-  font-family: Arial, sans-serif;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  margin-left: 200px;
-}
 
 .style-head {
   display: inline-block;
@@ -195,27 +484,9 @@ export default defineComponent({
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-.cart {
-  border: none;
-  display: flex;
-  align-items: center;
-  font-size: 25px;
-  font-weight: bold;
-  margin-left: auto;
-  user-select: none;
-}
 
-.cart-icon {
-  height: 40px;
-  width: 40px;
-  margin-right: 5px;
-}
 
-.menu-actions {
-  display: flex;
-  align-items: center;
-  user-select: none;
-}
+
 
 .gray-background {
   background-color: rgb(220, 220, 220);
@@ -236,10 +507,7 @@ export default defineComponent({
   user-select: none;
 }
 
-.mail {
-  width: 25px;
-  height: 25px;
-}
+
 
 .actions {
   margin-left: 20px;
@@ -305,18 +573,5 @@ export default defineComponent({
   text-decoration: none;
 }
 
-.contacts-popover {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #ff5733;
-  color: #fff;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  user-select: none;
-}
+
 </style>

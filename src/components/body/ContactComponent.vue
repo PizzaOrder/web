@@ -6,26 +6,32 @@
     </h1>
 
     <div v-html="storyText1"></div>
-    <img
-      src="assets/discounts/1699906596524ukxawvnp-transformed.png"
-      alt="Описание картинки"
-      class="img"
-    />
-
+    <div class="container">
+      <img
+        src="assets/discounts/1699906596524ukxawvnp-transformed.png"
+        alt="Описание картинки"
+        class="img"
+      />
+    </div>
     <div v-html="storyText2"></div>
-
     <div v-html="storyText3"></div>
-    <img src="assets/discounts/1699906880215580b6emr.png" alt="Описание картинки" class="img" />
+    <div class="container">
+      <img src="assets/discounts/1699906880215580b6emr.png" alt="Описание картинки" class="img" />
+    </div>
 
     <div v-html="storyText4"></div>
-    <img src="assets/discounts/1699907449382cvz31c7y.png" alt="Описание картинки" class="img" />
-
+    <div class="container">
+      <img src="assets/discounts/1699907449382cvz31c7y.png" alt="Описание картинки" class="img" />
+    </div>
     <div v-html="storyText5"></div>
     <div v-html="storyText6"></div>
-    <img src="assets/discounts/1699907811745jqlrysli.png" alt="Описание картинки" class="img" />
-
+    <div class="container">
+      <img src="assets/discounts/1699907811745jqlrysli.png" alt="Описание картинки" class="img" />
+    </div>
     <div v-html="storyText7"></div>
-    <img src="assets/discounts/1699908349191dc6xwrla.png" alt="Описание картинки" class="img" />
+    <div class="container">
+      <img src="assets/discounts/1699908349191dc6xwrla.png" alt="Описание картинки" class="img" />
+    </div>
   </div>
 </template>
 
@@ -58,21 +64,64 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.img {
-  width: 600px;
-  object-fit: cover;
-  margin-left: 20%;
-  margin-right: auto;
+@media (max-width: 400px) {
+  .img {
+    width: 350px;
+    height: 350px;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  h1 {
+    margin-top: 150px;
+    text-align: center;
+    overflow-wrap: break-word;
+  }
+  .text {
+    font-size: 18px;
+    overflow-wrap: break-word;
+    margin-left: 5px;
+  }
 }
-h1 {
-  text-align: center;
+@media (max-width: 800px) and (min-width: 400px) {
+  h1 {
+    margin-top: 150px;
+    text-align: center;
+    overflow-wrap: break-word;
+  }
+  .text {
+    font-size: 18px;
+    overflow-wrap: break-word;
+  }
+  .img {
+    width: 400px;
+    height: 400px;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
+@media (min-width: 800px) {
+  .img {
+    width: 600px;
+    object-fit: cover;
+    margin-left: 20%;
+    margin-right: auto;
+  }
+  h1 {
+    text-align: center;
+  }
 
-.centered-text {
-  display: inline-block;
-}
+  .centered-text {
+    display: inline-block;
+  }
 
-.text {
-  font-size: 25px;
+  .text {
+    font-size: 25px;
+  }
 }
 </style>
