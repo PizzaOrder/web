@@ -4,14 +4,15 @@
 <template>
   <div class="container">
     <div class="empty-panel">
-      <div class='text'>Вход в личный кабинет</div>
+      <div class='text'>Регистрация</div>
       <div class='login'><input class='login-input' placeholder='Почта'></div>
-        <div class='reg'><input class='login-input' placeholder='Пароль' type='password'></div>
+      <div class='reg'><input class='login-input' placeholder='Пароль' type='password'></div>
+      <div class='reg'><input class='login-input' placeholder='Пароль' type='password'></div>
+
       <div class='enter'><button class="button">
-        Войти
+        Зарегаться
       </button>
       </div>
-      <router-link to='/login' class='router-link-exact-active'> <div class='reg-button'><button class="button" >Вы ещё не зареганы?</button></div> > </router-link>
     </div>
   </div>
 </template>
