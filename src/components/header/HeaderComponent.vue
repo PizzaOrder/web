@@ -307,7 +307,7 @@ export default defineComponent({
     font-size: 18px;
     display: flex;
     align-items: center;
-    width: 50%;
+    width: 55%;
     padding-left: 20px; /* Запас от правого края элемента */
 
   }
