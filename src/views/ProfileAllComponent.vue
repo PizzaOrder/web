@@ -15,21 +15,18 @@ export default defineComponent({
 
 <template>
   <div><HeaderComponent /></div>
-  <div class='Prof'><ProfileComponent /></div>
+  <div class="Prof"><ProfileComponent /></div>
 </template>
 
 <style scoped>
 @media (max-width: 750px) {
-  .Prof{
+  .Prof {
     margin-top: 150px;
   }
-
 }
 @media (min-width: 750px) {
-  .Prof{
+  .Prof {
     margin-top: 110px;
-
   }
 }
-
 </style>
