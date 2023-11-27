@@ -7,10 +7,12 @@
           <span></span>
         </label>
         <ul class="menu__box" v-show="menuOpen">
-          <div class='disable-select '>
-            <router-link to='/registration' class='actions phone-link style-headl'>Личный кабинет</router-link>
+          <div class="disable-select">
+            <router-link to="/registration" class="actions phone-link style-headl"
+              >Личный кабинет</router-link
+            >
           </div>
-          <router-link to="/" class="actions  style-head router-link-exact-active"
+          <router-link to="/" class="actions style-head router-link-exact-active"
             >Меню
           </router-link>
           <router-link to="/discount" class="actions style-head router-link-exact-active"
@@ -19,7 +21,6 @@
           <router-link to="/contact" class="contacts style-head router-link-exact-active"
             >О компании</router-link
           >
-
         </ul>
       </div>
       <div class="header-content">
@@ -37,27 +38,29 @@
           <img class="phone" src="/assets/img/phone.svg" />
           <a :href="'tel:' + number" class="phone-link">{{ number }}</a>
         </div>
-        <div class='disable-select for-pc'>
-          <router-link to='/registration'><img class='entry' src='assets/img/in.svg'/></router-link>
-          <router-link to='/registration' class='login phone-link'>Личный кабинет</router-link>
+        <div class="disable-select for-pc">
+          <router-link to="/registration"
+            ><img class="entry" src="assets/img/in.svg"
+          /></router-link>
+          <router-link to="/registration" class="login phone-link">Личный кабинет</router-link>
         </div>
       </div>
       <span class="cart2">
-            <router-link to="/cart">
-              <img src="/assets/img/cart.svg" class="cart-icon" />
-            </router-link>
-            <span
-              v-if="totalPizzasInOrder > 0 && totalPizzasInOrder < 100"
-              class="count"
-              :class="{
-                'large-font': totalPizzasInOrder < 10,
-                'small-font': totalPizzasInOrder > 9
-              }"
-            >{{ totalPizzasInOrder }}</span
-            >
-            <span v-if="totalPizzasInOrder > 99" class="count very-small-font">99+ </span>
-            <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
-          </span>
+        <router-link to="/cart">
+          <img src="/assets/img/cart.svg" class="cart-icon" />
+        </router-link>
+        <span
+          v-if="totalPizzasInOrder > 0 && totalPizzasInOrder < 100"
+          class="count"
+          :class="{
+            'large-font': totalPizzasInOrder < 10,
+            'small-font': totalPizzasInOrder > 9
+          }"
+          >{{ totalPizzasInOrder }}</span
+        >
+        <span v-if="totalPizzasInOrder > 99" class="count very-small-font">99+ </span>
+        <div class="cart-indicator" v-if="showCartIndicator || hasItemsInCart"></div>
+      </span>
       <div class="small">
         <div class="menu-actions white-backgorund">
           <router-link to="/" class="menu style-head style-head router-link-exact-active"
@@ -120,7 +123,6 @@ export default defineComponent({
     const menuOpen = ref(false)
     const menuRef = ref<HTMLElement | null>(null)
 
-
     const closeMenuHandler = (event: MouseEvent) => {
       if (menuRef.value && !menuRef.value.contains(event.target as Node) && menuOpen.value) {
         menuOpen.value = false
@@ -179,14 +181,14 @@ export default defineComponent({
 
 <style scoped>
 @media (min-width: 901px) {
-  .entry{
+  .entry {
     height: 25px;
     width: 25px;
     position: absolute;
     top: 5px;
     right: 160px;
   }
-  .login{
+  .login {
     position: absolute;
     top: 8px;
     right: 20px;
@@ -248,17 +250,16 @@ export default defineComponent({
     position: relative;
     left: 5px;
   }
-  .cart2{
+  .cart2 {
     display: none;
-
   }
 }
 
 @media (max-width: 900px) {
-  .for-pc{
+  .for-pc {
     display: none;
   }
-  .login{
+  .login {
     margin-left: 20px;
     margin-right: 0;
     font-size: 16px;
@@ -293,10 +294,9 @@ export default defineComponent({
   }
   .small-font {
     font-size: 10px;
-    }
+  }
   .very-small-font {
     font-size: 10px;
-
   }
   #menu__toggle {
     opacity: 0;
@@ -338,9 +338,7 @@ export default defineComponent({
     align-items: center;
     width: 55%;
     padding-left: 20px;
-
   }
-
 
   .menu__btn > span,
   .menu__btn > span::before,
@@ -384,9 +382,7 @@ export default defineComponent({
     border-radius: 8px;
 
     transition-duration: 0.25s;
-
   }
-
 
   .small {
     display: none;
@@ -462,7 +458,6 @@ export default defineComponent({
     right: 1px;
     top: 2.5px;
   }
-
 }
 
 .phone-link {
@@ -484,8 +479,6 @@ export default defineComponent({
   padding: 10px;
   background-color: #f0f0f0;
 }
-
-
 
 .style-head {
   display: inline-block;
@@ -528,7 +521,7 @@ export default defineComponent({
 }
 
 .style-headl:hover {
-  background-color: #FFA500;
+  background-color: #ffa500;
   color: #fff;
 }
 
@@ -536,13 +529,9 @@ export default defineComponent({
   transform: scale(0.95);
 }
 
-
-
-.disable-select{
+.disable-select {
   user-select: none;
-
 }
-
 
 .gray-background {
   background-color: rgb(220, 220, 220);
@@ -562,8 +551,6 @@ export default defineComponent({
   text-align: center;
   user-select: none;
 }
-
-
 
 .actions {
   margin-left: 20px;
@@ -628,6 +615,4 @@ export default defineComponent({
 .router-link-exact-active {
   text-decoration: none;
 }
-
-
 </style>

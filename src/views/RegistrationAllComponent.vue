@@ -16,12 +16,9 @@ export default defineComponent({
 </script>
 
 <template>
-  <div><HeaderComponent/></div>
-  <div><RegComponent/></div>
-  <div><BasementComponent/></div>
-
+  <div><HeaderComponent /></div>
+  <div><RegComponent /></div>
+  <div><BasementComponent /></div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
