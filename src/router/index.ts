@@ -5,13 +5,15 @@ import CartAllComponent from '@/views/CartAllComponent.vue'
 import ContactAllComponent from '@/views/ContactAllComponent.vue'
 import RegistrationAllComponent from '@/views/RegistrationAllComponent.vue'
 import LoginAllComponent from '@/views/LoginAllComponent.vue'
+import AdminMenuComponent from '@/views/AdminMenuComponent.vue'
 const routes = [
   { path: '/', component: HomeComponent },
   { path: '/discount', component: DiscountsComponent },
   { path: '/cart', component: CartAllComponent },
   { path: '/contact', component: ContactAllComponent },
   { path: '/registration', component: RegistrationAllComponent },
-  { path: '/login', component: LoginAllComponent }
+  { path: '/login', component: LoginAllComponent },
+  {path: '/admin', component: AdminMenuComponent},
 ]
 
 const router = createRouter({
