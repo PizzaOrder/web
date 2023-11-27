@@ -27,19 +27,17 @@ const checkInput = () => {
         />
       </div>
       <div class="reg">
-        <input
-          v-model="inputValue2"
-          :class="{ 'Nlogin-input': !inputValue2.trim(), 'login-input': inputValue2.trim() }"
-          placeholder="Пароль"
-          type="password"
-          @input="checkInput"
-
+        <input v-model='inputValue2'
+               :class="{ 'Nlogin-input': !inputValue2.trim() || inputValue2 !== inputValue3, 'login-input': inputValue2.trim() && inputValue2 === inputValue3 }"
+               placeholder='Пароль'
+               type='password'
+               @input="checkInput"
         />
       </div>
       <div class="reg">
         <input
           v-model="inputValue3"
-          :class="{ 'Nlogin-input': !inputValue3.trim(), 'login-input': inputValue3.trim() }"
+          :class="{ 'Nlogin-input': !inputValue3.trim() || inputValue2 !== inputValue3, 'login-input': inputValue2.trim() && inputValue2 === inputValue3 }"
           placeholder="Подтвердить"
           type="password"
           @input="checkInput"
