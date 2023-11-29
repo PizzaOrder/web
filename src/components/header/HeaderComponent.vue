@@ -8,7 +8,7 @@
         </label>
         <ul class="menu__box" v-show="menuOpen">
           <div class="disable-select">
-            <router-link to="/registration" class="actions phone-link style-headl"
+            <router-link to="/login" class="actions phone-link style-headl"
               >Личный кабинет</router-link
             >
           </div>
@@ -42,7 +42,7 @@
           <router-link to="/registration"
             ><img class="entry" src="assets/img/in.svg"
           /></router-link>
-          <router-link to="/registration" class="login phone-link">Личный кабинет</router-link>
+          <router-link to="/login" class="login phone-link">Личный кабинет</router-link>
         </div>
       </div>
       <span class="cart2">

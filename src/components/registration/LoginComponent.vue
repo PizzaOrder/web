@@ -1,63 +1,50 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const inputValue1 = ref('')
-const inputValue2 = ref('')
-const inputValue3 = ref('')
-
-const areInputsFilled = ref(false)
-
-const checkInput = () => {
-  areInputsFilled.value =
-    inputValue1.value.trim().length > 0 &&
-    inputValue2.value.trim().length > 0 &&
-    inputValue3.value.trim().length > 0 &&
-    inputValue2.value === inputValue3.value
-}
-</script>
 <template>
   <div class="container">
     <div class="empty-panel">
-      <div class="text">Регистрация</div>
+      <div class="text">Авторизация</div>
       <div class="login">
         <input
           v-model="inputValue1"
           :class="{ 'Nlogin-input': !inputValue1.trim(), 'login-input': inputValue1.trim() }"
           placeholder="Почта"
-          @input="checkInput"
-        />
-      </div>
-      <div class="reg">
-        <input
-          v-model="inputValue2"
-          :class="{
-            'Nlogin-input': !inputValue2.trim() || inputValue2 !== inputValue3,
-            'login-input': inputValue2.trim() && inputValue2 === inputValue3
-          }"
-          placeholder="Пароль"
-          type="password"
-          @input="checkInput"
-        />
-      </div>
-      <div class="reg">
-        <input
-          v-model="inputValue3"
-          :class="{
-            'Nlogin-input': !inputValue3.trim() || inputValue2 !== inputValue3,
-            'login-input': inputValue2.trim() && inputValue2 === inputValue3
-          }"
-          placeholder="Подтвердить"
-          type="password"
-          @input="checkInput"
         />
       </div>
 
       <div class="enter">
-        <button class="button" :disabled="!areInputsFilled">Зарегистрироваться</button>
+        <router-link to='/registration'>
+        <button class="button" :disabled="!areInputsFilled" @click="saveMail">Войти</button>
+        </router-link>
       </div>
     </div>
   </div>
 </template>
+<script lang='ts'>
+import { computed, ref } from 'vue'
+import {useMailStore} from '@/Pinia/mailStore'
+
+export default {
+  setup() {
+    const inputValue1 = ref('');
+    const mailStore = useMailStore();
+
+    const areInputsFilled = computed(() => inputValue1.value.trim().length > 0);
+
+    const saveMail = () => {
+      if (areInputsFilled.value) {
+        mailStore.setMail(inputValue1.value.trim());
+      }
+    };
+
+    return {
+      inputValue1,
+      areInputsFilled,
+      saveMail,
+    };
+  },
+};
+</script>
+
+
 
 <style scoped>
 @media (max-width: 750px) {
@@ -76,7 +63,7 @@ const checkInput = () => {
 @media (min-width: 750px) {
   .empty-panel {
     width: 35%;
-    height: 35%;
+    height: 20%;
     border: 6px solid #ff5733;
     border-radius: 25px;
     transition: box-shadow 0.3s ease;
@@ -303,7 +290,9 @@ const checkInput = () => {
 .enter {
   display: flex;
   justify-content: center;
-  height: 12%;
+  height: 22%;
+  margin-top: 8%;
+
 }
 .reg {
   display: flex;

@@ -41,7 +41,7 @@ export default {
   right: 20px;
   padding: 10px 16px;
   border: none;
-  background-color: #ff5733; /* Изменено на ваш оранжевый цвет */
+  background-color: #ff5733;
   color: #fff;
   cursor: pointer;
   transition:
@@ -53,6 +53,6 @@ export default {
 }
 
 .scrollToTopBtn:hover {
-  background-color: #e64c00; /* Изменено на темно-оранжевый цвет при наведении */
+  background-color: #e64c00;
 }
 </style>
