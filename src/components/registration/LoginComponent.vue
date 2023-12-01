@@ -5,19 +5,20 @@
       <div class="login">
         <input
           v-model="inputValue1"
-          :class="{ 'Nlogin-input': !inputValue1.trim(), 'login-input': inputValue1.trim() }"
+          :class="{ 'Nlogin-input': !isEmailValid, 'login-input': isEmailValid }"
           placeholder="Почта"
         />
       </div>
 
       <div class="enter">
         <router-link to='/registration'>
-        <button class="button" :disabled="!areInputsFilled" @click="saveMail">Войти</button>
+          <button class="button" :disabled="!areInputsFilled" @click="saveMail">Войти</button>
         </router-link>
       </div>
     </div>
   </div>
 </template>
+
 <script lang='ts'>
 import { computed, ref } from 'vue';
 import { useMailStore } from '@/Pinia/mailStore';
@@ -41,6 +42,7 @@ export default {
 
     return {
       inputValue1,
+      isEmailValid,
       areInputsFilled,
       saveMail,
     };
@@ -48,6 +50,7 @@ export default {
 };
 
 </script>
+
 
 
 
