@@ -19,15 +19,19 @@
   </div>
 </template>
 <script lang='ts'>
-import { computed, ref } from 'vue'
-import {useMailStore} from '@/Pinia/mailStore'
+import { computed, ref } from 'vue';
+import { useMailStore } from '@/Pinia/mailStore';
 
 export default {
   setup() {
     const inputValue1 = ref('');
     const mailStore = useMailStore();
 
-    const areInputsFilled = computed(() => inputValue1.value.trim().length > 0);
+    const emailRegex = /^\S+@\S+\.\S+$/;
+
+    const isEmailValid = computed(() => emailRegex.test(inputValue1.value.trim()));
+
+    const areInputsFilled = computed(() => inputValue1.value.trim().length > 0 && isEmailValid.value);
 
     const saveMail = () => {
       if (areInputsFilled.value) {
@@ -42,18 +46,59 @@ export default {
     };
   },
 };
+
 </script>
 
 
 
 <style scoped>
 @media (max-width: 750px) {
+  .login-input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+    width: 250px;
+    height: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: large;
+  }
+  .Nlogin-input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid red;
+    transition: border-color 0.3s ease;
+    margin-left: 5px;
+    margin-right: 5px;
+
+
+    width: 250px;
+    height: 25px;
+    font-size: large;
+  }
   .empty-panel {
     width: 70%;
-    height: 50%;
+    height: 30%;
     border: 6px solid #ff5733;
     border-radius: 25px;
     transition: box-shadow 0.3s ease;
+  }
+  .enter {
+    display: flex;
+    justify-content: center;
+    height: 22%;
+    margin-top: 20%;
+
+  }
+  .button {
+    position: relative;
+    padding: 10px 22px;
+    border-radius: 6px;
+    border: none;
+    color: #fff;
+    background-color: #ff7f00;
+    transition: all 0.2s ease;
   }
 
   .empty-panel:hover {
@@ -61,9 +106,45 @@ export default {
   }
 }
 @media (min-width: 750px) {
+  .login-input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+    width: 250px;
+    height: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: large;
+    margin-top: 30px;
+
+  }
+  .Nlogin-input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid red;
+    transition: border-color 0.3s ease;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 30px;
+
+    width: 250px;
+    height: 25px;
+    font-size: large;
+  }
+  .button {
+    position: relative;
+    padding: 10px 22px;
+    border-radius: 6px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    background-color: #ff7f00;
+    transition: all 0.2s ease;
+  }
   .empty-panel {
-    width: 35%;
-    height: 20%;
+    width: 25%;
+    height: 30%;
     border: 6px solid #ff5733;
     border-radius: 25px;
     transition: box-shadow 0.3s ease;
@@ -72,32 +153,21 @@ export default {
   .empty-panel:hover {
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
   }
+  .enter {
+    display: flex;
+    justify-content: center;
+    margin-top: 20%;
+
+  }
 }
-.Nlogin-input {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid red;
-  transition: border-color 0.3s ease;
-  width: 350px;
-  height: 25px;
-  font-size: large;
-}
+
 .Nlogin-input:focus {
   outline: none;
 
   border: 1px solid red;
   box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
 }
-.button {
-  position: relative;
-  padding: 10px 22px;
-  border-radius: 6px;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  background-color: #ff7f00;
-  transition: all 0.2s ease;
-}
+
 
 .button:active {
   transform: scale(0.96);
@@ -118,14 +188,14 @@ export default {
 .button:hover:before {
   top: -70%;
   background-image: radial-gradient(circle, #ff7f00 20%, transparent 20%),
-    radial-gradient(circle, transparent 20%, #ff7f00 20%, transparent 30%),
-    radial-gradient(circle, #ff7f00 20%, transparent 20%),
-    radial-gradient(circle, #ff7f00 20%, transparent 20%),
-    radial-gradient(circle, transparent 10%, #ff7f00 15%, transparent 20%),
-    radial-gradient(circle, #ff7f00 20%, transparent 20%),
-    radial-gradient(circle, #ff7f00 20%, transparent 20%),
-    radial-gradient(circle, #ff7f00 20%, transparent 20%),
-    radial-gradient(circle, #ff7f00 20%, transparent 20%);
+  radial-gradient(circle, transparent 20%, #ff7f00 20%, transparent 30%),
+  radial-gradient(circle, #ff7f00 20%, transparent 20%),
+  radial-gradient(circle, #ff7f00 20%, transparent 20%),
+  radial-gradient(circle, transparent 10%, #ff7f00 15%, transparent 20%),
+  radial-gradient(circle, #ff7f00 20%, transparent 20%),
+  radial-gradient(circle, #ff7f00 20%, transparent 20%),
+  radial-gradient(circle, #ff7f00 20%, transparent 20%),
+  radial-gradient(circle, #ff7f00 20%, transparent 20%);
   background-size:
     10% 10%,
     20% 20%,
@@ -191,12 +261,12 @@ export default {
 .button:hover::after {
   bottom: -70%;
   background-image: radial-gradient(circle, #ff7f00 20%, transparent 20%),
-    radial-gradient(circle, #ff7f00 20%, transparent 20%),
-    radial-gradient(circle, transparent 10%, #ff7f00 15%, transparent 20%),
-    radial-gradient(circle, #ff7f00 20%, transparent 20%),
-    radial-gradient(circle, #ff7f00 20%, transparent 20%),
-    radial-gradient(circle, #ff7f00 20%, transparent 20%),
-    radial-gradient(circle, #ff7f00 20%, transparent 20%);
+  radial-gradient(circle, #ff7f00 20%, transparent 20%),
+  radial-gradient(circle, transparent 10%, #ff7f00 15%, transparent 20%),
+  radial-gradient(circle, #ff7f00 20%, transparent 20%),
+  radial-gradient(circle, #ff7f00 20%, transparent 20%),
+  radial-gradient(circle, #ff7f00 20%, transparent 20%),
+  radial-gradient(circle, #ff7f00 20%, transparent 20%);
   background-size:
     15% 15%,
     20% 20%,
@@ -271,15 +341,7 @@ export default {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.login-input {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  transition: border-color 0.3s ease;
-  width: 350px;
-  height: 25px;
-  font-size: large;
-}
+
 
 .login-input:focus {
   outline: none;
@@ -287,13 +349,7 @@ export default {
   box-shadow: 0 0 5px rgba(255, 127, 0, 0.5);
 }
 
-.enter {
-  display: flex;
-  justify-content: center;
-  height: 22%;
-  margin-top: 8%;
 
-}
 .reg {
   display: flex;
   justify-content: center;
@@ -301,4 +357,39 @@ export default {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+.mail {
+  text-align: center;
+}
+
+.animated-text {
+  font-size: 20px;
+  color: #FFA500;
+  font-weight: bold;
+  border: 2px solid #FFA500;
+  border-radius: 5px;
+  padding: 2px 16px;
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+
+
+
+
 </style>

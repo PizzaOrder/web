@@ -7,22 +7,24 @@ export default {
     const inputValue1 = ref('');
     const mailStore = useMailStore();
     const userMail = computed(() => mailStore.mail);
+    const areInputsFilled = computed(() => inputValue1.value.trim().length > 0);
 
     return {
       userMail,
-      inputValue1
+      inputValue1,
+      areInputsFilled
     };
   }
 };
 </script>
-
 <template>
   <div class="container">
     <div class="empty-panel">
-      <div class="user-mail-container">
-      <div class="user-mail">{{ userMail }}</div>
+      <div class="text">Вход</div>
+      <div class="mail">
+        <p class="animated-text">{{userMail}}</p>
       </div>
-      <div class="login">
+        <div class="login">
         <input
           v-model="inputValue1"
           :class="{ 'Nlogin-input': !inputValue1.trim(), 'login-input': inputValue1.trim() }"
@@ -31,56 +33,38 @@ export default {
       </div>
 
       <div class="enter">
-        <button class="button" >Войти</button>
+        <router-link to='/'>
+          <button class="button" :disabled="!areInputsFilled">Войти</button>
+        </router-link>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.user-mail-container {
-  display: flex;
-  justify-content: center;
-}
-
-.user-mail {
-  font-family: 'Comic Sans MS', cursive;
-  font-size: 24px;
-  font-weight: bold;
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-}
-
-.user-mail::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 3px;
-  bottom: 0;
-  left: 0;
-  background: linear-gradient(90deg, transparent, #ff7f00, transparent);
-  animation: shine 1.5s linear infinite;
-}
-
-@keyframes shine {
-  0% {
-    left: -100%;
-  }
-  50% {
-    left: 100%;
-  }
-  100% {
-    left: 100%;
-  }
-}
 @media (max-width: 750px) {
   .empty-panel {
     width: 70%;
-    height: 50%;
+    height: 30%;
     border: 6px solid #ff5733;
     border-radius: 25px;
     transition: box-shadow 0.3s ease;
+  }
+  .enter {
+    display: flex;
+    justify-content: center;
+    height: 22%;
+    margin-top: 20%;
+
+  }
+  .button {
+    position: relative;
+    padding: 10px 22px;
+    border-radius: 6px;
+    border: none;
+    color: #fff;
+    background-color: #ff7f00;
+    transition: all 0.2s ease;
   }
 
   .empty-panel:hover {
@@ -88,9 +72,19 @@ export default {
   }
 }
 @media (min-width: 750px) {
+  .button {
+    position: relative;
+    padding: 10px 22px;
+    border-radius: 6px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    background-color: #ff7f00;
+    transition: all 0.2s ease;
+  }
   .empty-panel {
-    width: 35%;
-    height: 20%;
+    width: 25%;
+    height: 30%;
     border: 6px solid #ff5733;
     border-radius: 25px;
     transition: box-shadow 0.3s ease;
@@ -99,13 +93,33 @@ export default {
   .empty-panel:hover {
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
   }
+  .enter {
+    display: flex;
+    justify-content: center;
+    margin-top: 7%;
+
+  }
+}
+.login-input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+  width: 250px;
+  height: 25px;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: large;
 }
 .Nlogin-input {
   padding: 10px;
   border-radius: 6px;
   border: 1px solid red;
   transition: border-color 0.3s ease;
-  width: 350px;
+  margin-left: 5px;
+  margin-right: 5px;
+
+  width: 250px;
   height: 25px;
   font-size: large;
 }
@@ -115,16 +129,7 @@ export default {
   border: 1px solid red;
   box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
 }
-.button {
-  position: relative;
-  padding: 10px 22px;
-  border-radius: 6px;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  background-color: #ff7f00;
-  transition: all 0.2s ease;
-}
+
 
 .button:active {
   transform: scale(0.96);
@@ -298,15 +303,7 @@ export default {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.login-input {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  transition: border-color 0.3s ease;
-  width: 350px;
-  height: 25px;
-  font-size: large;
-}
+
 
 .login-input:focus {
   outline: none;
@@ -314,13 +311,7 @@ export default {
   box-shadow: 0 0 5px rgba(255, 127, 0, 0.5);
 }
 
-.enter {
-  display: flex;
-  justify-content: center;
-  height: 22%;
-  margin-top: 8%;
 
-}
 .reg {
   display: flex;
   justify-content: center;
@@ -328,4 +319,39 @@ export default {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+.mail {
+  text-align: center;
+}
+
+.animated-text {
+  font-size: 20px;
+  color: #FFA500;
+  font-weight: bold;
+  border: 2px solid #FFA500;
+  border-radius: 5px;
+  padding: 2px 16px;
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+
+
+
+
 </style>
