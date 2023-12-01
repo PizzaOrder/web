@@ -3,6 +3,7 @@ import { defineComponent, ref, computed } from 'vue'
 import type { PropType } from 'vue'
 import { globalState } from '@/views/HomeComponent.vue'
 import { vMaska } from 'maska'
+import { useCityStore } from '@/Pinia/cityStore'
 
 export default defineComponent({
   name: 'OrdersComponent',
@@ -72,6 +73,8 @@ export default defineComponent({
     const city = computed(() => {
       return localStorage.getItem('selectedCity')
     })
+    const cityStore = useCityStore();
+    const city2 = computed(() => cityStore.city);
 
     return {
       promoCode,
@@ -82,6 +85,7 @@ export default defineComponent({
       orders,
       deletePizza,
       city,
+      city2,
       toggleHome,
       showHome,
       incrementQuantity,
@@ -120,7 +124,9 @@ export default defineComponent({
       </div>
     </div>
     <div class="text">
-      Доставка: <strong class="city">{{ city }}</strong>
+      <div>
+        Доставка: <strong class="city">{{ city2 ? city2 : city }}</strong>
+      </div>
     </div>
     <div class="cent">
       <div class="cent-buttons">

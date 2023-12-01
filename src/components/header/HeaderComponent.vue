@@ -103,6 +103,7 @@ import { ref, onMounted, computed, onUnmounted } from 'vue'
 import emitter from '@/funcs/eventBus'
 import { globalState } from '@/views/HomeComponent.vue'
 import { defineComponent } from 'vue'
+import { useCityStore } from '@/Pinia/cityStore'
 
 export default defineComponent({
   setup() {
@@ -115,10 +116,11 @@ export default defineComponent({
     const vkProfileUrl = ref('https://vk.com/id389649410')
     const cities = ref(['Ярославль', 'Москва', 'Мухосранск', 'Казань'])
     const showCartIndicator = ref(false)
+    const cityStore = useCityStore();
     const changeCity = (event: Event) => {
       const target = event.target as HTMLSelectElement
       cityName.value = target.value
-      localStorage.setItem('selectedCity', cityName.value)
+      cityStore.setCity(cityName.value.trim());
     }
     const menuOpen = ref(false)
     const menuRef = ref<HTMLElement | null>(null)
