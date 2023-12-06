@@ -3,7 +3,7 @@ import { defineComponent, ref, computed } from 'vue'
 import type { PropType } from 'vue'
 import { globalState } from '@/views/HomeComponent.vue'
 import { vMaska } from 'maska'
-import { useCityStore } from '@/Pinia/cityStore'
+import { useCitiesStore } from '@/Pinia/citiesStore'
 
 export default defineComponent({
   name: 'OrdersComponent',

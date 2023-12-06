@@ -26,9 +26,10 @@
       <div class="header-content">
         <div class="container">
           <img class="gps" src="/assets/img/gps.svg" />
-          <select v-model="cityName" @change="changeCity" class="city-select">
-            <option v-for="city in cities" :key="city">{{ city }}</option>
-          </select>
+            <select v-model="selectedCityId" class='city-select'>
+              <option v-for="city in cities" :key="city.id" :value="city.id">{{ city.city }}</option>
+            </select>
+
         </div>
         <div class="container phonenum">
           <img class="time" src="/assets/img/time.svg" />
@@ -99,14 +100,17 @@
 </template>
 
 <script lang="ts">
-import { ref, onMounted, computed, onUnmounted } from 'vue'
+import { ref, onMounted, computed, onUnmounted, watch } from 'vue'
 import emitter from '@/funcs/eventBus'
 import { globalState } from '@/views/HomeComponent.vue'
 import { defineComponent } from 'vue'
-import { useCityStore } from '@/Pinia/cityStore'
+import { useCitiesStore } from '@/Pinia/citiesStore'
 
 export default defineComponent({
   setup() {
+
+    const citiesStore = useCitiesStore();
+    const selectedCity = ref<number | null>(null);
     const cityName = ref('Ярославль')
     const openingTime = ref('9:00')
     const closingTime = ref('23:00')
@@ -116,12 +120,7 @@ export default defineComponent({
     const vkProfileUrl = ref('https://vk.com/id389649410')
     const cities = ref(['Ярославль', 'Москва', 'Мухосранск', 'Казань'])
     const showCartIndicator = ref(false)
-    const cityStore = useCityStore();
-    const changeCity = (event: Event) => {
-      const target = event.target as HTMLSelectElement
-      cityName.value = target.value
-      cityStore.setCity(cityName.value.trim());
-    }
+
     const menuOpen = ref(false)
     const menuRef = ref<HTMLElement | null>(null)
 
@@ -130,7 +129,9 @@ export default defineComponent({
         menuOpen.value = false
       }
     }
-
+    watch(() => citiesStore.selectedCityId, (newVal) => {
+      citiesStore.setSelectedCity(newVal);
+    });
     onMounted(() => {
       document.addEventListener('click', closeMenuHandler)
     })
@@ -154,28 +155,31 @@ export default defineComponent({
     })
 
     onMounted(() => {
-      const savedCity = localStorage.getItem('selectedCity')
-      if (savedCity && cities.value.includes(savedCity)) {
-        cityName.value = savedCity
-      }
-    })
+      citiesStore.fetchCities();
+    });
 
     return {
-      cityName,
+      cities: computed(() => citiesStore.cities),
+
+      selectedCity,
       openingTime,
       closingTime,
       number,
       email,
       showContacts,
-      cities,
-      changeCity,
       toggleContacts,
       vkProfileUrl,
       showCartIndicator,
       hasItemsInCart,
       totalPizzasInOrder,
       menuOpen,
-      menuRef
+      menuRef,
+      selectedCityId: computed({
+        get: () => citiesStore.selectedCityId,
+        set: (value) => {
+          citiesStore.setSelectedCity(value)
+        }
+      })
     }
   }
 })
