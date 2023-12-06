@@ -1,37 +1,42 @@
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, toRefs } from 'vue'
 import type { PropType } from 'vue'
 import { globalState } from '@/views/HomeComponent.vue'
 import { vMaska } from 'maska'
 import { useCitiesStore } from '@/Pinia/citiesStore'
+import { usePromoCodeStore } from '@/Pinia/promoCodeStore'
 
 export default defineComponent({
   name: 'OrdersComponent',
-  props: {
-    promes: {
-      type: Array as PropType<{ id: number; code: string; discountOnPresent: number }[]>,
-      required: true
-    }
-  },
+
   directives: { maska: vMaska },
-  setup(props) {
+  setup() {
     const showHome = ref(false)
-    const promoCode = ref('')
-    const promoCodeValid = ref<boolean | null>(null)
     const discount = ref<number | null>(null)
+    const promoCode = ref('');
+    const store = usePromoCodeStore();
+    const { isValid, promoCodeData } = toRefs(store);
+    const applyPromoCode = async () => {
+      await store.validatePromoCode(promoCode.value);
+    };
+    const discountPercentage = computed(() => promoCodeData.value?.discount_percentage);
+
 
     const orders = computed(() => globalState.orders)
 
     const totalPrice = computed(() => {
-      let sum = orders.value.reduce((total, order) => {
-        const quantity = order.quantity ?? 1
-        return total + order.price * quantity
-      }, 0)
-      if (discount.value) {
-        sum -= sum * (discount.value / 100)
-      }
-      return sum
-    })
+      const baseSum = orders.value.reduce((total, order) => {
+        const quantity = order.quantity ?? 1;
+        return total + order.price * quantity;
+      }, 0);
+
+      // Проверка, определен ли discountPercentage и является ли он числом больше 0
+      const discountFactor = (discountPercentage.value !== undefined && discountPercentage.value > 0)
+        ? (1 - discountPercentage.value / 100)
+        : 1;
+
+      return baseSum * discountFactor;
+    });
     const incrementQuantity = (index: number) => {
       if (globalState.orders[index]) {
         globalState.orders[index].quantity = (globalState.orders[index].quantity || 0) + 1
@@ -54,33 +59,17 @@ export default defineComponent({
       globalState.orders.splice(index, 1)
     }
 
-    const applyPromoCode = () => {
-      promoCodeValid.value = null
-      discount.value = null
 
-      if (promoCode.value === '') {
-        return
-      }
-
-      const foundPromo = props.promes.find((prom) => promoCode.value === prom.code)
-      if (foundPromo) {
-        promoCodeValid.value = true
-        discount.value = foundPromo.discountOnPresent
-      } else {
-        promoCodeValid.value = false
-      }
-    }
     const citiesStore = useCitiesStore();
     const selectedCityName = computed(() => {
       const selectedCity = citiesStore.cities.find(city => city.id === citiesStore.selectedCityId);
       return selectedCity ? selectedCity.city : 'Не выбран';
     });
 
+
     return {
-      promoCode,
-      promoCodeValid,
+      promoCode, applyPromoCode, isValid, discountPercentage,
       discount,
-      applyPromoCode,
       totalPrice,
       orders,
       deletePizza,
@@ -165,9 +154,9 @@ export default defineComponent({
           Применить
         </button>
       </div>
-      <p v-if="promoCodeValid !== null">
-        <span v-if="promoCodeValid">Промокод применен: (Скидка: {{ discount }}%)</span>
-        <span v-else-if="promoCodeValid === false">Неверный промокод</span>
+      <p>
+        <span v-if="isValid === true">Скидка: {{ discountPercentage }}% </span>
+        <span v-if="isValid === false">Промокод неверный</span>
       </p>
     </div>
 
