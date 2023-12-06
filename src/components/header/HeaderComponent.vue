@@ -111,14 +111,12 @@ export default defineComponent({
 
     const citiesStore = useCitiesStore();
     const selectedCity = ref<number | null>(null);
-    const cityName = ref('Ярославль')
     const openingTime = ref('9:00')
     const closingTime = ref('23:00')
     const number = ref('8 (800) 555-35-35')
     const email = ref('oleg@bebra.com')
     const showContacts = ref(false)
     const vkProfileUrl = ref('https://vk.com/id389649410')
-    const cities = ref(['Ярославль', 'Москва', 'Мухосранск', 'Казань'])
     const showCartIndicator = ref(false)
 
     const menuOpen = ref(false)

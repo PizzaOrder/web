@@ -70,11 +70,11 @@ export default defineComponent({
         promoCodeValid.value = false
       }
     }
-    const city = computed(() => {
-      return localStorage.getItem('selectedCity')
-    })
-    const cityStore = useCityStore();
-    const city2 = computed(() => cityStore.city);
+    const citiesStore = useCitiesStore();
+    const selectedCityName = computed(() => {
+      const selectedCity = citiesStore.cities.find(city => city.id === citiesStore.selectedCityId);
+      return selectedCity ? selectedCity.city : 'Не выбран';
+    });
 
     return {
       promoCode,
@@ -84,8 +84,7 @@ export default defineComponent({
       totalPrice,
       orders,
       deletePizza,
-      city,
-      city2,
+      selectedCityName,
       toggleHome,
       showHome,
       incrementQuantity,
@@ -125,7 +124,7 @@ export default defineComponent({
     </div>
     <div class="text">
       <div>
-        Доставка: <strong class="city">{{ city2 ? city2 : city }}</strong>
+        Доставка: <strong class="city">{{ selectedCityName }}</strong>
       </div>
     </div>
     <div class="cent">
