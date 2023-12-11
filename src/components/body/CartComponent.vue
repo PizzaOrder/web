@@ -156,7 +156,7 @@ export default defineComponent({
       </div>
       <p>
         <span v-if="isValid === true">Скидка: {{ discountPercentage }}% </span>
-        <span v-if="isValid === false">Промокод неверный</span>
+        <span v-if="isValid === false">Промоdкод неверный</span>
       </p>
     </div>
 

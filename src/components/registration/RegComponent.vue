@@ -1,45 +1,56 @@
-<script lang="ts">
-import { computed, inject, ref } from 'vue'
-import {useMailStore} from '@/Pinia/mailStore'
-
-export default {
-  setup() {
-    const inputValue1 = ref('');
-    const mailStore = useMailStore();
-    const userMail = computed(() => mailStore.mail);
-    const areInputsFilled = computed(() => inputValue1.value.trim().length > 0);
-
-    return {
-      userMail,
-      inputValue1,
-      areInputsFilled
-    };
-  }
-};
-</script>
 <template>
   <div class="container">
     <div class="empty-panel">
       <div class="text">Вход</div>
       <div class="mail">
-        <p class="animated-text">{{userMail}}</p>
+        <p class="animated-text">{{ userMail }}</p>
       </div>
-        <div class="login">
+      <div class="login">
         <input
-          v-model="inputValue1"
-          :class="{ 'Nlogin-input': !inputValue1.trim(), 'login-input': inputValue1.trim() }"
+          v-model="verificationCode"
+          :class="{ 'Nlogin-input': !verificationCode.trim(), 'login-input': verificationCode.trim() }"
           placeholder="Код"
         />
       </div>
-
       <div class="enter">
-        <router-link to='/'>
-          <button class="button" :disabled="!areInputsFilled">Войти</button>
-        </router-link>
+        <button class="button" :disabled="!verificationCode.trim()" @click="verify">Войти</button>
       </div>
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/Pinia/authStore'
+import { useMailStore } from '@/Pinia/mailStore';
+
+export default {
+  setup() {
+    const verificationCode = ref('');
+    const authStore = useAuthStore();
+    const mailStore = useMailStore();
+    const router = useRouter();
+
+    const userMail = mailStore.mail; // Предполагается, что mailStore уже содержит почту
+
+    const verify = async () => {
+      if (verificationCode.value.trim()) {
+        await authStore.verify(userMail, Number(verificationCode.value.trim()));
+        router.push('/'); // Предполагается, что есть маршрут для пользовательской панели
+      }
+    };
+
+    return {
+      userMail,
+      verificationCode,
+      verify,
+    };
+  },
+};
+</script>
+
+
 
 <style scoped>
 @media (max-width: 750px) {

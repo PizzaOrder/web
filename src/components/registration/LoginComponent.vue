@@ -4,16 +4,13 @@
       <div class="text">Авторизация</div>
       <div class="login">
         <input
-          v-model="inputValue1"
+          v-model="email"
           :class="{ 'Nlogin-input': !isEmailValid, 'login-input': isEmailValid }"
           placeholder="Почта"
         />
       </div>
-
       <div class="enter">
-        <router-link to='/registration'>
-          <button class="button" :disabled="!areInputsFilled" @click="saveMail">Войти</button>
-        </router-link>
+        <button class="button" :disabled="!isEmailValid" @click="register">Войти</button>
       </div>
     </div>
   </div>
@@ -21,35 +18,34 @@
 
 <script lang='ts'>
 import { computed, ref } from 'vue';
-import { useMailStore } from '@/Pinia/mailStore';
+import { useRouter } from 'vue-router';
+import {useAuthStore } from '@/Pinia/authStore'
 
 export default {
   setup() {
-    const inputValue1 = ref('');
-    const mailStore = useMailStore();
+    const email = ref('');
+    const authStore = useAuthStore();
+    const router = useRouter();
 
     const emailRegex = /^\S+@\S+\.\S+$/;
+    const isEmailValid = computed(() => emailRegex.test(email.value.trim()));
 
-    const isEmailValid = computed(() => emailRegex.test(inputValue1.value.trim()));
-
-    const areInputsFilled = computed(() => inputValue1.value.trim().length > 0 && isEmailValid.value);
-
-    const saveMail = () => {
-      if (areInputsFilled.value) {
-        mailStore.setMail(inputValue1.value.trim());
+    const register = async () => {
+      if (isEmailValid.value) {
+        await authStore.register(email.value.trim());
+        router.push('/registration'); // Предполагается, что есть маршрут для страницы подтверждения
       }
     };
 
     return {
-      inputValue1,
+      email,
       isEmailValid,
-      areInputsFilled,
-      saveMail,
+      register,
     };
   },
 };
-
 </script>
+
 
 
 
