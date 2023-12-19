@@ -8,9 +8,13 @@
         </label>
         <ul class="menu__box" v-show="menuOpen">
           <div class="disable-select">
-            <router-link to="/login" class="actions phone-link style-headl"
+            <router-link v-if="!isVerified" to="/login" class="actions phone-link style-headl"
               >Личный кабинет</router-link
             >
+            <router-link v-if="isVerified" to="/profile" class="actions phone-link style-headl">
+              Личный кабинет
+            </router-link>
+
           </div>
           <router-link to="/" class="actions style-head router-link-exact-active"
             >Меню
@@ -43,7 +47,10 @@
           <router-link to="/registration"
             ><img class="entry" src="assets/img/in.svg"
           /></router-link>
-          <router-link to="/login" class="login phone-link">Личный кабинет</router-link>
+          <router-link to="/login" v-if="!isVerified" class="login phone-link">Личный кабинет</router-link>
+          <router-link v-if="isVerified" to="/profile" class="login phone-link">
+            Личный кабинет
+          </router-link>
         </div>
       </div>
       <span class="cart2">
@@ -105,10 +112,10 @@ import emitter from '@/funcs/eventBus'
 import { globalState } from '@/views/HomeComponent.vue'
 import { defineComponent } from 'vue'
 import { useCitiesStore } from '@/Pinia/citiesStore'
-
+import { useAuthStore } from '@/Pinia/authStore'
 export default defineComponent({
   setup() {
-
+    const authStore = useAuthStore();
     const citiesStore = useCitiesStore();
     const selectedCity = ref<number | null>(null);
     const openingTime = ref('9:00')
@@ -118,10 +125,15 @@ export default defineComponent({
     const showContacts = ref(false)
     const vkProfileUrl = ref('https://vk.com/id389649410')
     const showCartIndicator = ref(false)
-
+    const isVerified = computed(() => {
+      return localStorage.getItem('access_token') !== null;
+    });
     const menuOpen = ref(false)
     const menuRef = ref<HTMLElement | null>(null)
-
+    const logout = () => {
+      authStore.logout();
+      location.reload();
+    };
     const closeMenuHandler = (event: MouseEvent) => {
       if (menuRef.value && !menuRef.value.contains(event.target as Node) && menuOpen.value) {
         menuOpen.value = false
@@ -158,9 +170,9 @@ export default defineComponent({
 
     return {
       cities: computed(() => citiesStore.cities),
-
       selectedCity,
       openingTime,
+      isVerified,
       closingTime,
       number,
       email,
@@ -172,6 +184,7 @@ export default defineComponent({
       totalPizzasInOrder,
       menuOpen,
       menuRef,
+      logout,
       selectedCityId: computed({
         get: () => citiesStore.selectedCityId,
         set: (value) => {

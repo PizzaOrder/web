@@ -1,4 +1,3 @@
-// store/authStore.ts
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
@@ -9,23 +8,29 @@ export const useAuthStore = defineStore('auth', {
     errorMessage: '',
     successMessage: '',
   }),
+  getters: {
+    // This getter will return true if the user is logged in (i.e., if a token exists in localStorage)
+    isLoggedIn(): boolean {
+      return !!localStorage.getItem('access_token');
+    },
+  },
   actions: {
     async register(email: string) {
       try {
         const response = await axios.post('http://127.0.0.1:8000/auth/login/', {
           email: email,
         });
-        // Устанавливаем email в состояние после успешной регистрации
+        // Set email in state after successful registration
         this.email = email;
         this.successMessage = 'Registration successful. Please check your email for a verification code.';
-        // Очищаем сообщение об ошибке, если регистрация прошла успешно
+        // Clear error message if registration is successful
         this.errorMessage = '';
       } catch (error) {
         this.errorMessage = 'Registration failed.';
         if (axios.isAxiosError(error) && error.response) {
           this.errorMessage = error.response.data.message || this.errorMessage;
         }
-        // Очищаем успешное сообщение, если произошла ошибка
+        // Clear success message if there is an error
         this.successMessage = '';
       }
     },
@@ -35,21 +40,33 @@ export const useAuthStore = defineStore('auth', {
           email: email,
           verification_code: verificationCode,
         });
-        // Устанавливаем код верификации в состояние после успешной верификации
+        // Set verification code in state after successful verification
         this.verificationCode = verificationCode;
         this.successMessage = 'Verification successful.';
-        console.log('Verification successful.');
-        // Очищаем сообщение об ошибке, если верификация прошла успешно
+        // Clear error message if verification is successful
         this.errorMessage = '';
+
+        // Save token to localStorage here
+        localStorage.setItem('access_token', response.data.access_token);
+        localStorage.setItem('token_type', response.data.token_type);
+
       } catch (error) {
         this.errorMessage = 'Verification failed.';
         if (axios.isAxiosError(error) && error.response) {
           this.errorMessage = error.response.data.message || this.errorMessage;
         }
-        // Очищаем успешное сообщение, если произошла ошибка
+        // Clear success message if there is an error
         this.successMessage = '';
-        console.log('Verification failed.'); // Log failure here
       }
+    },
+    logout() {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('token_type');
+      // Reset the state if needed
+      this.email = '';
+      this.verificationCode = 0;
+      this.errorMessage = '';
+      this.successMessage = '';
     },
 
   },
