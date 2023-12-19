@@ -38,6 +38,7 @@ export const useAuthStore = defineStore('auth', {
         // Устанавливаем код верификации в состояние после успешной верификации
         this.verificationCode = verificationCode;
         this.successMessage = 'Verification successful.';
+        console.log('Verification successful.');
         // Очищаем сообщение об ошибке, если верификация прошла успешно
         this.errorMessage = '';
       } catch (error) {
@@ -47,7 +48,9 @@ export const useAuthStore = defineStore('auth', {
         }
         // Очищаем успешное сообщение, если произошла ошибка
         this.successMessage = '';
+        console.log('Verification failed.'); // Log failure here
       }
     },
+
   },
 });

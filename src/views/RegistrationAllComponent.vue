@@ -5,7 +5,6 @@ import { defineComponent } from 'vue'
 import BasementComponent from '@/components/basement/BasementComponent.vue'
 export default defineComponent({
   components: {
-    HeaderComponent,
     RegComponent,
     BasementComponent
   },
