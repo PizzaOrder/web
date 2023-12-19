@@ -59,6 +59,7 @@ export const useAuthStore = defineStore('auth', {
     },
     async validateToken() {
       const accessToken = localStorage.getItem('access_token');
+      console.log(accessToken);
       if (!accessToken) {
         console.log("Нет токена доступа, выход из системы");
         this.logout();
@@ -66,8 +67,8 @@ export const useAuthStore = defineStore('auth', {
       }
 
       try {
-        const response = await axios.put('https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/user/me', {}, {
-          headers: { 'Authorization': `Bearer ${accessToken}` }
+        const response = await axios.get('https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/user/me/', {
+          headers: { 'token': accessToken }
         });
         console.log("Токен подтвержден", response.data);
       } catch (error) {
@@ -75,6 +76,8 @@ export const useAuthStore = defineStore('auth', {
         this.logout();
       }
     },
+
+
 
     logout() {
       localStorage.removeItem('access_token');

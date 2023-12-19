@@ -12,9 +12,9 @@ export const useUserStore = defineStore('user', {
   actions: {
     async fetchUserData() {
       try {
-        const response = await axios.get('https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/user/me', {
+        const response = await axios.get('https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/user/me/', {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            token: `Bearer ${localStorage.getItem('access_token')}`,
           },
         }); // Укажите ваш URL-эндпоинт
         this.userData = response.data;
@@ -23,10 +23,13 @@ export const useUserStore = defineStore('user', {
       }
     },
     async updateUserData(userData) {
+      const accessToken = localStorage.getItem('access_token');
+      console.log(accessToken)
       try {
-        const response = await axios.put('https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/user/me', userData, {
+        console.log(accessToken)
+        const response = await axios.put('https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/user/me/', userData, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            token: `Bearer ${accessToken}`,
           },
         }); // Укажите ваш URL-эндпоинт
         this.userData = response.data;
