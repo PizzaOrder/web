@@ -59,6 +59,27 @@ export const useAuthStore = defineStore('auth', {
         this.successMessage = '';
       }
     },
+    async validateToken() {
+      const accessToken = localStorage.getItem('access_token');
+      if (!accessToken) {
+        this.logout(); // Clear any session state
+        return;
+      }
+
+      try {
+        // Make a request to the user/me endpoint
+        await axios.put('http://127.0.0.1:8000/user/me', {}, {
+          headers: { 'Authorization': `Bearer ${accessToken}` }
+        });
+        // If we get here, the token is valid and the user exists
+      } catch (error) {
+        this.logout();
+        if (axios.isAxiosError(error) && error.response) {
+          // Optionally, handle the specific error response from server
+          this.errorMessage = error.response.data.message || 'User validation failed, you have been logged out.';
+        }
+      }
+    },
     logout() {
       localStorage.removeItem('access_token');
       localStorage.removeItem('token_type');
