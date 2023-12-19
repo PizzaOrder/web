@@ -12,7 +12,7 @@ export const useUserStore = defineStore('user', {
   actions: {
     async fetchUserData() {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/user/me', {
+        const response = await axios.get('https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/user/me', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('access_token')}`,
           },
@@ -24,7 +24,7 @@ export const useUserStore = defineStore('user', {
     },
     async updateUserData(userData) {
       try {
-        const response = await axios.put('http://127.0.0.1:8000/user/me', userData, {
+        const response = await axios.put('https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/user/me', userData, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('access_token')}`,
           },

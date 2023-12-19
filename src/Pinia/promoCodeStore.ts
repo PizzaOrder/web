@@ -25,7 +25,7 @@ export const usePromoCodeStore = defineStore('promoCode', {
   actions: {
     async validatePromoCode(code: string) {
       try {
-        const response = await axios.get(`http://localhost:8000/promo_codes/validate/${code}`);
+        const response = await axios.get(`https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/promo_codes/validate/${code}`);
         if (response.data && this.isPromoCodeValid(response.data)) {
           this.promoCodeData = response.data;
           this.isValid = true;

@@ -21,7 +21,7 @@ export const usePizzaStore = defineStore('pizza', {
       try {
         this.errorMessage = '';
 
-        const response = await axios.get('http://127.0.0.1:8000/pizzas');
+        const response = await axios.get('https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/pizzas');
 
         this.pizzas = response.data;
       } catch (error) {

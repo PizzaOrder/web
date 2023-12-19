@@ -5,19 +5,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { onMounted } from 'vue';
+import { onMounted, defineComponent } from 'vue'
 import { useAuthStore } from '@/Pinia/authStore'
 export default defineComponent({
   name: 'App',
-  components: {},
   setup() {
+    const authStore = useAuthStore();
+
+    onMounted(async () => {
+      await authStore.validateToken();
+    });
+
     return {}
   }
 })
-
-onMounted(async () => {
-  const authStore = useAuthStore();
-  await authStore.validateToken();
-});
 </script>

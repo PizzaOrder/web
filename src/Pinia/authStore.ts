@@ -17,13 +17,11 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async register(email: string) {
       try {
-        const response = await axios.post('http://127.0.0.1:8000/auth/login/', {
+        const response = await axios.post('https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/auth/login/', {
           email: email,
         });
-        // Set email in state after successful registration
         this.email = email;
         this.successMessage = 'Registration successful. Please check your email for a verification code.';
-        // Clear error message if registration is successful
         this.errorMessage = '';
       } catch (error) {
         this.errorMessage = 'Registration failed.';
@@ -36,7 +34,7 @@ export const useAuthStore = defineStore('auth', {
     },
     async verify(email: string, verificationCode: number) {
       try {
-        const response = await axios.post('http://127.0.0.1:8000/auth/verify/', {
+        const response = await axios.post('https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/auth/verify/', {
           email: email,
           verification_code: verificationCode,
         });
@@ -62,24 +60,22 @@ export const useAuthStore = defineStore('auth', {
     async validateToken() {
       const accessToken = localStorage.getItem('access_token');
       if (!accessToken) {
-        this.logout(); // Clear any session state
+        console.log("Нет токена доступа, выход из системы");
+        this.logout();
         return;
       }
 
       try {
-        // Make a request to the user/me endpoint
-        await axios.put('http://127.0.0.1:8000/user/me', {}, {
+        const response = await axios.put('https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/user/me', {}, {
           headers: { 'Authorization': `Bearer ${accessToken}` }
         });
-        // If we get here, the token is valid and the user exists
+        console.log("Токен подтвержден", response.data);
       } catch (error) {
+        console.log("Ошибка при валидации токена, выход из системы", error);
         this.logout();
-        if (axios.isAxiosError(error) && error.response) {
-          // Optionally, handle the specific error response from server
-          this.errorMessage = error.response.data.message || 'User validation failed, you have been logged out.';
-        }
       }
     },
+
     logout() {
       localStorage.removeItem('access_token');
       localStorage.removeItem('token_type');
