@@ -5,45 +5,54 @@
       <p>Имя: {{ userData.first_name }}</p>
       <p>Фамилия: {{ userData.last_name }}</p>
       <p>Email: {{ userData.email }}</p>
-    </div>
-    <div>
-      <h2>Изменить данные пользователя</h2>
-      <form @submit.prevent="updateUser">
-        <label for="first_name">Имя:</label>
-        <input v-model="formData.first_name" type="text" id="first_name" />
-        <br />
-        <label for="last_name">Фамилия:</label>
-        <input v-model="formData.last_name" type="text" id="last_name" />
-        <br />
-        <button type="submit">Сохранить</button>
-      </form>
+
+      <input v-model="editableUserData.firstName" placeholder="Новое имя">
+      <input v-model="editableUserData.lastName" placeholder="Новая фамилия">
+      <button @click="updateUser">Обновить данные</button>
     </div>
   </div>
 </template>
 
-<script>
-import { ref, computed } from 'vue';
+<script lang="ts">
+import { defineComponent, ref, onMounted } from 'vue';
 import { useUserStore } from '@/Pinia/userStore'
-export default {
+import type { UserData } from '@/Pinia/userStore'
+export default defineComponent({
   setup() {
     const userStore = useUserStore();
-    const userData = computed(() => userStore.getUserData);
-    const formData = ref({
-      first_name: '',
-      last_name: '',
-    });
+    const userData = ref<UserData | null>(null);
+    const editableUserData = ref({ firstName: '', lastName: '' });
 
-    userData.value && (formData.value = { ...userData.value });
+    const fetchUserData = async () => {
+      await userStore.fetchUserData();
+      userData.value = userStore.userData;
+      if (userData.value) {
+        editableUserData.value = {
+          firstName: userData.value.first_name,
+          lastName: userData.value.last_name
+        };
+      }
+    };
 
     const updateUser = async () => {
-      await userStore.updateUserData(formData.value);
+      if (userData.value) {
+        await userStore.updateUserData({
+          ...userData.value,
+          first_name: editableUserData.value.firstName,
+          last_name: editableUserData.value.lastName
+
+        });
+      }
+      location.reload();
     };
+
+    onMounted(fetchUserData);
 
     return {
       userData,
-      formData,
-      updateUser,
+      editableUserData,
+      updateUser
     };
-  },
-};
+  }
+});
 </script>

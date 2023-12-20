@@ -31,7 +31,7 @@ interface Promo {
 
 export interface Pizza {
   id: number
-  image: string
+  img_source: string
   name: string
   price: number
   buttonText: string
@@ -47,7 +47,7 @@ export const globalState: GlobalState = reactive({
 })
 
 export function addToGlobalOrder(pizza: {
-  image: string
+  img_source: string
   name: string
   price: number
   buttonText: string

@@ -87,7 +87,7 @@ export default defineComponent({
     <p class="cart-name"><strong>Корзина</strong></p>
     <div class="order-item" v-for="(order, index) in orders" :key="order.id">
       <div class="order-details">
-        <img :src="order.image" alt="" />
+        <img :src="order.img_source" alt="" />
       </div>
       <div class="order-info">
         <table>
