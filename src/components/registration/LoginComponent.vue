@@ -33,7 +33,7 @@ export default {
     const register = async () => {
       if (isEmailValid.value) {
         await authStore.register(email.value.trim());
-        router.push('/registration'); // Предполагается, что есть маршрут для страницы подтверждения
+        router.push('/registration');
       }
     };
 

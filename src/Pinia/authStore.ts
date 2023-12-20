@@ -9,15 +9,14 @@ export const useAuthStore = defineStore('auth', {
     successMessage: '',
   }),
   getters: {
-    // This getter will return true if the user is logged in (i.e., if a token exists in localStorage)
-    isLoggedIn(): boolean {
+   isLoggedIn(): boolean {
       return !!localStorage.getItem('access_token');
     },
   },
   actions: {
     async register(email: string) {
       try {
-        const response = await axios.post('https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/auth/login/', {
+        const response = await axios.post('https://potential-broccoli-wxg6w4x4jgr259w5-8000.preview.app.github.dev/auth/login/', {
           email: email,
         });
         this.email = email;
@@ -34,7 +33,7 @@ export const useAuthStore = defineStore('auth', {
     },
     async verify(email: string, verificationCode: number) {
       try {
-        const response = await axios.post('https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/auth/verify/', {
+        const response = await axios.post('https://potential-broccoli-wxg6w4x4jgr259w5-8000.preview.app.github.dev/auth/verify/', {
           email: email,
           verification_code: verificationCode,
         });
@@ -67,7 +66,7 @@ export const useAuthStore = defineStore('auth', {
       }
 
       try {
-        const response = await axios.get('https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/user/me/', {
+        const response = await axios.get('https://potential-broccoli-wxg6w4x4jgr259w5-8000.preview.app.github.dev/user/me/', {
           headers: { 'token': accessToken }
         });
         console.log("Токен подтвержден", response.data);
@@ -82,7 +81,6 @@ export const useAuthStore = defineStore('auth', {
     logout() {
       localStorage.removeItem('access_token');
       localStorage.removeItem('token_type');
-      // Reset the state if needed
       this.email = '';
       this.verificationCode = 0;
       this.errorMessage = '';

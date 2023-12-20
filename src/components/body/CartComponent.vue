@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, ref, computed, toRefs } from 'vue'
+import { defineComponent, ref, computed, toRefs, onMounted } from 'vue'
 import type { PropType } from 'vue'
 import { globalState } from '@/views/HomeComponent.vue'
 import { vMaska } from 'maska'
@@ -20,7 +20,19 @@ export default defineComponent({
       await store.validatePromoCode(promoCode.value);
     };
     const discountPercentage = computed(() => promoCodeData.value?.discount_percentage);
+    function loadOrdersFromLocalStorage() {
+      const savedOrders = localStorage.getItem('orders');
+      if (savedOrders) {
+        const orders = JSON.parse(savedOrders);
+        // Update global state with loaded orders
+        globalState.orders.splice(0, globalState.orders.length, ...orders);
+      }
+    }
 
+    // Load orders from local storage when component is mounted
+    onMounted(() => {
+      loadOrdersFromLocalStorage();
+    });
 
     const orders = computed(() => globalState.orders)
 

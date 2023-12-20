@@ -23,6 +23,7 @@ const addToOrder = (pizza) => {
   emitter.emit('button-clicked');
   addToGlobalOrder(pizza);
 };
+
 onMounted(async () => {
   await pizzaStore.fetchPizzas();
   pizzas.value = pizzaStore.pizzas;

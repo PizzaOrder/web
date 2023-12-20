@@ -45,6 +45,10 @@ interface GlobalState {
 export const globalState: GlobalState = reactive({
   orders: []
 })
+function saveOrdersToLocalStorage(): void {
+  localStorage.setItem('orders', JSON.stringify(globalState.orders));
+}
+
 
 export function addToGlobalOrder(pizza: {
   img_source: string
@@ -61,6 +65,13 @@ export function addToGlobalOrder(pizza: {
       (globalState.orders[existingPizzaIndex].quantity ?? 0) + 1
   } else {
     globalState.orders.push({ id: 0, ...pizza, quantity: 1 })
+  }
+  saveOrdersToLocalStorage();
+}
+export function loadOrdersFromLocalStorage(): void {
+  const savedOrders = localStorage.getItem('orders');
+  if (savedOrders) {
+    globalState.orders = JSON.parse(savedOrders);
   }
 }
 

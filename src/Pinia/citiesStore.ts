@@ -15,7 +15,7 @@ export const useCitiesStore = defineStore('cities', {
   actions: {
     async fetchCities() {
       try {
-        const response = await axios.get('https://improved-cod-55x6w959xw924jvp-8000.app.github.dev/cities');
+        const response = await axios.get('https://potential-broccoli-wxg6w4x4jgr259w5-8000.preview.app.github.dev/cities');
         this.cities = response.data;
         if (!this.cities.find(city => city.id === this.selectedCityId)) {
           this.setSelectedCity(1); // Установите город с ID 1, если текущий выбранный город отсутствует в списке

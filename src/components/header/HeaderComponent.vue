@@ -145,6 +145,28 @@ export default defineComponent({
     onMounted(() => {
       document.addEventListener('click', closeMenuHandler)
     })
+    function loadOrdersFromLocalStorage() {
+      const savedOrders = localStorage.getItem('orders');
+      if (savedOrders) {
+        const orders = JSON.parse(savedOrders);
+        globalState.orders.splice(0, globalState.orders.length, ...orders);
+      }
+    }
+    onMounted(() => {
+      loadOrdersFromLocalStorage();
+    });
+
+
+
+    // Watcher for changes in local storage
+    watch(
+      () => localStorage.getItem('orders'),
+      (newValue, oldValue) => {
+        if (newValue !== oldValue) {
+          loadOrdersFromLocalStorage();
+        }
+      }
+    );
 
     onUnmounted(() => {
       document.removeEventListener('click', closeMenuHandler)
