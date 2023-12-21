@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang='ts'>
 import { defineComponent, ref, computed, toRefs, onMounted } from 'vue'
 import type { PropType } from 'vue'
 import { globalState } from '@/views/HomeComponent.vue'
@@ -12,43 +12,49 @@ export default defineComponent({
   directives: { maska: vMaska },
   setup() {
     const showHome = ref(false)
-    const discount = ref<number | null>(null)
-    const promoCode = ref('');
-    const store = usePromoCodeStore();
-    const { isValid, promoCodeData } = toRefs(store);
+    const promoCode = ref('')
+    const store = usePromoCodeStore()
+    const promoDiscount = ref<number | null>(null) // Initialize promoDiscount as null
+    const isButtonClicked = ref(false)
+    const { isValid, discount } = toRefs(store)
     const applyPromoCode = async () => {
-      await store.validatePromoCode(promoCode.value);
-    };
-    const discountPercentage = computed(() => promoCodeData.value?.discount_percentage);
+      await store.validatePromoCode(promoCode.value)
+      promoDiscount.value = store.discount
+      isButtonClicked.value = true
+
+    }
+
+    const discountPercentage = computed(() => discount)
+
     function loadOrdersFromLocalStorage() {
-      const savedOrders = localStorage.getItem('orders');
+      const savedOrders = localStorage.getItem('orders')
       if (savedOrders) {
-        const orders = JSON.parse(savedOrders);
+        const orders = JSON.parse(savedOrders)
         // Update global state with loaded orders
-        globalState.orders.splice(0, globalState.orders.length, ...orders);
+        globalState.orders.splice(0, globalState.orders.length, ...orders)
       }
     }
 
     // Load orders from local storage when component is mounted
     onMounted(() => {
-      loadOrdersFromLocalStorage();
-    });
+      loadOrdersFromLocalStorage()
+    })
 
     const orders = computed(() => globalState.orders)
 
     const totalPrice = computed(() => {
       const baseSum = orders.value.reduce((total, order) => {
-        const quantity = order.quantity ?? 1;
-        return total + order.price * quantity;
-      }, 0);
+        const quantity = order.quantity ?? 1
+        return total + order.price * quantity
+      }, 0)
 
       // Проверка, определен ли discountPercentage и является ли он числом больше 0
-      const discountFactor = (discountPercentage.value !== undefined && discountPercentage.value > 0)
-        ? (1 - discountPercentage.value / 100)
-        : 1;
+      const discountFactor = (promoDiscount !== undefined && promoDiscount.value > 0)
+        ? (1 - promoDiscount.value / 100)
+        : 1
 
-      return baseSum * discountFactor;
-    });
+      return Math.ceil(baseSum * discountFactor);
+    })
     const incrementQuantity = (index: number) => {
       if (globalState.orders[index]) {
         globalState.orders[index].quantity = (globalState.orders[index].quantity || 0) + 1
@@ -72,11 +78,11 @@ export default defineComponent({
     }
 
 
-    const citiesStore = useCitiesStore();
+    const citiesStore = useCitiesStore()
     const selectedCityName = computed(() => {
-      const selectedCity = citiesStore.cities.find(city => city.id === citiesStore.selectedCityId);
-      return selectedCity ? selectedCity.city : 'Не выбран';
-    });
+      const selectedCity = citiesStore.cities.find(city => city.id === citiesStore.selectedCityId)
+      return selectedCity ? selectedCity.city : 'Не выбран'
+    })
 
 
     return {
@@ -89,19 +95,20 @@ export default defineComponent({
       toggleHome,
       showHome,
       incrementQuantity,
-      decrementQuantity
+      decrementQuantity,
+      isButtonClicked
     }
   }
 })
 </script>
 <template>
-  <div class="cart-container">
-    <p class="cart-name"><strong>Корзина</strong></p>
-    <div class="order-item" v-for="(order, index) in orders" :key="order.id">
-      <div class="order-details">
-        <img :src="order.img_source" alt="" />
+  <div class='cart-container'>
+    <p class='cart-name'><strong>Корзина</strong></p>
+    <div class='order-item' v-for='(order, index) in orders' :key='order.id'>
+      <div class='order-details'>
+        <img :src='order.img_source' alt='' />
       </div>
-      <div class="order-info">
+      <div class='order-info'>
         <table>
           <tr>
             <td>Название</td>
@@ -115,66 +122,66 @@ export default defineComponent({
             <td>Количество</td>
             <td>
               {{ order.quantity }}
-              <button class="increment-button" @click="incrementQuantity(index)">+</button>
-              <button class="decrement-button" @click="decrementQuantity(index)">-</button>
+              <button class='increment-button' @click='incrementQuantity(index)'>+</button>
+              <button class='decrement-button' @click='decrementQuantity(index)'>-</button>
             </td>
           </tr>
         </table>
-        <button class="button-buy" @click="deletePizza(index)">Удалить позицию</button>
+        <button class='button-buy' @click='deletePizza(index)'>Удалить позицию</button>
       </div>
     </div>
-    <div class="text">
+    <div class='text'>
       <div>
-        Доставка: <strong class="city">{{ selectedCityName }}</strong>
+        Доставка: <strong class='city'>{{ selectedCityName }}</strong>
       </div>
     </div>
-    <div class="cent">
-      <div class="cent-buttons">
-        <button class="style-head">Забрать самому</button>
-        <button class="style-head" @click="toggleHome">Доставка на дом</button>
+    <div class='cent'>
+      <div class='cent-buttons'>
+        <button class='style-head'>Забрать самому</button>
+        <button class='style-head' @click='toggleHome'>Доставка на дом</button>
       </div>
 
-      <div v-if="showHome" class="rounded-frame">
-        <p><input type="text" id="street" placeholder="Например: улица Бебр, 1" /></p>
+      <div v-if='showHome' class='rounded-frame'>
+        <p><input type='text' id='street' placeholder='Например: улица Бебр, 1' /></p>
         <p>
-          <span><input type="number" id="kvartira" class="raz" placeholder="№ квартиры" /></span>
-          <span><input type="number" id="podezd" class="raz" placeholder="Подъезд" /></span>
-          <span><input type="number" id="stage" class="raz" placeholder="Этаж" /></span>
+          <span><input type='number' id='kvartira' class='raz' placeholder='№ квартиры' /></span>
+          <span><input type='number' id='podezd' class='raz' placeholder='Подъезд' /></span>
+          <span><input type='number' id='stage' class='raz' placeholder='Этаж' /></span>
         </p>
         <p>
           <span
-            ><input
-              class="num"
-              v-maska
-              data-maska="+7 (###) ###-##-##"
-              placeholder="+7 (800) 555-35-35"
+          ><input
+            class='num'
+            v-maska
+            data-maska='+7 (###) ###-##-##'
+            placeholder='+7 (800) 555-35-35'
           /></span>
-          <span><input type="text" id="name" placeholder="Введите ваше имя" /></span>
+          <span><input type='text' id='name' placeholder='Введите ваше имя' /></span>
         </p>
       </div>
     </div>
 
-    <div class="promo-code" style="text-align: center">
-      <div class="promo-input">
+    <div class='promo-code' style='text-align: center'>
+      <div class='promo-input'>
         <input
-          type="text"
-          v-model="promoCode"
-          placeholder="Введите промокод"
-          style="margin: 5px auto; display: block"
+          type='text'
+          v-model='promoCode'
+          placeholder='Введите промокод'
+          style='margin: 5px auto; display: block'
         />
-        <button class="button-buy" @click="applyPromoCode" style="margin: 5px auto; display: block">
+        <button class='button-buy' @click='applyPromoCode' style='margin: 5px auto; display: block'>
           Применить
         </button>
       </div>
       <p>
-        <span v-if="isValid === true">Скидка: {{ discountPercentage }}% </span>
-        <span v-if="isValid === false">Промоdкод неверный</span>
+        <span v-if='isValid === true'>Скидка: {{ discountPercentage }}% </span>
+        <span v-if='isValid === false && isButtonClicked '>Промокод неверный</span>
       </p>
     </div>
 
-    <div class="total-price">Общая сумма: ${{ totalPrice }}</div>
-    <div class="checkout">
-      <button class="button-buy">Оплатить</button>
+    <div class='total-price'>Общая сумма: ${{ totalPrice }}</div>
+    <div class='checkout'>
+      <button class='button-buy'>Оплатить</button>
     </div>
   </div>
 </template>
@@ -187,16 +194,19 @@ export default defineComponent({
     margin-left: 30%;
     margin-bottom: 10px;
   }
+
   .cart-name {
     margin-top: 150px;
     font-size: 40px;
     margin-left: 30%;
   }
+
   .text {
     margin-left: 30%;
     font-size: 30px;
   }
 }
+
 @media (max-width: 800px) {
   .order-item {
     display: flex;
@@ -204,6 +214,7 @@ export default defineComponent({
     border-radius: 5px;
     margin-bottom: 10px;
   }
+
   .cart-name {
     margin-top: 150px;
     font-size: 40px;
@@ -211,6 +222,7 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
   }
+
   .text {
     font-size: 30px;
     display: flex;
@@ -218,6 +230,7 @@ export default defineComponent({
     align-items: center;
   }
 }
+
 .cent {
   display: flex;
   flex-direction: column;
@@ -239,14 +252,14 @@ export default defineComponent({
   background-color: #ff5733;
   color: #fff;
   cursor: pointer;
-  transition:
-    background-color 0.3s,
-    transform 0.3s;
+  transition: background-color 0.3s,
+  transform 0.3s;
   border-radius: 5px;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
+
 .increment-button {
   display: inline-block;
   width: 30px;
@@ -257,11 +270,11 @@ export default defineComponent({
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
-  transition:
-    background-color 0.3s,
-    transform 0.3s;
+  transition: background-color 0.3s,
+  transform 0.3s;
   margin-right: 5px;
 }
+
 .rounded-frame {
   border: 2px solid #ff5733;
   border-radius: 15px;
@@ -285,9 +298,8 @@ export default defineComponent({
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
-  transition:
-    background-color 0.3s,
-    transform 0.3s;
+  transition: background-color 0.3s,
+  transform 0.3s;
 }
 
 .decrement-button:hover {
@@ -308,9 +320,11 @@ export default defineComponent({
   background-color: #fff;
   border: 2px solid #ff5733;
 }
+
 .city {
   margin-left: 5px;
 }
+
 .num {
   padding: 5px;
   margin: 5px;
@@ -318,6 +332,7 @@ export default defineComponent({
   border-radius: 3px;
   text-align: center;
 }
+
 .order-info table td {
   padding: 10px;
   border-bottom: 1px solid #eee;
@@ -351,12 +366,15 @@ export default defineComponent({
   text-align: center;
   margin-top: 20px;
 }
+
 .raz {
   -moz-appearance: textfield;
 }
+
 .raz::-webkit-inner-spin-button {
   display: none;
 }
+
 .button-buy {
   display: inline-block;
   margin: 10px;
@@ -365,9 +383,8 @@ export default defineComponent({
   background-color: #ff5733;
   color: #fff;
   cursor: pointer;
-  transition:
-    background-color 0.3s,
-    transform 0.3s;
+  transition: background-color 0.3s,
+  transform 0.3s;
   border-radius: 5px;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);

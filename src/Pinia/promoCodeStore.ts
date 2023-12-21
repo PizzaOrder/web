@@ -1,52 +1,37 @@
-// В файле promoCodeStore.ts
-
+// store/promoCodes.js
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
-interface PromoCode {
-  start_date: string;
-  end_date: string;
-  code: string;
-  id: number;
-  discount_percentage: number;
-}
-
-interface PromoCodeState {
-  promoCodeData: PromoCode | null;
-  isValid: boolean | null;
-}
-
 export const usePromoCodeStore = defineStore('promoCode', {
-  state: (): PromoCodeState => ({
-    promoCodeData: null,
-    isValid: null,
+  state: () => ({
+    promoCode: '',
+    discount: 0,
+    isValid: false,
+    isLoading: false,
+    errorMessage: '',
   }),
 
   actions: {
-    async validatePromoCode(code: string) {
+    async validatePromoCode(code) {
+      this.isLoading = true;
       try {
-        const response = await axios.get(`https://potential-broccoli-wxg6w4x4jgr259w5-8000.preview.app.github.dev/promo_codes/validate/${code}`);
-        if (response.data && this.isPromoCodeValid(response.data)) {
-          this.promoCodeData = response.data;
+        const response = await axios.get(`https://opulent-space-winner-jgjgxrp5pjqhqqp9-8000.app.github.dev/promo_codes/validate/${code}`);
+        if (response.data && response.data.discount_percentage) {
+          this.promoCode = code;
+          this.discount = response.data.discount_percentage;
+          console.log(this.discount)
           this.isValid = true;
+          this.errorMessage = '';
         } else {
-          // Сброс данных промокода, если он недействителен
-          this.promoCodeData = null;
+          this.errorMessage = 'Invalid promo code.';
           this.isValid = false;
         }
       } catch (error) {
-        console.error('Error validating promo code:', error);
-        // Сброс данных промокода в случае ошибки
-        this.promoCodeData = null;
+        this.errorMessage = error.response.data.message || 'Error validating promo code.';
         this.isValid = false;
+      } finally {
+        this.isLoading = false;
       }
-    },
-
-    isPromoCodeValid(data: PromoCode) {
-      const now = new Date();
-      const startDate = new Date(data.start_date);
-      const endDate = new Date(data.end_date);
-      return now >= startDate && now <= endDate;
     },
   },
 });

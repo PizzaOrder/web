@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Профиль пользователя</h1>
-    <div v-if='userData'>
+    <div v-if='userData' class="user-container">
       <p>Имя: {{ userData.first_name }}</p>
       <p>Фамилия: {{ userData.last_name }}</p>
       <p>Email: {{ userData.email }}</p>
@@ -17,10 +17,10 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, onMounted } from 'vue'
-import { useUserStore } from '@/Pinia/userStore'
-import { useAuthStore } from '@/Pinia/authStore'
-import type { UserData } from '@/Pinia/userStore'
+import {defineComponent, ref, onMounted} from 'vue'
+import {useUserStore} from '@/Pinia/userStore'
+import {useAuthStore} from '@/Pinia/authStore'
+import type {UserData} from '@/Pinia/userStore'
 import router from '@/router'
 
 export default defineComponent({
@@ -28,7 +28,7 @@ export default defineComponent({
     const userStore = useUserStore()
     const authStore = useAuthStore()
     const userData = ref<UserData | null>(null)
-    const editableUserData = ref({ firstName: '', lastName: '' })
+    const editableUserData = ref({firstName: '', lastName: ''})
     const leaveButton = async () => {
       await authStore.logout()
       router.push('/')
@@ -69,3 +69,57 @@ export default defineComponent({
 
 })
 </script>
+
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 50vh;
+
+}
+
+h1 {
+  color: #333;
+}
+
+.user-container {
+  border: 2px solid #ff5733;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+
+p {
+  margin: 10px 0;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #ff5733;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  margin: 5px;
+}
+
+button.leave-button {
+  background-color: #555;
+  margin-top: 20px;
+}
+</style>

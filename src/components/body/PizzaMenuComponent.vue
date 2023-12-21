@@ -12,16 +12,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue'
 import { usePizzaStore } from '@/Pinia/pizzaStore'
 import emitter from '@/funcs/eventBus'
 import { addToGlobalOrder } from '@/views/HomeComponent.vue'
 const pizzaStore = usePizzaStore();
 const pizzas = ref([]);
+const isVerified = computed(() => {
+  return localStorage.getItem('access_token') !== null;
+});
+
 
 const addToOrder = (pizza) => {
-  emitter.emit('button-clicked');
-  addToGlobalOrder(pizza);
+  if (isVerified.value) {
+    emitter.emit('button-clicked');
+    addToGlobalOrder(pizza);
+  } else {
+    alert('Пожалуйста, зарегистрируйтесь, чтобы добавить в корзину');
+  }
 };
 
 onMounted(async () => {

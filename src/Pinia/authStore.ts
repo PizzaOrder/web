@@ -16,7 +16,7 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async register(email: string) {
       try {
-        const response = await axios.post('https://potential-broccoli-wxg6w4x4jgr259w5-8000.preview.app.github.dev/auth/login/', {
+        const response = await axios.post('https://opulent-space-winner-jgjgxrp5pjqhqqp9-8000.app.github.dev/auth/login/', {
           email: email,
         });
         this.email = email;
@@ -33,7 +33,7 @@ export const useAuthStore = defineStore('auth', {
     },
     async verify(email: string, verificationCode: number) {
       try {
-        const response = await axios.post('https://potential-broccoli-wxg6w4x4jgr259w5-8000.preview.app.github.dev/auth/verify/', {
+        const response = await axios.post('https://opulent-space-winner-jgjgxrp5pjqhqqp9-8000.app.github.dev/auth/verify/', {
           email: email,
           verification_code: verificationCode,
         });
@@ -66,7 +66,7 @@ export const useAuthStore = defineStore('auth', {
       }
 
       try {
-        const response = await axios.get('https://potential-broccoli-wxg6w4x4jgr259w5-8000.preview.app.github.dev/user/me/', {
+        const response = await axios.get('https://opulent-space-winner-jgjgxrp5pjqhqqp9-8000.app.github.dev/user/me/', {
           headers: { 'token': accessToken }
         });
         console.log("Токен подтвержден", response.data);
