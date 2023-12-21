@@ -6,7 +6,7 @@ export const useOrderStore = defineStore('order', {
     async sendOrder() {
       try {
         // Извлекаем токен и заказы из localStorage
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('access_token');
         const storedOrders = JSON.parse(localStorage.getItem('orders'));
         const promoCode = localStorage.getItem('promo_code');
 
@@ -22,12 +22,12 @@ export const useOrderStore = defineStore('order', {
         // Конфигурация запроса
         const config = {
           headers: {
-            'Authorization': `Bearer ${token}`
-          }
+            token: token,
+          },
         };
 
         // Отправляем POST запрос
-        const response = await axios.post('https://opulent-space-winner-jgjgxrp5pjqhqqp9-8000.app.github.dev/promo_codes/validate/order/new/', orderData, config);
+        const response = await axios.post('https://opulent-space-winner-jgjgxrp5pjqhqqp9-8000.app.github.dev/order/new/', orderData, config);
         localStorage.removeItem('orders');
         // Обработка ответа
       } catch (error) {
@@ -37,4 +37,3 @@ export const useOrderStore = defineStore('order', {
     }
   }
 });
-

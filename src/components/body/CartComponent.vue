@@ -26,8 +26,6 @@ export default defineComponent({
       isButtonClicked.value = true
       if (isValid.value) {
         localStorage.setItem('promoCode', promoCode.value)
-      } else {
-        localStorage.removeItem('promoCode')
       }
     }
 
@@ -69,21 +67,36 @@ export default defineComponent({
       }
     }
     const decrementQuantity = (index: number) => {
-      const order = globalState.orders[index]
+      const orders = globalState.orders;
+      const order = orders[index];
+
       if (order && order.quantity) {
-        order.quantity -= 1
+        order.quantity -= 1;
+
         if (order.quantity === 0) {
-          globalState.orders.splice(index, 1)
+          orders.splice(index, 1);
         }
+
+        // Обновление глобального состояния и localStorage
+        globalState.orders = orders;
+        localStorage.setItem('orders', JSON.stringify(orders));
       }
-    }
+    };
+
 
     const toggleHome = () => {
       showHome.value = !showHome.value
     }
     const deletePizza = (index: number) => {
-      globalState.orders.splice(index, 1)
-    }
+      const orders = globalState.orders;
+
+      orders.splice(index, 1);
+
+      globalState.orders = orders;
+
+      localStorage.setItem('orders', JSON.stringify(orders));
+    };
+
 
 
     const citiesStore = useCitiesStore()
