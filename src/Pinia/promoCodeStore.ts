@@ -15,16 +15,22 @@ export const usePromoCodeStore = defineStore('promoCode', {
     async validatePromoCode(code) {
       this.isLoading = true;
       try {
-        const response = await axios.get(`https://opulent-space-winner-jgjgxrp5pjqhqqp9-8000.app.github.dev/promo_codes/validate/${code}`);
-        if (response.data && response.data.discount_percentage) {
-          this.id = response.data.id;
-          this.promoCode = code;
-          this.discount = response.data.discount_percentage;
-          console.log(this.discount)
-          this.isValid = true;
-          this.errorMessage = '';
+        const storedPromoCode = localStorage.getItem('promoCode');
+        if (storedPromoCode) {
+          const response = await axios.get(`https://opulent-space-winner-jgjgxrp5pjqhqqp9-8000.app.github.dev/promo_codes/validate/${storedPromoCode}`);
+          if (response.data && response.data.discount_percentage) {
+            this.id = response.data.id;
+            this.promoCode = storedPromoCode; // Используем promoCode из localStorage
+            this.discount = response.data.discount_percentage;
+            console.log(this.discount)
+            this.isValid = true;
+            this.errorMessage = '';
+          } else {
+            this.errorMessage = 'Invalid promo code.';
+            this.isValid = false;
+          }
         } else {
-          this.errorMessage = 'Invalid promo code.';
+          this.errorMessage = 'No promo code found in localStorage.';
           this.isValid = false;
         }
       } catch (error) {
