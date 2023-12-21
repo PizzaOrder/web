@@ -2,7 +2,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
-// Define an interface for the pizza object
 interface Pizza {
   name: string;
   price: number;

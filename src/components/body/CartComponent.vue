@@ -5,6 +5,7 @@ import { globalState } from '@/views/HomeComponent.vue'
 import { vMaska } from 'maska'
 import { useCitiesStore } from '@/Pinia/citiesStore'
 import { usePromoCodeStore } from '@/Pinia/promoCodeStore'
+import { useOrderStore } from '@/Pinia/orderStore'
 
 export default defineComponent({
   name: 'OrdersComponent',
@@ -17,12 +18,19 @@ export default defineComponent({
     const promoDiscount = ref<number | null>(null) // Initialize promoDiscount as null
     const isButtonClicked = ref(false)
     const { isValid, discount } = toRefs(store)
+    const orderStore = useOrderStore();
+
     const applyPromoCode = async () => {
       await store.validatePromoCode(promoCode.value)
-      promoDiscount.value = store.discount
+      promoDiscount.value = (store.discount)
       isButtonClicked.value = true
-
+      if (isValid.value) {
+        localStorage.setItem('promoCode', promoCode.value)
+      } else {
+        localStorage.removeItem('promoCode')
+      }
     }
+
 
     const discountPercentage = computed(() => discount)
 
@@ -83,7 +91,9 @@ export default defineComponent({
       const selectedCity = citiesStore.cities.find(city => city.id === citiesStore.selectedCityId)
       return selectedCity ? selectedCity.city : 'Не выбран'
     })
-
+    const submitOrder = () => {
+      orderStore.sendOrder();
+    };
 
     return {
       promoCode, applyPromoCode, isValid, discountPercentage,
@@ -96,7 +106,8 @@ export default defineComponent({
       showHome,
       incrementQuantity,
       decrementQuantity,
-      isButtonClicked
+      isButtonClicked,
+      submitOrder
     }
   }
 })
@@ -181,7 +192,7 @@ export default defineComponent({
 
     <div class='total-price'>Общая сумма: ${{ totalPrice }}</div>
     <div class='checkout'>
-      <button class='button-buy'>Оплатить</button>
+      <button @click='submitOrder' class='button-buy'>Оплатить</button>
     </div>
   </div>
 </template>
