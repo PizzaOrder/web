@@ -108,11 +108,25 @@ const prevSlide = () => {
 .carousel-container {
   margin-top: 100px;
 }
-.carousel {
-  width: 100%;
-  position: relative;
-  overflow: hidden;
+@media (max-width: 900px) {
+  .carousel {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+
+  }
 }
+@media (min-width: 900px) {
+  .carousel {
+    width: 35%;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+
+  }
+}
+
 
 .carousel-slide {
   display: flex;

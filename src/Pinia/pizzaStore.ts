@@ -20,7 +20,7 @@ export const usePizzaStore = defineStore('pizza', {
       try {
         this.errorMessage = '';
 
-        const response = await axios.get('https://opulent-space-winner-jgjgxrp5pjqhqqp9-8000.app.github.dev/pizzas');
+        const response = await axios.get('https://potential-broccoli-wxg6w4x4jgr259w5-8000.preview.app.github.dev/pizzas');
 
         this.pizzas = response.data;
       } catch (error) {

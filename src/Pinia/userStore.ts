@@ -20,7 +20,7 @@ export const useUserStore = defineStore('user', {
     async fetchUserData() {
       const accessToken = localStorage.getItem('access_token');
       try {
-        const response = await axios.get('https://opulent-space-winner-jgjgxrp5pjqhqqp9-8000.app.github.dev/user/me/', {
+        const response = await axios.get('https://potential-broccoli-wxg6w4x4jgr259w5-8000.preview.app.github.dev/user/me/', {
           headers: {
             token: accessToken,
           },
@@ -42,7 +42,7 @@ export const useUserStore = defineStore('user', {
       console.log(accessToken)
       try {
         console.log(accessToken)
-        const response = await axios.put('https://opulent-space-winner-jgjgxrp5pjqhqqp9-8000.app.github.dev/user/me/', userData, {
+        const response = await axios.put('https://potential-broccoli-wxg6w4x4jgr259w5-8000.preview.app.github.dev/user/me/', userData, {
           headers: {
             token: accessToken,
           },

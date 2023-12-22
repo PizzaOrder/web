@@ -11,7 +11,7 @@ export const useAdminStore = defineStore('admin', {
         },
       };
       try {
-        const response = await axios.get('https://opulent-space-winner-jgjgxrp5pjqhqqp9-8000.app.github.dev/admin/order/', config);
+        const response = await axios.get('https://potential-broccoli-wxg6w4x4jgr259w5-8000.preview.app.github.dev/admin/order/', config);
         console.log('Fetched all orders:', response.data);
         return response.data;
       } catch (error) {
@@ -39,7 +39,7 @@ export const useAdminStore = defineStore('admin', {
         new_status: newStatus,
       };
       try {
-        const response = await axios.put(`https://opulent-space-winner-jgjgxrp5pjqhqqp9-8000.app.github.dev/admin/order/${orderId}/`, body, config);
+        const response = await axios.put(`https://potential-broccoli-wxg6w4x4jgr259w5-8000.preview.app.github.dev/admin/order/${orderId}/`, body, config);
         console.log('Order status updated:', response.data);
         return response.data;
       } catch (error) {

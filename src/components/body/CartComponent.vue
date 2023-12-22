@@ -6,6 +6,7 @@ import { vMaska } from 'maska'
 import { useCitiesStore } from '@/Pinia/citiesStore'
 import { usePromoCodeStore } from '@/Pinia/promoCodeStore'
 import { useOrderStore } from '@/Pinia/orderStore'
+import router from '@/router'
 
 export default defineComponent({
   name: 'OrdersComponent',
@@ -106,6 +107,7 @@ export default defineComponent({
     })
     const submitOrder = () => {
       orderStore.sendOrder();
+      router.push('/end')
     };
 
     return {
@@ -157,31 +159,6 @@ export default defineComponent({
     <div class='text'>
       <div>
         Доставка: <strong class='city'>{{ selectedCityName }}</strong>
-      </div>
-    </div>
-    <div class='cent'>
-      <div class='cent-buttons'>
-        <button class='style-head'>Забрать самому</button>
-        <button class='style-head' @click='toggleHome'>Доставка на дом</button>
-      </div>
-
-      <div v-if='showHome' class='rounded-frame'>
-        <p><input type='text' id='street' placeholder='Например: улица Бебр, 1' /></p>
-        <p>
-          <span><input type='number' id='kvartira' class='raz' placeholder='№ квартиры' /></span>
-          <span><input type='number' id='podezd' class='raz' placeholder='Подъезд' /></span>
-          <span><input type='number' id='stage' class='raz' placeholder='Этаж' /></span>
-        </p>
-        <p>
-          <span
-          ><input
-            class='num'
-            v-maska
-            data-maska='+7 (###) ###-##-##'
-            placeholder='+7 (800) 555-35-35'
-          /></span>
-          <span><input type='text' id='name' placeholder='Введите ваше имя' /></span>
-        </p>
       </div>
     </div>
 

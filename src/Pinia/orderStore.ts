@@ -27,7 +27,7 @@ export const useOrderStore = defineStore('order', {
         };
 
         // Отправляем POST запрос
-        const response = await axios.post('https://opulent-space-winner-jgjgxrp5pjqhqqp9-8000.app.github.dev/order/new/', orderData, config);
+        const response = await axios.post('https://potential-broccoli-wxg6w4x4jgr259w5-8000.preview.app.github.dev/order/new/', orderData, config);
         localStorage.removeItem('orders');
         // Обработка ответа
       } catch (error) {

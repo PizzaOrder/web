@@ -16,7 +16,7 @@ export const usePromoCodeStore = defineStore('promoCode', {
       this.isLoading = true;
       try {
         const storedPromoCode = localStorage.getItem('promoCode');
-        const response = await axios.get(`https://opulent-space-winner-jgjgxrp5pjqhqqp9-8000.app.github.dev/promo_codes/validate/${code}`);
+        const response = await axios.get(`https://potential-broccoli-wxg6w4x4jgr259w5-8000.preview.app.github.dev/promo_codes/validate/${code}`);
         if (response.data && response.data.discount_percentage) {
           this.id = response.data.id;
           this.promoCode = storedPromoCode;

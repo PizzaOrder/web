@@ -76,6 +76,7 @@ export default {
   .button {
     position: relative;
     padding: 10px 22px;
+    margin-bottom: 20px;
     border-radius: 6px;
     border: none;
     color: #fff;

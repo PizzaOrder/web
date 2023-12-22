@@ -100,73 +100,14 @@ export default defineComponent({
     ])
 
     const slidesData = ref<Slide[]>([
-      { image: '/assets/discounts/pudge1.jpg', alt: 'Описание 1' },
-      { image: '/assets/discounts/pudge2.jpeg', alt: 'Описание 2' },
-      { image: '/assets/discounts/pudge3.jpeg', alt: 'Описание 3' }
+      { image: '/assets/discounts/template.png', alt: 'Описание 1' },
+      { image: '/assets/discounts/template2.png', alt: 'Описание 2' },
     ])
 
-    const pizzasData = ref<Pizza[]>([
-      {
-        id: 1,
-        image: '/assets/discounts/pizza1.jpeg',
-        name: 'Грибная',
-        price: 245,
-        buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
-      },
-      {
-        id: 2,
-        image: '/assets/discounts/pizza2.jpeg',
-        name: 'Не Грибная',
-        price: 245,
-        buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
-      },
-      {
-        id: 3,
-        image: '/assets/discounts/pizza2.jpeg',
-        name: 'СуперГрибная',
-        price: 245,
-        buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
-      },
-      {
-        id: 4,
-        image: '/assets/discounts/pizza2.jpeg',
-        name: 'ПолуГрибная',
-        price: 245,
-        buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
-      },
-      {
-        id: 5,
-        image: '/assets/discounts/pizza2.jpeg',
-        name: 'Такая но не Грибная',
-        price: 245,
-        buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
-      },
-      {
-        id: 6,
-        image: '/assets/discounts/pizza2.jpeg',
-        name: 'ОмагадГрибная',
-        price: 245,
-        buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
-      },
-      {
-        id: 7,
-        image: '/assets/discounts/pizza2.jpeg',
-        name: 'Грибная',
-        price: 250,
-        buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
-      },
-      {
-        id: 8,
-        image: '/assets/discounts/pizza2.jpeg',
-        name: 'Грибная',
-        price: 245,
-        buttonText: 'ДОБАВИТЬ В КОРЗИНУ'
-      }
-    ])
+
 
     return {
       slidesData,
-      pizzasData,
       promoData
     }
   }

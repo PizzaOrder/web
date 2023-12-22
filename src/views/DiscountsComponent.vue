@@ -27,23 +27,13 @@ export default defineComponent({
   components: {
     DiscountMenuComponent,
     HeaderComponent,
-    BasementComponent,
     ScrollToTopButton
   },
   setup() {
     const discountesData = ref<Discount[]>([
-      {
-        image: '/assets/discounts/pudge1.jpg',
-        description: 'чзх хэллуин уже тут а пудж у тебя нет ???77??'
-      },
-      { image: '/assets/discounts/pudge2.jpeg', description: 'ММММ, 300$ скидочка' },
-      { image: '/assets/discounts/pudge3.jpeg', description: 'дефолт скидка' },
-      { image: '/assets/discounts/mine1.png', description: 'тут скин из майнкрафта был' },
-      { image: '/assets/discounts/mine1.png', description: 'тут скин из майнкрафта был' },
-      { image: '/assets/discounts/mine1.png', description: 'тут скин из майнкрафта был' },
-      { image: '/assets/discounts/mine1.png', description: 'тут скин из майнкрафта был' },
-      { image: '/assets/discounts/mine1.png', description: 'тут скин из майнкрафта был' },
-      { image: '/assets/discounts/mine1.png', description: 'тут скин из майнкрафта был' }
+
+      { image: '/assets/discounts/template.png', description: 'акция' },
+      { image: '/assets/discounts/template2.png', description: 'акция' },
     ])
     return {
       discountesData

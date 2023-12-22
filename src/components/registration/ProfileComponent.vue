@@ -10,7 +10,7 @@
       <input v-model='editableUserData.lastName' placeholder='Новая фамилия'>
       <button @click='updateUser'>Обновить данные</button>
 
-      <button @click='leaveButton'>Выйти из акка нахуй</button>
+      <button @click='leaveButton'>Выйти</button>
 
     </div>
   </div>
@@ -71,31 +71,68 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 50vh;
-  padding: 20px;
-  box-sizing: border-box;
-  width: 50vh;
+/* Стили для мобильных устройств */
+@media (max-width: 600px) {
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
 
+  .user-container {
+    padding: 10px;
+  }
+
+  input, button {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
 }
+
+/* Стили для планшетов */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .container {
+    width: 80%;
+  }
+
+  .user-container {
+    padding: 15px;
+  }
+
+  input, button {
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+}
+
+/* Стили для десктопов */
+@media (min-width: 1025px) {
+  .container {
+    width: 60%;
+  }
+
+  .user-container {
+    padding: 20px;
+  }
+
+  input, button {
+    font-size: 18px;
+  }
+
+  h1 {
+    font-size: 2.5em;
+  }
+}
+
 
 h1 {
   color: #333;
 }
-
-.user-container {
-  border: 2px solid #ff5733;
-  padding: 20px;
-  box-sizing: border-box;
-  width: 100%;
-  border-radius: 10px;
-  margin-top: 20px;
-}
-
 
 p {
   margin: 10px 0;
