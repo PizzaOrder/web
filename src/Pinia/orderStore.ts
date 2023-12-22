@@ -8,7 +8,7 @@ export const useOrderStore = defineStore('order', {
         // Извлекаем токен и заказы из localStorage
         const token = localStorage.getItem('access_token');
         const storedOrders = JSON.parse(localStorage.getItem('orders'));
-        const promoCode = localStorage.getItem('promo_code');
+        const promoCode = localStorage.getItem('promoCode');
 
         // Формируем тело запроса
         const orderData = {

@@ -85,6 +85,8 @@ onMounted(async () => {
 
 button {
   margin-top: 10px;
+  margin-bottom: 10px;
+
   padding: 10px 20px;
   border: none;
   background-color: #ff6348;
